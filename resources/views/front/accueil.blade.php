@@ -609,7 +609,7 @@
         }
 
         /* ==========================================================================
-           CAROUSEL STYLES (NOUVEAU)
+           CAROUSEL STYLES - CORRIGÉ POUR LE CENTRAGE
            ========================================================================== */
         .carousel-container {
             position: relative;
@@ -621,17 +621,28 @@
             padding: 2rem 0;
         }
 
+        .carousel-inner-container {
+            position: relative;
+            width: 100%;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 70px; /* Espace pour les flèches de navigation */
+        }
+
         .carousel-wrapper {
             display: flex;
             transition: transform 0.5s cubic-bezier(0.4, 0, 0.2, 1);
-            padding: 0 60px; /* Espace pour les flèches */
         }
 
         .carousel-slide {
             flex: 0 0 100%;
-            padding: 0 15px;
+            min-width: 0; /* Important pour le flexbox */
+            padding: 0 15px; /* Garder ce padding pour l'espace entre les cartes */
             transition: opacity 0.3s ease;
             opacity: 0.3;
+            display: flex;
+            justify-content: center; /* Centrer horizontalement */
+            align-items: center; /* Centrer verticalement */
         }
 
         .carousel-slide.active {
@@ -648,6 +659,9 @@
             min-height: 550px;
             display: flex;
             flex-direction: column;
+            max-width: 850px; /* Largeur max pour les cartes */
+            width: 100%; /* Prendre toute la largeur disponible jusqu'à max-width */
+            margin: 0 auto; /* Centrer la carte */
         }
 
         .carousel-card:hover {
@@ -758,11 +772,11 @@
         }
 
         .carousel-nav.prev {
-            left: 10px;
+            left: 20px; /* Ajuster pour être à l'intérieur du conteneur */
         }
 
         .carousel-nav.next {
-            right: 10px;
+            right: 20px; /* Ajuster pour être à l'intérieur du conteneur */
         }
 
         .carousel-nav.disabled {
@@ -940,6 +954,9 @@
             .section { padding: 5rem 0; }
             .carousel-media { height: 250px; }
             .carousel-content { padding: 1.5rem; }
+            .carousel-inner-container {
+                padding: 0 60px;
+            }
         }
 
         @media (max-width: 768px) {
@@ -978,10 +995,16 @@
             .section-title { font-size: 2.5rem; }
             .section-subtitle { font-size: 1.1rem !important; }
             .carousel-container { padding: 1rem 0; }
-            .carousel-wrapper { padding: 0 50px; }
+            .carousel-inner-container { padding: 0 50px; }
             .carousel-nav {
                 width: 40px;
                 height: 40px;
+            }
+            .carousel-nav.prev {
+                left: 10px;
+            }
+            .carousel-nav.next {
+                right: 10px;
             }
             .carousel-media { height: 220px; }
             .carousel-title { font-size: 1.5rem; }
@@ -998,7 +1021,7 @@
             .section { padding: 3rem 0; }
             .btn-lg { padding: 0.8rem 1.8rem; font-size: 1rem; }
             .hero-actions { flex-direction: column; max-width: 300px; }
-            .carousel-wrapper { padding: 0 40px; }
+            .carousel-inner-container { padding: 0 40px; }
             .carousel-media { height: 200px; }
             .carousel-nav {
                 width: 35px;
@@ -1007,10 +1030,13 @@
             }
             .carousel-content { padding: 1.2rem; }
             .carousel-title { font-size: 1.3rem; }
+            .carousel-slide {
+                padding: 0 10px;
+            }
         }
 
         @media (max-width: 400px) {
-            .carousel-wrapper { padding: 0 30px; }
+            .carousel-inner-container { padding: 0 35px; }
             .carousel-nav {
                 width: 30px;
                 height: 30px;
@@ -1118,14 +1144,16 @@
         <div class="hero-slider">
             @php
                 $slides = [
-                    asset('adminlte/img/kwabo.png'),
-                    asset('adminlte/img/amazone.jpeg'),
                     asset('adminlte/img/Ketou-guelede-tourisme.webp'),
                     asset('adminlte/img/man-tindjan.webp'),
                     asset('adminlte/img/cascade-chute-tanougou-61aa53413bd865b9620a76851.webp'),
                     asset('adminlte/img/collinesdassa.jpeg'),
                     asset('adminlte/img/parc-w-1-61aa50398b8865b9620408c0e.webp'),
                     asset('adminlte/img/palais_porto.jpeg'),
+                    asset('adminlte/img/porteretour.jpeg'),
+                    asset('adminlte/img/mode.jpeg'),
+                    asset('adminlte/img/pechegrandpopo.jpeg'),
+                    asset('adminlte/img/Monument-to-the-victims-of-the-coup-attempt-of-January-16-1977-Place-des-Martyrs-Cotonou-Benin-1-61aa4dde6ef465b96202c3dc2.webp'),
                 ];
             @endphp
             
@@ -1158,127 +1186,129 @@
             <div class="section-header">
                 <h2 class="section-title">Saveurs & Culture</h2>
                 <p class="section-subtitle">
-                    Naviguez avec les touches fléchées pour découvrir les recettes traditionnelles
+                    Naviguez  les recettes traditionnelles
                 </p>
             </div>
 
             <!-- Carousel pour la gastronomie -->
             <div class="carousel-container" id="gastronomieCarousel">
-                <div class="carousel-wrapper">
-                    @forelse($gastronomie_contenus as $index => $contenu)
-                        <div class="carousel-slide {{ $index === 0 ? 'active' : '' }}" data-index="{{ $index }}">
-                            <div class="carousel-card">
-                                <div class="carousel-media">
-                                    @php
-                                        $mediaUrl = null;
-                                        $isVideo = false;
+                <div class="carousel-inner-container">
+                    <div class="carousel-wrapper">
+                        @forelse($gastronomie_contenus as $index => $contenu)
+                            <div class="carousel-slide {{ $index === 0 ? 'active' : '' }}" data-index="{{ $index }}">
+                                <div class="carousel-card">
+                                    <div class="carousel-media">
+                                        @php
+                                            $mediaUrl = null;
+                                            $isVideo = false;
+                                            
+                                            if ($contenu->media && $contenu->media->isNotEmpty()) {
+                                                $media = $contenu->media->first();
+                                                $chemin = $media->chemin;
+                                                
+                                                $mediaUrl = asset('storage/' . $chemin);
+                                                
+                                                $extension = strtolower(pathinfo($chemin, PATHINFO_EXTENSION));
+                                                $isVideo = in_array($extension, ['mp4', 'mov', 'avi', 'wmv', 'flv', 'webm', 'ogg']);
+                                            }
+                                        @endphp
                                         
-                                        if ($contenu->media && $contenu->media->isNotEmpty()) {
-                                            $media = $contenu->media->first();
-                                            $chemin = $media->chemin;
-                                            
-                                            $mediaUrl = asset('storage/' . $chemin);
-                                            
-                                            $extension = strtolower(pathinfo($chemin, PATHINFO_EXTENSION));
-                                            $isVideo = in_array($extension, ['mp4', 'mov', 'avi', 'wmv', 'flv', 'webm', 'ogg']);
-                                        }
-                                    @endphp
-                                    
-                                    @if($mediaUrl && $isVideo)
-                                        <video class="media-video" muted loop playsinline preload="metadata">
-                                            <source src="{{ $mediaUrl }}" type="video/mp4">
-                                            Votre navigateur ne supporte pas la vidéo.
-                                        </video>
-                                    @elseif($mediaUrl)
-                                        <img src="{{ $mediaUrl }}" 
-                                             alt="{{ $contenu->titre }}" 
-                                             loading="lazy"
-                                             onerror="handleImageError(this, '{{ $chemin ?? '' }}')">
-                                    @else
-                                        <div class="media-loading">
-                                            <i class="fas fa-utensils"></i>
-                                        </div>
-                                    @endif
-                                    
-                                    <span class="carousel-tag">
-                                        {{ $contenu->typeContenue->nom ?? 'Recette' }}
-                                    </span>
-                                </div>
-                                
-                                <div class="carousel-content">
-                                    <h3 class="carousel-title">{{ $contenu->titre }}</h3>
-                                    <p class="carousel-text">
-                                        {{ Str::limit(strip_tags($contenu->texte), 200) }}
-                                    </p>
-                                    
-                                    <div class="carousel-meta">
-                                        <div class="carousel-author">
-                                            <i class="fas fa-user"></i>
-                                            <span>{{ $contenu->auteur->prenom ?? 'Auteur' }}</span>
-                                        </div>
+                                        @if($mediaUrl && $isVideo)
+                                            <video class="media-video" muted loop playsinline preload="metadata">
+                                                <source src="{{ $mediaUrl }}" type="video/mp4">
+                                                Votre navigateur ne supporte pas la vidéo.
+                                            </video>
+                                        @elseif($mediaUrl)
+                                            <img src="{{ $mediaUrl }}" 
+                                                 alt="{{ $contenu->titre }}" 
+                                                 loading="lazy"
+                                                 onerror="handleImageError(this, '{{ $chemin ?? '' }}')">
+                                        @else
+                                            <div class="media-loading">
+                                                <i class="fas fa-utensils"></i>
+                                            </div>
+                                        @endif
                                         
-                                        @auth
-                                            @php
-                                                $hasPaid = false; // Logique à implémenter
-                                                $price = 1000; // Prix en FCFA
-                                            @endphp
+                                        <span class="carousel-tag">
+                                            {{ $contenu->typeContenue->nom ?? 'Recette' }}
+                                        </span>
+                                    </div>
+                                    
+                                    <div class="carousel-content">
+                                        <h3 class="carousel-title">{{ $contenu->titre }}</h3>
+                                        <p class="carousel-text">
+                                            {{ Str::limit(strip_tags($contenu->texte), 200) }}
+                                        </p>
+                                        
+                                        <div class="carousel-meta">
+                                            <div class="carousel-author">
+                                                <i class="fas fa-user"></i>
+                                                <span>{{ $contenu->auteur->prenom ?? 'Auteur' }}</span>
+                                            </div>
                                             
-                                            @if($hasPaid)
-                                                <a href="{{ route('front.show', $contenu->id) }}" 
-                                                   class="btn btn-primary btn-sm">
-                                                    <i class="fas fa-book-open"></i>
-                                                    <span>Lire la suite</span>
-                                                </a>
+                                            @auth
+                                                @php
+                                                    $hasPaid = false; // Logique à implémenter
+                                                    $price = 1000; // Prix en FCFA
+                                                @endphp
+                                                
+                                                @if($hasPaid)
+                                                    <a href="{{ route('front.show', $contenu->id) }}" 
+                                                       class="btn btn-primary btn-sm">
+                                                        <i class="fas fa-book-open"></i>
+                                                        <span>Lire la suite</span>
+                                                    </a>
+                                                @else
+                                                    <a href="{{ route('payment.form') }}?contenu_id={{ $contenu->id }}&type=gastronomie" 
+                                                       class="btn btn-primary btn-sm">
+                                                        <i class="fas fa-lock"></i>
+                                                        <span>Lire la suite</span>
+                                                        <span class="price-badge">
+                                                            <i class="fas fa-coins"></i>
+                                                            {{ number_format($price, 0, ',', ' ') }} FCFA
+                                                        </span>
+                                                    </a>
+                                                @endif
                                             @else
-                                                <a href="{{ route('payment.form') }}?contenu_id={{ $contenu->id }}&type=gastronomie" 
-                                                   class="btn btn-primary btn-sm">
+                                                <a href="{{ route('login') }}" 
+                                                   class="btn btn-primary btn-sm"
+                                                   onclick="return showLoginMessage()">
                                                     <i class="fas fa-lock"></i>
                                                     <span>Lire la suite</span>
                                                     <span class="price-badge">
                                                         <i class="fas fa-coins"></i>
-                                                        {{ number_format($price, 0, ',', ' ') }} FCFA
+                                                        {{ number_format($price ?? 1000, 0, ',', ' ') }} FCFA
                                                     </span>
                                                 </a>
-                                            @endif
-                                        @else
-                                            <a href="{{ route('login') }}" 
-                                               class="btn btn-primary btn-sm"
-                                               onclick="return showLoginMessage()">
-                                                <i class="fas fa-lock"></i>
-                                                <span>Lire la suite</span>
-                                                <span class="price-badge">
-                                                    <i class="fas fa-coins"></i>
-                                                    {{ number_format($price ?? 1000, 0, ',', ' ') }} FCFA
-                                                </span>
-                                            </a>
-                                        @endauth
+                                            @endauth
+                                        </div>
                                     </div>
                                 </div>
                             </div>
-                        </div>
-                    @empty
-                        <div class="empty-state" style="grid-column: 1 / -1;">
-                            <i class="fas fa-utensils empty-icon"></i>
-                            <h3 class="empty-title">Aucune recette disponible</h3>
-                            <p class="empty-text">Soyez le premier à partager une recette traditionnelle !</p>
-                            
-                            @auth
-                                <a href="{{ route('front.create') }}" class="btn btn-primary">
-                                    <i class="fas fa-plus"></i>
-                                    <span>Créer une recette</span>
-                                </a>
-                            @endauth
-                        </div>
-                    @endforelse
+                        @empty
+                            <div class="empty-state" style="grid-column: 1 / -1;">
+                                <i class="fas fa-utensils empty-icon"></i>
+                                <h3 class="empty-title">Aucune recette disponible</h3>
+                                <p class="empty-text">Soyez le premier à partager une recette traditionnelle !</p>
+                                
+                                @auth
+                                    <a href="{{ route('front.create') }}" class="btn btn-primary">
+                                        <i class="fas fa-plus"></i>
+                                        <span>Créer une recette</span>
+                                    </a>
+                                @endauth
+                            </div>
+                        @endforelse
+                    </div>
+                    
+                    <!-- Navigation flèches -->
+                    <button class="carousel-nav prev" onclick="prevSlide('gastronomieCarousel')" aria-label="Contenu précédent">
+                        <i class="fas fa-chevron-left"></i>
+                    </button>
+                    <button class="carousel-nav next" onclick="nextSlide('gastronomieCarousel')" aria-label="Contenu suivant">
+                        <i class="fas fa-chevron-right"></i>
+                    </button>
                 </div>
-                
-                <!-- Navigation flèches -->
-                <button class="carousel-nav prev" onclick="prevSlide('gastronomieCarousel')" aria-label="Contenu précédent">
-                    <i class="fas fa-chevron-left"></i>
-                </button>
-                <button class="carousel-nav next" onclick="nextSlide('gastronomieCarousel')" aria-label="Contenu suivant">
-                    <i class="fas fa-chevron-right"></i>
-                </button>
                 
                 <!-- Indicateurs -->
                 @if($gastronomie_contenus->isNotEmpty())
@@ -1309,127 +1339,129 @@
             <div class="section-header">
                 <h2 class="section-title">Contes & Légendes</h2>
                 <p class="section-subtitle">
-                    Naviguez avec les touches fléchées pour explorer les histoires et légendes
+                    Naviguez pour explorer les histoires et légendes
                 </p>
             </div>
 
             <!-- Carousel pour les contes -->
             <div class="carousel-container" id="contesCarousel">
-                <div class="carousel-wrapper">
-                    @forelse($contes_contenus as $index => $contenu)
-                        <div class="carousel-slide {{ $index === 0 ? 'active' : '' }}" data-index="{{ $index }}">
-                            <div class="carousel-card">
-                                <div class="carousel-media">
-                                    @php
-                                        $mediaUrl = null;
-                                        $isVideo = false;
+                <div class="carousel-inner-container">
+                    <div class="carousel-wrapper">
+                        @forelse($contes_contenus as $index => $contenu)
+                            <div class="carousel-slide {{ $index === 0 ? 'active' : '' }}" data-index="{{ $index }}">
+                                <div class="carousel-card">
+                                    <div class="carousel-media">
+                                        @php
+                                            $mediaUrl = null;
+                                            $isVideo = false;
+                                            
+                                            if ($contenu->media && $contenu->media->isNotEmpty()) {
+                                                $media = $contenu->media->first();
+                                                $chemin = $media->chemin;
+                                                
+                                                $mediaUrl = asset('storage/' . $chemin);
+                                                
+                                                $extension = strtolower(pathinfo($chemin, PATHINFO_EXTENSION));
+                                                $isVideo = in_array($extension, ['mp4', 'mov', 'avi', 'wmv', 'flv', 'webm', 'ogg']);
+                                            }
+                                        @endphp
                                         
-                                        if ($contenu->media && $contenu->media->isNotEmpty()) {
-                                            $media = $contenu->media->first();
-                                            $chemin = $media->chemin;
-                                            
-                                            $mediaUrl = asset('storage/' . $chemin);
-                                            
-                                            $extension = strtolower(pathinfo($chemin, PATHINFO_EXTENSION));
-                                            $isVideo = in_array($extension, ['mp4', 'mov', 'avi', 'wmv', 'flv', 'webm', 'ogg']);
-                                        }
-                                    @endphp
-                                    
-                                    @if($mediaUrl && $isVideo)
-                                        <video class="media-video" muted loop playsinline preload="metadata">
-                                            <source src="{{ $mediaUrl }}" type="video/mp4">
-                                            Votre navigateur ne supporte pas la vidéo.
-                                        </video>
-                                    @elseif($mediaUrl)
-                                        <img src="{{ $mediaUrl }}" 
-                                             alt="{{ $contenu->titre }}" 
-                                             loading="lazy"
-                                             onerror="handleImageError(this, '{{ $chemin ?? '' }}')">
-                                    @else
-                                        <div class="media-loading">
-                                            <i class="fas fa-book-open"></i>
-                                        </div>
-                                    @endif
-                                    
-                                    <span class="carousel-tag">
-                                        {{ $contenu->typeContenue->nom ?? 'Conte' }}
-                                    </span>
-                                </div>
-                                
-                                <div class="carousel-content">
-                                    <h3 class="carousel-title">{{ $contenu->titre }}</h3>
-                                    <p class="carousel-text">
-                                        {{ Str::limit(strip_tags($contenu->texte), 200) }}
-                                    </p>
-                                    
-                                    <div class="carousel-meta">
-                                        <div class="carousel-author">
-                                            <i class="fas fa-user"></i>
-                                            <span>{{ $contenu->auteur->prenom ?? 'Auteur' }}</span>
-                                        </div>
+                                        @if($mediaUrl && $isVideo)
+                                            <video class="media-video" muted loop playsinline preload="metadata">
+                                                <source src="{{ $mediaUrl }}" type="video/mp4">
+                                                Votre navigateur ne supporte pas la vidéo.
+                                            </video>
+                                        @elseif($mediaUrl)
+                                            <img src="{{ $mediaUrl }}" 
+                                                 alt="{{ $contenu->titre }}" 
+                                                 loading="lazy"
+                                                 onerror="handleImageError(this, '{{ $chemin ?? '' }}')">
+                                        @else
+                                            <div class="media-loading">
+                                                <i class="fas fa-book-open"></i>
+                                            </div>
+                                        @endif
                                         
-                                        @auth
-                                            @php
-                                                $hasPaid = false; // Logique à implémenter
-                                                $price = 500; // Prix en FCFA pour les contes
-                                            @endphp
+                                        <span class="carousel-tag">
+                                            {{ $contenu->typeContenue->nom ?? 'Conte' }}
+                                        </span>
+                                    </div>
+                                    
+                                    <div class="carousel-content">
+                                        <h3 class="carousel-title">{{ $contenu->titre }}</h3>
+                                        <p class="carousel-text">
+                                            {{ Str::limit(strip_tags($contenu->texte), 200) }}
+                                        </p>
+                                        
+                                        <div class="carousel-meta">
+                                            <div class="carousel-author">
+                                                <i class="fas fa-user"></i>
+                                                <span>{{ $contenu->auteur->prenom ?? 'Auteur' }}</span>
+                                            </div>
                                             
-                                            @if($hasPaid)
-                                                <a href="{{ route('front.show', $contenu->id) }}" 
-                                                   class="btn btn-primary btn-sm">
-                                                    <i class="fas fa-book-open"></i>
-                                                    <span>Lire la suite</span>
-                                                </a>
+                                            @auth
+                                                @php
+                                                    $hasPaid = false; // Logique à implémenter
+                                                    $price = 500; // Prix en FCFA pour les contes
+                                                @endphp
+                                                
+                                                @if($hasPaid)
+                                                    <a href="{{ route('front.show', $contenu->id) }}" 
+                                                       class="btn btn-primary btn-sm">
+                                                        <i class="fas fa-book-open"></i>
+                                                        <span>Lire la suite</span>
+                                                    </a>
+                                                @else
+                                                    <a href="{{ route('payment.form') }}?contenu_id={{ $contenu->id }}&type=conte" 
+                                                       class="btn btn-primary btn-sm">
+                                                        <i class="fas fa-lock"></i>
+                                                        <span>Lire la suite</span>
+                                                        <span class="price-badge">
+                                                            <i class="fas fa-coins"></i>
+                                                            {{ number_format($price, 0, ',', ' ') }} FCFA
+                                                        </span>
+                                                    </a>
+                                                @endif
                                             @else
-                                                <a href="{{ route('payment.form') }}?contenu_id={{ $contenu->id }}&type=conte" 
-                                                   class="btn btn-primary btn-sm">
+                                                <a href="{{ route('login') }}" 
+                                                   class="btn btn-primary btn-sm"
+                                                   onclick="return showLoginMessage()">
                                                     <i class="fas fa-lock"></i>
                                                     <span>Lire la suite</span>
                                                     <span class="price-badge">
                                                         <i class="fas fa-coins"></i>
-                                                        {{ number_format($price, 0, ',', ' ') }} FCFA
+                                                        {{ number_format($price ?? 500, 0, ',', ' ') }} FCFA
                                                     </span>
                                                 </a>
-                                            @endif
-                                        @else
-                                            <a href="{{ route('login') }}" 
-                                               class="btn btn-primary btn-sm"
-                                               onclick="return showLoginMessage()">
-                                                <i class="fas fa-lock"></i>
-                                                <span>Lire la suite</span>
-                                                <span class="price-badge">
-                                                    <i class="fas fa-coins"></i>
-                                                    {{ number_format($price ?? 500, 0, ',', ' ') }} FCFA
-                                                </span>
-                                            </a>
-                                        @endauth
+                                            @endauth
+                                        </div>
                                     </div>
                                 </div>
                             </div>
-                        </div>
-                    @empty
-                        <div class="empty-state" style="grid-column: 1 / -1;">
-                            <i class="fas fa-book-open empty-icon"></i>
-                            <h3 class="empty-title">Aucun conte disponible</h3>
-                            <p class="empty-text">Partagez les légendes et histoires traditionnelles !</p>
-                            
-                            @auth
-                                <a href="{{ route('front.create') }}" class="btn btn-primary">
-                                    <i class="fas fa-plus"></i>
-                                    <span>Créer un conte</span>
-                                </a>
-                            @endauth
-                        </div>
-                    @endforelse
+                        @empty
+                            <div class="empty-state" style="grid-column: 1 / -1;">
+                                <i class="fas fa-book-open empty-icon"></i>
+                                <h3 class="empty-title">Aucun conte disponible</h3>
+                                <p class="empty-text">Partagez les légendes et histoires traditionnelles !</p>
+                                
+                                @auth
+                                    <a href="{{ route('front.create') }}" class="btn btn-primary">
+                                        <i class="fas fa-plus"></i>
+                                        <span>Créer un conte</span>
+                                    </a>
+                                @endauth
+                            </div>
+                        @endforelse
+                    </div>
+                    
+                    <!-- Navigation flèches -->
+                    <button class="carousel-nav prev" onclick="prevSlide('contesCarousel')" aria-label="Contenu précédent">
+                        <i class="fas fa-chevron-left"></i>
+                    </button>
+                    <button class="carousel-nav next" onclick="nextSlide('contesCarousel')" aria-label="Contenu suivant">
+                        <i class="fas fa-chevron-right"></i>
+                    </button>
                 </div>
-                
-                <!-- Navigation flèches -->
-                <button class="carousel-nav prev" onclick="prevSlide('contesCarousel')" aria-label="Contenu précédent">
-                    <i class="fas fa-chevron-left"></i>
-                </button>
-                <button class="carousel-nav next" onclick="nextSlide('contesCarousel')" aria-label="Contenu suivant">
-                    <i class="fas fa-chevron-right"></i>
-                </button>
                 
                 <!-- Indicateurs -->
                 @if($contes_contenus->isNotEmpty())
@@ -1494,14 +1526,19 @@
 
     <script>
         // ==========================================================================
-        // CAROUSEL FUNCTIONALITY
+        // CAROUSEL FUNCTIONALITY - CORRIGÉ
         // ==========================================================================
         
         class Carousel {
             constructor(containerId) {
                 this.container = document.getElementById(containerId);
-                if (!this.container) return;
+                if (!this.container) {
+                    console.error(`Carousel container #${containerId} not found`);
+                    return;
+                }
                 
+                // Mettre à jour cette ligne pour chercher dans carousel-inner-container
+                this.innerContainer = this.container.querySelector('.carousel-inner-container');
                 this.wrapper = this.container.querySelector('.carousel-wrapper');
                 this.slides = this.container.querySelectorAll('.carousel-slide');
                 this.indicators = this.container.querySelectorAll('.carousel-indicator');
@@ -1511,12 +1548,28 @@
                 this.currentIndex = 0;
                 this.totalSlides = this.slides.length;
                 
+                if (this.totalSlides === 0) return;
+                
                 this.init();
             }
             
             init() {
                 // Initial setup
                 this.updateCarousel();
+                
+                // Setup event listeners for buttons
+                if (this.prevBtn) {
+                    this.prevBtn.addEventListener('click', () => this.prev());
+                }
+                
+                if (this.nextBtn) {
+                    this.nextBtn.addEventListener('click', () => this.next());
+                }
+                
+                // Setup event listeners for indicators
+                this.indicators.forEach((indicator, index) => {
+                    indicator.addEventListener('click', () => this.goTo(index));
+                });
                 
                 // Auto-advance every 8 seconds if more than 1 slide
                 if (this.totalSlides > 1) {
@@ -1535,8 +1588,10 @@
             }
             
             goTo(index) {
-                this.currentIndex = index;
-                this.updateCarousel();
+                if (index >= 0 && index < this.totalSlides) {
+                    this.currentIndex = index;
+                    this.updateCarousel();
+                }
             }
             
             updateCarousel() {
@@ -1565,10 +1620,6 @@
             }
         }
 
-        // Initialize carousels
-        let gastronomieCarousel = null;
-        let contesCarousel = null;
-
         // ==========================================================================
         // HERO SLIDER
         // ==========================================================================
@@ -1576,98 +1627,30 @@
         const slides = document.querySelectorAll('.hero-slide');
         
         function showSlide(n) {
+            if (slides.length === 0) return;
             slides.forEach(slide => slide.classList.remove('active'));
             currentSlide = (n + slides.length) % slides.length;
             slides[currentSlide].classList.add('active');
         }
         
-        function nextSlide() {
+        function nextHeroSlide() {
             showSlide(currentSlide + 1);
         }
         
-        setInterval(nextSlide, 5000);
-
         // ==========================================================================
-        // KEYBOARD NAVIGATION
+        // GLOBAL CAROUSEL INSTANCES
         // ==========================================================================
-        document.addEventListener('keydown', (e) => {
-            const activeCarouselId = getActiveCarouselId();
-            if (!activeCarouselId) return;
-            
-            const carousel = activeCarouselId === 'gastronomieCarousel' ? gastronomieCarousel : contesCarousel;
-            if (!carousel) return;
-            
-            switch(e.key) {
-                case 'ArrowLeft':
-                    e.preventDefault();
-                    carousel.prev();
-                    highlightNavigation('prev');
-                    break;
-                case 'ArrowRight':
-                    e.preventDefault();
-                    carousel.next();
-                    highlightNavigation('next');
-                    break;
-                case 'Home':
-                    e.preventDefault();
-                    carousel.goTo(0);
-                    break;
-                case 'End':
-                    e.preventDefault();
-                    carousel.goTo(carousel.totalSlides - 1);
-                    break;
-                case ' ':
-                case 'Spacebar':
-                    e.preventDefault();
-                    const activeSlide = carousel.container.querySelector('.carousel-slide.active');
-                    const readLink = activeSlide?.querySelector('.btn-primary');
-                    if (readLink) readLink.click();
-                    break;
-            }
-        });
-
-        function getActiveCarouselId() {
-            // Determine which carousel is currently in view
-            const gastronomieSection = document.getElementById('gastronomie');
-            const contesSection = document.getElementById('contes');
-            
-            const gastronomieRect = gastronomieSection.getBoundingClientRect();
-            const contesRect = contesSection.getBoundingClientRect();
-            
-            const viewportHeight = window.innerHeight;
-            
-            // Check which section is more centered in the viewport
-            if (Math.abs(gastronomieRect.top - viewportHeight/2) < Math.abs(contesRect.top - viewportHeight/2)) {
-                return 'gastronomieCarousel';
-            } else {
-                return 'contesCarousel';
-            }
-        }
-
-        function highlightNavigation(direction) {
-            const activeCarouselId = getActiveCarouselId();
-            const carouselContainer = document.getElementById(activeCarouselId);
-            const navBtn = carouselContainer.querySelector(`.carousel-nav.${direction}`);
-            
-            if (navBtn) {
-                navBtn.style.transform = 'translateY(-50%) scale(1.2)';
-                navBtn.style.background = 'var(--accent)';
-                navBtn.style.color = 'var(--white)';
-                
-                setTimeout(() => {
-                    navBtn.style.transform = '';
-                    navBtn.style.background = '';
-                    navBtn.style.color = '';
-                }, 300);
-            }
-        }
+        let gastronomieCarousel = null;
+        let contesCarousel = null;
 
         // ==========================================================================
         // NAVBAR SCROLL EFFECT
         // ==========================================================================
         window.addEventListener('scroll', () => {
             const navbar = document.getElementById('navbar');
-            navbar.classList.toggle('scrolled', window.scrollY > 50);
+            if (navbar) {
+                navbar.classList.toggle('scrolled', window.scrollY > 50);
+            }
         });
 
         // ==========================================================================
@@ -1701,7 +1684,7 @@
         }
 
         // ==========================================================================
-        // REGION TABS (Logique client simple)
+        // REGION TABS
         // ==========================================================================
         document.querySelectorAll('.tab-btn').forEach(btn => {
             btn.addEventListener('click', function() {
@@ -1709,76 +1692,19 @@
                     b.classList.remove('active');
                 });
                 this.classList.add('active');
-                // LOGIQUE SERVEUR/AJAX À AJOUTER ICI POUR CHANGER LE CONTENU DE LA GRILLE
             });
         });
 
         // ==========================================================================
-        // ANIMATIONS ON SCROLL (Observer pour les cartes)
-        // ==========================================================================
-        const observerOptions = {
-            threshold: 0.1,
-            rootMargin: '0px 0px -50px 0px'
-        };
-        
-        const observer = new IntersectionObserver((entries) => {
-            entries.forEach(entry => {
-                if (entry.isIntersecting) {
-                    entry.target.style.animation = 'slideUp 0.6s ease forwards';
-                    observer.unobserve(entry.target);
-                }
-            });
-        }, observerOptions);
-        
-        document.querySelectorAll('.language-card, .carousel-card').forEach(el => {
-            el.style.opacity = '0';
-            observer.observe(el);
-        });
-
-        // Ajout de l'animation CSS pour les observer
-        const style = document.createElement('style');
-        style.innerHTML = `
-            @keyframes slideUp {
-                from {
-                    opacity: 0;
-                    transform: translateY(30px);
-                }
-                to {
-                    opacity: 1;
-                    transform: translateY(0);
-                }
-            }
-        `;
-        document.head.appendChild(style);
-
-        // ==========================================================================
-        // VIDEO AUTOPLAY ON HOVER
-        // ==========================================================================
-        document.addEventListener('DOMContentLoaded', () => {
-            document.querySelectorAll('.carousel-card .media-video').forEach(video => {
-                const card = video.closest('.carousel-card');
-                
-                card.addEventListener('mouseenter', () => {
-                    video.play().catch(e => {
-                        console.log('Video autoplay failed:', e);
-                    });
-                });
-                
-                card.addEventListener('mouseleave', () => {
-                    video.pause();
-                    video.currentTime = 0;
-                });
-            });
-        });
-
-        // ==========================================================================
-        // IMAGE ERROR HANDLING (Pour les chemins d'images Blade)
+        // IMAGE ERROR HANDLING
         // ==========================================================================
         function handleImageError(img, chemin) {
             console.error('❌ Image failed to load:', img.src);
             
             const cardMedia = img.closest('.carousel-media');
-            const cardTitle = img.closest('.carousel-card').querySelector('.carousel-title')?.textContent.toLowerCase() || '';
+            if (!cardMedia) return;
+            
+            const cardTitle = img.closest('.carousel-card')?.querySelector('.carousel-title')?.textContent.toLowerCase() || '';
             
             const placeholder = document.createElement('div');
             placeholder.className = 'media-loading';
@@ -1798,12 +1724,12 @@
             // Re-créer le tag
             const cardTag = document.createElement('span');
             cardTag.className = 'carousel-tag';
-            cardTag.innerHTML = img.closest('.carousel-card').querySelector('.carousel-tag')?.innerHTML || '';
+            cardTag.innerHTML = img.closest('.carousel-card')?.querySelector('.carousel-tag')?.innerHTML || '';
             cardMedia.appendChild(cardTag);
         }
 
         // ==========================================================================
-        // LOGIN MESSAGE (Affichage de notification pour les utilisateurs non connectés)
+        // LOGIN MESSAGE
         // ==========================================================================
         function showLoginMessage() {
             const notification = document.createElement('div');
@@ -1821,99 +1747,13 @@
                 setTimeout(() => notification.remove(), 300);
             }, 3000);
             
-            return true; // Laisse le lien continuer vers la page de login
+            return true;
         }
-
-        // ==========================================================================
-        // GLOBAL CAROUSEL CONTROL FUNCTIONS
-        // ==========================================================================
-        function prevSlide(carouselId) {
-            const carousel = carouselId === 'gastronomieCarousel' ? gastronomieCarousel : contesCarousel;
-            if (carousel) carousel.prev();
-        }
-
-        function nextSlide(carouselId) {
-            const carousel = carouselId === 'gastronomieCarousel' ? gastronomieCarousel : contesCarousel;
-            if (carousel) carousel.next();
-        }
-
-        function goToSlide(carouselId, index) {
-            const carousel = carouselId === 'gastronomieCarousel' ? gastronomieCarousel : contesCarousel;
-            if (carousel) carousel.goTo(index);
-        }
-
-        // ==========================================================================
-        // INITIALISATION
-        // ==========================================================================
-        document.addEventListener('DOMContentLoaded', () => {
-            // Initialize carousels if they have content
-            if (document.getElementById('gastronomieCarousel')) {
-                gastronomieCarousel = new Carousel('gastronomieCarousel');
-            }
-            
-            if (document.getElementById('contesCarousel')) {
-                contesCarousel = new Carousel('contesCarousel');
-            }
-            
-            // Affichage de la première slide du hero
-            showSlide(0);
-
-            // Auto-hide alerts
-            setTimeout(() => {
-                const alerts = document.querySelectorAll('.alert');
-                alerts.forEach(alert => {
-                    alert.style.opacity = '0';
-                    alert.style.transform = 'translateX(-50%) translateY(-20px)';
-                    setTimeout(() => alert.remove(), 300);
-                });
-            }, 4000);
-            
-            // Add focus styles for keyboard navigation
-            document.querySelectorAll('.carousel-nav, .carousel-indicator, .btn').forEach(el => {
-                el.addEventListener('focus', () => {
-                    el.style.outline = '2px solid var(--accent)';
-                    el.style.outlineOffset = '2px';
-                });
-                
-                el.addEventListener('blur', () => {
-                    el.style.outline = 'none';
-                });
-            });
-        });
-
-        // ==========================================================================
-        // SMOOTH SCROLL
-        // ==========================================================================
-        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
-            anchor.addEventListener('click', function(e) {
-                e.preventDefault();
-                
-                const targetId = this.getAttribute('href');
-                if (targetId === '#') return;
-                
-                const targetElement = document.querySelector(targetId);
-                if (targetElement) {
-                    window.scrollTo({
-                        top: targetElement.offsetTop - 80, // Offset pour la barre de navigation fixe
-                        behavior: 'smooth'
-                    });
-                    
-                    // Focus sur le carousel correspondant
-                    setTimeout(() => {
-                        if (targetId === '#gastronomie' && gastronomieCarousel) {
-                            gastronomieCarousel.container.focus();
-                        } else if (targetId === '#contes' && contesCarousel) {
-                            contesCarousel.container.focus();
-                        }
-                    }, 500);
-                }
-            });
-        });
 
         // ==========================================================================
         // TOUCH SUPPORT FOR MOBILE
         // ==========================================================================
-        document.addEventListener('DOMContentLoaded', () => {
+        function setupTouchSupport() {
             let touchStartX = 0;
             let touchEndX = 0;
             
@@ -1935,12 +1775,200 @@
                 if (Math.abs(swipeDistance) > swipeThreshold) {
                     if (swipeDistance > 0) {
                         // Swipe right - previous
-                        prevSlide(carouselId);
+                        if (carouselId === 'gastronomieCarousel' && gastronomieCarousel) {
+                            gastronomieCarousel.prev();
+                        } else if (carouselId === 'contesCarousel' && contesCarousel) {
+                            contesCarousel.prev();
+                        }
                     } else {
                         // Swipe left - next
-                        nextSlide(carouselId);
+                        if (carouselId === 'gastronomieCarousel' && gastronomieCarousel) {
+                            gastronomieCarousel.next();
+                        } else if (carouselId === 'contesCarousel' && contesCarousel) {
+                            contesCarousel.next();
+                        }
                     }
                 }
+            }
+        }
+
+        // ==========================================================================
+        // INITIALISATION - CORRIGÉ
+        // ==========================================================================
+        document.addEventListener('DOMContentLoaded', () => {
+            console.log('DOM loaded, initializing carousels...');
+            
+            // Initialize carousels
+            if (document.getElementById('gastronomieCarousel')) {
+                gastronomieCarousel = new Carousel('gastronomieCarousel');
+                console.log('Gastronomie carousel initialized with', gastronomieCarousel.totalSlides, 'slides');
+            }
+            
+            if (document.getElementById('contesCarousel')) {
+                contesCarousel = new Carousel('contesCarousel');
+                console.log('Contes carousel initialized with', contesCarousel.totalSlides, 'slides');
+            }
+            
+            // Start hero slider
+            if (slides.length > 0) {
+                setInterval(nextHeroSlide, 5000);
+                showSlide(0);
+                console.log('Hero slider initialized with', slides.length, 'slides');
+            }
+            
+            // Auto-hide alerts
+            setTimeout(() => {
+                const alerts = document.querySelectorAll('.alert');
+                alerts.forEach(alert => {
+                    alert.style.opacity = '0';
+                    alert.style.transform = 'translateX(-50%) translateY(-20px)';
+                    setTimeout(() => alert.remove(), 300);
+                });
+            }, 4000);
+            
+            // Add focus styles for keyboard navigation
+            document.querySelectorAll('.carousel-nav, .carousel-indicator, .btn').forEach(el => {
+                el.addEventListener('focus', () => {
+                    el.style.outline = '2px solid var(--accent)';
+                    el.style.outlineOffset = '2px';
+                });
+                
+                el.addEventListener('blur', () => {
+                    el.style.outline = 'none';
+                });
+            });
+            
+            // Setup touch support
+            setupTouchSupport();
+            
+            // Setup smooth scroll
+            document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+                anchor.addEventListener('click', function(e) {
+                    const targetId = this.getAttribute('href');
+                    if (targetId === '#' || targetId === '#!') return;
+                    
+                    const targetElement = document.querySelector(targetId);
+                    if (targetElement) {
+                        e.preventDefault();
+                        
+                        window.scrollTo({
+                            top: targetElement.offsetTop - 80,
+                            behavior: 'smooth'
+                        });
+                    }
+                });
+            });
+            
+            // Setup video autoplay on hover
+            document.querySelectorAll('.carousel-card .media-video').forEach(video => {
+                const card = video.closest('.carousel-card');
+                
+                card.addEventListener('mouseenter', () => {
+                    video.play().catch(e => {
+                        console.log('Video autoplay failed:', e);
+                    });
+                });
+                
+                card.addEventListener('mouseleave', () => {
+                    video.pause();
+                    video.currentTime = 0;
+                });
+            });
+            
+            // Setup animations on scroll
+            const observerOptions = {
+                threshold: 0.1,
+                rootMargin: '0px 0px -50px 0px'
+            };
+            
+            const observer = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        entry.target.style.opacity = '1';
+                        entry.target.style.transform = 'translateY(0)';
+                        observer.unobserve(entry.target);
+                    }
+                });
+            }, observerOptions);
+            
+            document.querySelectorAll('.language-card, .carousel-card').forEach(el => {
+                el.style.opacity = '0';
+                el.style.transform = 'translateY(30px)';
+                el.style.transition = 'opacity 0.6s ease, transform 0.6s ease';
+                observer.observe(el);
+            });
+            
+            console.log('Initialization complete');
+        });
+
+        // ==========================================================================
+        // GLOBAL FUNCTIONS FOR BUTTONS (pour compatibilité avec HTML onclick)
+        // ==========================================================================
+        function prevSlide(carouselId) {
+            if (carouselId === 'gastronomieCarousel' && gastronomieCarousel) {
+                gastronomieCarousel.prev();
+            } else if (carouselId === 'contesCarousel' && contesCarousel) {
+                contesCarousel.prev();
+            }
+        }
+
+        function nextSlide(carouselId) {
+            if (carouselId === 'gastronomieCarousel' && gastronomieCarousel) {
+                gastronomieCarousel.next();
+            } else if (carouselId === 'contesCarousel' && contesCarousel) {
+                contesCarousel.next();
+            }
+        }
+
+        function goToSlide(carouselId, index) {
+            if (carouselId === 'gastronomieCarousel' && gastronomieCarousel) {
+                gastronomieCarousel.goTo(index);
+            } else if (carouselId === 'contesCarousel' && contesCarousel) {
+                contesCarousel.goTo(index);
+            }
+        }
+
+        // ==========================================================================
+        // KEYBOARD NAVIGATION
+        // ==========================================================================
+        document.addEventListener('keydown', (e) => {
+            // Vérifier quel carousel est actif
+            const activeElement = document.activeElement;
+            const isInCarousel = activeElement.closest('.carousel-container');
+            
+            if (!isInCarousel) return;
+            
+            const carouselContainer = activeElement.closest('.carousel-container');
+            const carouselId = carouselContainer?.id;
+            
+            if (!carouselId) return;
+            
+            let carousel = null;
+            if (carouselId === 'gastronomieCarousel') {
+                carousel = gastronomieCarousel;
+            } else if (carouselId === 'contesCarousel') {
+                carousel = contesCarousel;
+            }
+            
+            if (!carousel) return;
+            
+            switch(e.key) {
+                case 'ArrowLeft':
+                    e.preventDefault();
+                    carousel.prev();
+                    break;
+                case 'ArrowRight':
+                    e.preventDefault();
+                    carousel.next();
+                    break;
+                case 'Home':
+                    e.preventDefault();
+                    carousel.goTo(0);
+                    break;
+                case 'End':
+                    e.preventDefault();
+                    carousel.goTo(carousel.totalSlides - 1);
+                    break;
             }
         });
 

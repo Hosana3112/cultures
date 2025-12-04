@@ -367,34 +367,6 @@
           
           <ul class="navbar-nav ms-auto">
             <li class="nav-item">
-              <a class="nav-link" data-widget="navbar-search" href="#" role="button">
-                <i class="bi bi-search"></i>
-              </a>
-            </li>
-            
-            <li class="nav-item dropdown">
-              <a class="nav-link" data-bs-toggle="dropdown" href="#">
-                <i class="bi bi-bell-fill"></i>
-                <span class="navbar-badge badge text-bg-warning">3</span>
-              </a>
-              <div class="dropdown-menu dropdown-menu-lg dropdown-menu-end">
-                <span class="dropdown-item dropdown-header">3 Notifications</span>
-                <div class="dropdown-divider"></div>
-                <a href="#" class="dropdown-item">
-                  <i class="bi bi-envelope me-2"></i> 2 nouveaux messages
-                  <span class="float-end text-secondary fs-7">3 mins</span>
-                </a>
-                <div class="dropdown-divider"></div>
-                <a href="#" class="dropdown-item">
-                  <i class="bi bi-people-fill me-2"></i> 1 demande d'ami
-                  <span class="float-end text-secondary fs-7">12 hours</span>
-                </a>
-                <div class="dropdown-divider"></div>
-                <a href="#" class="dropdown-item dropdown-footer"> Voir toutes les notifications </a>
-              </div>
-            </li>
-            
-            <li class="nav-item">
               <a class="nav-link" href="#" data-lte-toggle="fullscreen">
                 <i data-lte-icon="maximize" class="bi bi-arrows-fullscreen"></i>
                 <i data-lte-icon="minimize" class="bi bi-fullscreen-exit" style="display: none"></i>
@@ -512,10 +484,6 @@
               <li class="nav-header text-uppercase small fw-bold text-muted mt-3">UTILISATEURS</li>
               <li class="nav-item"><a href="{{ route('utilisateurs.index') }}" class="nav-link"><i class="nav-icon bi bi-people"></i><p>Utilisateurs</p></a></li>
               <li class="nav-item"><a href="{{ route('roles.index') }}" class="nav-link"><i class="nav-icon bi bi-shield-check"></i><p>Rôles</p></a></li>
-              
-              <li class="nav-header text-uppercase small fw-bold text-muted mt-3">SYSTÈME</li>
-              <li class="nav-item"><a href="#" class="nav-link"><i class="nav-icon bi bi-gear"></i><p>Paramètres</p></a></li>
-              <li class="nav-item"><a href="#" class="nav-link"><i class="nav-icon bi bi-question-circle"></i><p>Aide & Support</p></a></li>
             </ul>
           </nav>
         </div>
