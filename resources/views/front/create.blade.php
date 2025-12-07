@@ -976,10 +976,12 @@
                                 <i class="fas fa-arrow-left"></i>
                                 Retour à l'accueil
                             </a>
+                            <a href="{{ route('front.accueil') }}" class="btn btn-secondary">
                             <button type="submit" class="btn btn-primary" id="submitBtn">
                                 <i class="fas fa-paper-plane"></i>
                                 Publier le contenu
                             </button>
+                            </a>
                         </div>
                     </div>
                 </form>

@@ -131,58 +131,81 @@ class ContenusController extends Controller
 
     // Stocker un nouveau contenu
     public function store(Request $request)
-    {
-        $request->validate([
-            'titre' => 'required|string|max:255',
-            'description' => 'required|string|min:100|max:5000',
-            'type_contenu_id' => 'required|integer|exists:type_contenues,id',
-            'region_id' => 'required|integer|exists:regions,id',
-            'duree_lecture' => 'nullable|string|max:50',
-            'medias' => 'nullable|array|max:10',
-            'medias.*' => 'file|mimes:jpg,jpeg,png,gif,webp,mp4,avi,mov,wmv|max:10240'
+{
+    $request->validate([
+        'titre' => 'required|string|max:255',
+        'description' => 'required|string|min:100|max:5000',
+        'type_contenu_id' => 'required|integer|exists:type_contenues,id',
+        'region_id' => 'required|integer|exists:regions,id',
+        'duree_lecture' => 'nullable|string|max:50',
+        'medias' => 'nullable|array|max:10',
+        'medias.*' => 'file|mimes:jpg,jpeg,png,gif,webp,mp4,avi,mov,wmv|max:10240'
+    ]);
+
+    try {
+        // Créer le contenu
+        $contenu = Contenu::create([
+            'titre' => $request->titre,
+            'texte' => $request->description,
+            'type_contenu_id' => $request->type_contenu_id,
+            'region_id' => $request->region_id,
+            'auteur_id' => Auth::id(),
+            'duree_lecture' => $request->duree_lecture,
+            'statut' => 'en attente',
+            'parent_id' => null,
+            'date_validation' => null,
+            'moderateur_id' => null,
+            'date_creation' => now()
         ]);
 
-        try {
-            // Créer le contenu
-            $contenu = Contenu::create([
-                'titre' => $request->titre,
-                'texte' => $request->description,
-                'type_contenu_id' => $request->type_contenu_id,
-                'region_id' => $request->region_id,
-                'auteur_id' => Auth::id(),
-                'duree_lecture' => $request->duree_lecture,
-                'statut' => 'en attente',
-                'parent_id' => null,
-                'date_validation' => null,
-                'moderateur_id' => null,
-                'date_creation' => now()
-            ]);
-
-            // Gérer l'upload des médias
-            if ($request->hasFile('medias')) {
-                foreach ($request->file('medias') as $mediaFile) {
-                    $chemin = $mediaFile->store('medias', 'public');
-                    
-                    Media::create([
-                        'contenu_id' => $contenu->id,
-                        'chemin' => $chemin,
-                        'type_fichier' => $mediaFile->getMimeType(),
-                        'nom_original' => $mediaFile->getClientOriginalName(),
-                        'taille' => $mediaFile->getSize(),
-                        'est_principal' => false
-                    ]);
-                }
+        // Gérer l'upload des médias
+        if ($request->hasFile('medias')) {
+            foreach ($request->file('medias') as $mediaFile) {
+                $chemin = $mediaFile->store('medias', 'public');
+                
+                // UTILISEZ type_media_id SI C'EST CE QUE VOTRE TABLE A
+                Media::create([
+                    'contenu_id' => $contenu->id,
+                    'chemin' => $chemin,
+                    'type_media_id' => $this->determinerTypeMedia($mediaFile), // CHANGÉ
+                    'nom_original' => $mediaFile->getClientOriginalName(),
+                    'taille' => $mediaFile->getSize(),
+                    'created_at' => now(),
+                    'updated_at' => now()
+                ]);
             }
-
-            return redirect()->route('contenus.show', $contenu->id)
-                ->with('success', 'Contenu créé avec succès et en attente de validation.');
-
-        } catch (\Exception $e) {
-            return redirect()->back()
-                ->withInput()
-                ->with('error', 'Erreur lors de la création du contenu: ' . $e->getMessage());
         }
+
+        // Rediriger vers l'accueil
+        return redirect()->route('front.accueil')
+            ->with('success', 'Contenu créé avec succès et en attente de validation.');
+
+    } catch (\Exception $e) {
+        return redirect()->back()
+            ->withInput()
+            ->with('error', 'Erreur lors de la création du contenu: ' . $e->getMessage());
     }
+}
+
+// Ajoutez cette méthode si elle n'existe pas
+private function determinerTypeMedia($file)
+{
+    $extension = strtolower($file->getClientOriginalExtension());
+    
+    $images = ['jpg', 'jpeg', 'png', 'gif', 'webp', 'bmp'];
+    $videos = ['mp4', 'avi', 'mov', 'wmv', 'flv', 'mkv'];
+    $audios = ['mp3', 'wav', 'ogg', 'm4a'];
+    
+    if (in_array($extension, $images)) {
+        return 1; // ID pour "Image"
+    } elseif (in_array($extension, $videos)) {
+        return 2; // ID pour "Vidéo"
+    } elseif (in_array($extension, $audios)) {
+        return 3; // ID pour "Audio"
+    } else {
+        return 4; // ID par défaut pour "Autre"
+    }
+}
 
     // Afficher un contenu
     public function show($id)
@@ -223,7 +246,7 @@ class ContenusController extends Controller
 
         // Récupérer les commentaires
         $commentaires = Commentaire::where('contenu_id', $contenu->id)
-            ->orderBy('created_at', 'desc')
+            ->orderBy('date', 'desc')
             ->get();
         
         // Charger les utilisateurs pour chaque commentaire

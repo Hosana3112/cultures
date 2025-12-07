@@ -3,15 +3,17 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Paiement Sécurisé - Culture Bénin</title>
+    <title>Paiement Réussi - Culture Bénin</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.8.1/font/bootstrap-icons.css">
     <style>
         :root {
             --primary-color: #2d5016;
             --primary-hover: #1f3510;
             --accent-color: #d4af37;
-            --secondary-color: #e8f5e8;
+            --success-color: #28a745;
+            --success-light: #d4edda;
             --text-color: #1a331c;
             --border-color: #c8e6c9;
             --background-gradient: linear-gradient(135deg, #f0f9f0 0%, #e8f5e8 50%, #d4edda 100%);
@@ -51,14 +53,14 @@
             66% { transform: translate(-20px, 20px) rotate(240deg); }
         }
         
-        .payment-container {
+        .success-container {
             width: 100%;
-            max-width: 500px;
+            max-width: 600px;
             position: relative;
             z-index: 2;
         }
         
-        .payment-card {
+        .success-card {
             background: rgba(255, 255, 255, 0.95);
             backdrop-filter: blur(10px);
             border-radius: 20px;
@@ -68,13 +70,26 @@
                 0 8px 24px rgba(45, 80, 22, 0.08),
                 inset 0 1px 0 rgba(255, 255, 255, 0.4);
             overflow: hidden;
+            animation: cardAppear 0.8s ease-out;
+        }
+        
+        @keyframes cardAppear {
+            0% {
+                opacity: 0;
+                transform: translateY(30px) scale(0.95);
+            }
+            100% {
+                opacity: 1;
+                transform: translateY(0) scale(1);
+            }
         }
         
         .card-header {
-            background: linear-gradient(135deg, var(--primary-color), var(--primary-hover));
+            background: linear-gradient(135deg, var(--success-color), #20c997);
             border-bottom: none;
             padding: 30px 30px 25px;
             position: relative;
+            text-align: center;
         }
         
         .card-header::after {
@@ -83,7 +98,7 @@
             bottom: 0;
             left: 50%;
             transform: translateX(-50%);
-            width: 80px;
+            width: 100px;
             height: 4px;
             background: var(--accent-color);
             border-radius: 2px;
@@ -92,7 +107,8 @@
         .header-content {
             display: flex;
             align-items: center;
-            gap: 15px;
+            justify-content: center;
+            gap: 20px;
             margin-bottom: 15px;
         }
         
@@ -122,283 +138,297 @@
             color: white;
             font-weight: 800;
             margin-bottom: 5px;
-            font-size: 24px;
+            font-size: 28px;
         }
         
         .header-text p {
             color: rgba(255, 255, 255, 0.9);
-            font-size: 14px;
+            font-size: 16px;
             margin: 0;
         }
         
-        .security-badge {
+        .card-body {
+            padding: 40px 30px 30px;
+            text-align: center;
+        }
+        
+        .success-icon {
+            width: 120px;
+            height: 120px;
+            background: linear-gradient(135deg, var(--success-color), #20c997);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto 25px;
+            position: relative;
+            animation: iconPulse 2s infinite;
+        }
+        
+        @keyframes iconPulse {
+            0% { box-shadow: 0 0 0 0 rgba(40, 167, 69, 0.4); }
+            70% { box-shadow: 0 0 0 20px rgba(40, 167, 69, 0); }
+            100% { box-shadow: 0 0 0 0 rgba(40, 167, 69, 0); }
+        }
+        
+        .success-icon i {
+            color: white;
+            font-size: 60px;
+        }
+        
+        .thank-you-title {
+            color: var(--text-color);
+            font-weight: 700;
+            margin-bottom: 10px;
+            font-size: 28px;
+        }
+        
+        .thank-you-subtitle {
+            color: #6c757d;
+            font-size: 16px;
+            margin-bottom: 30px;
+            max-width: 400px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+        
+        .payment-details {
+            background: var(--success-light);
+            border-radius: 15px;
+            padding: 25px;
+            margin: 25px auto;
+            border-left: 5px solid var(--success-color);
+            max-width: 450px;
+            text-align: left;
+        }
+        
+        .detail-item {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 10px 0;
+            border-bottom: 1px solid rgba(40, 167, 69, 0.2);
+        }
+        
+        .detail-item:last-child {
+            border-bottom: none;
+        }
+        
+        .detail-label {
+            color: var(--text-color);
+            font-weight: 600;
+            font-size: 14px;
             display: flex;
             align-items: center;
             gap: 8px;
-            justify-content: center;
-            color: white;
-            font-size: 13px;
-            padding: 8px 15px;
-            background: rgba(255, 255, 255, 0.15);
-            border-radius: 20px;
-            margin-top: 10px;
         }
         
-        .card-body {
-            padding: 30px;
+        .detail-label i {
+            color: var(--success-color);
+            font-size: 16px;
         }
         
-        .form-label {
-            font-weight: 600;
+        .detail-value {
             color: var(--text-color);
-            margin-bottom: 8px;
-            font-size: 14px;
+            font-weight: 700;
+            font-size: 15px;
+            text-align: right;
         }
         
-        .form-control {
-            border: 2px solid var(--border-color);
+        .email-confirmation {
+            background: #f8f9fa;
             border-radius: 10px;
-            padding: 12px 16px;
-            font-size: 14px;
-            transition: all 0.3s ease;
-            background: white;
-        }
-        
-        .form-control:focus {
-            border-color: var(--primary-color);
-            box-shadow: 0 0 0 3px rgba(45, 80, 22, 0.1);
-            outline: none;
-        }
-        
-        .form-text {
-            font-size: 12px;
-            color: #6c757d;
-            margin-top: 5px;
-        }
-        
-        .alert {
-            border-radius: 10px;
-            border: none;
             padding: 15px;
-            font-size: 14px;
+            margin: 25px auto;
+            max-width: 450px;
+        }
+        
+        .email-confirmation i {
+            color: var(--success-color);
+            margin-right: 8px;
+        }
+        
+        .action-buttons {
+            display: flex;
+            justify-content: center;
+            gap: 15px;
+            margin-top: 30px;
+            flex-wrap: wrap;
+        }
+        
+        .btn {
+            padding: 12px 28px;
+            border-radius: 10px;
+            font-weight: 600;
+            font-size: 16px;
+            transition: all 0.3s ease;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+            min-width: 180px;
         }
         
         .btn-primary {
             background: linear-gradient(135deg, var(--primary-color), var(--primary-hover));
             border: none;
-            border-radius: 10px;
-            padding: 16px;
-            font-weight: 600;
-            font-size: 16px;
-            transition: all 0.3s ease;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            gap: 10px;
-            box-shadow: 0 8px 20px rgba(45, 80, 22, 0.3);
+            box-shadow: 0 6px 18px rgba(45, 80, 22, 0.3);
         }
         
         .btn-primary:hover {
             transform: translateY(-2px);
-            box-shadow: 0 12px 25px rgba(45, 80, 22, 0.4);
+            box-shadow: 0 10px 25px rgba(45, 80, 22, 0.4);
             background: linear-gradient(135deg, var(--primary-hover), var(--primary-color));
         }
         
-        .btn-primary:active {
-            transform: translateY(0);
-        }
-        
-        .payment-partner {
-            text-align: center;
-            margin-top: 30px;
-            padding-top: 25px;
-            border-top: 1px solid var(--border-color);
-        }
-        
-        .payment-partner img {
-            height: 40px;
-            filter: drop-shadow(0 2px 4px rgba(0, 0, 0, 0.1));
-        }
-        
-        .partner-text {
-            color: #6c757d;
-            font-size: 13px;
-            margin-top: 10px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            gap: 5px;
-        }
-        
-        .payment-methods {
-            display: flex;
-            justify-content: center;
-            gap: 15px;
-            margin-top: 20px;
-        }
-        
-        .payment-method {
-            width: 50px;
-            height: 30px;
+        .btn-outline-secondary {
+            border: 2px solid var(--border-color);
+            color: var(--text-color);
             background: white;
-            border-radius: 5px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            border: 1px solid var(--border-color);
-            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
         }
         
-        .payment-method i {
-            color: #555;
-            font-size: 18px;
+        .btn-outline-secondary:hover {
+            border-color: var(--primary-color);
+            background: var(--secondary-color);
+            transform: translateY(-2px);
+        }
+        
+        .confetti {
+            position: absolute;
+            width: 10px;
+            height: 10px;
+            background: var(--accent-color);
+            border-radius: 50%;
+            animation: confettiFall 5s linear infinite;
+        }
+        
+        @keyframes confettiFall {
+            0% {
+                transform: translateY(-100px) rotate(0deg);
+                opacity: 1;
+            }
+            100% {
+                transform: translateY(100vh) rotate(720deg);
+                opacity: 0;
+            }
         }
         
         @media (max-width: 576px) {
-            .payment-container {
+            .success-container {
                 max-width: 100%;
             }
             
             .card-body {
-                padding: 25px 20px;
+                padding: 30px 20px;
             }
             
             .header-content {
                 flex-direction: column;
-                text-align: center;
-                gap: 10px;
+                gap: 15px;
             }
             
             .header-text h4 {
-                font-size: 20px;
+                font-size: 24px;
+            }
+            
+            .action-buttons {
+                flex-direction: column;
+                align-items: center;
+            }
+            
+            .btn {
+                width: 100%;
+                max-width: 250px;
+            }
+            
+            .payment-details {
+                padding: 20px 15px;
             }
         }
     </style>
 </head>
 <body>
-    <div class="payment-container">
-        <div class="card payment-card">
+    <!-- Confetti animation -->
+    <div id="confetti-container"></div>
+    
+    <div class="success-container">
+        <div class="card success-card">
             <div class="card-header">
                 <div class="header-content">
                     <div class="logo-circle">
                         <img src="{{URL::asset('adminlte/img/logoculture__2_-removebg-preview.png')}}" alt="Culture Bénin">
                     </div>
                     <div class="header-text">
-                        <h4>Paiement Sécurisé</h4>
-                        <p>Culture Bénin - Soutenez notre patrimoine</p>
+                        <h4>Paiement Réussi</h4>
+                        <p>Culture Bénin - Merci pour votre soutien</p>
                     </div>
-                </div>
-                
-                <div class="security-badge">
-                    <i class="fas fa-lock"></i>
-                    <span>Transaction 100% sécurisée</span>
                 </div>
             </div>
             
             <div class="card-body">
-                @if(session('error'))
-                    <div class="alert alert-danger alert-dismissible fade show" role="alert">
-                        <i class="fas fa-exclamation-triangle me-2"></i>
-                        {{ session('error') }}
-                        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
-                    </div>
-                @endif
+                <div class="success-icon">
+                    <i class="bi bi-check-circle-fill"></i>
+                </div>
                 
-                @if(session('success'))
-                    <div class="alert alert-success alert-dismissible fade show" role="alert">
-                        <i class="fas fa-check-circle me-2"></i>
-                        {{ session('success') }}
-                        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
-                    </div>
-                @endif
+                <h2 class="thank-you-title">Merci pour votre contribution !</h2>
+                <p class="thank-you-subtitle">
+                    Votre paiement a été traité avec succès. Vous soutenez la préservation de notre patrimoine culturel.
+                </p>
                 
-                @if(session('contenu_id'))
-                    <div class="alert alert-info alert-dismissible fade show" role="alert">
-                        <i class="fas fa-info-circle me-2"></i>
-                        Vous êtes sur le point d'effectuer un paiement pour accéder à un contenu spécifique.
-                        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                <div class="payment-details">
+                    <div class="detail-item">
+                        <span class="detail-label">
+                            <i class="bi bi-hash"></i>Référence
+                        </span>
+                        <span class="detail-value">{{ $payment->reference }}</span>
                     </div>
-                @endif
+                    
+                    <div class="detail-item">
+                        <span class="detail-label">
+                            <i class="bi bi-cash-stack"></i>Montant
+                        </span>
+                        <span class="detail-value">{{ number_format($payment->amount, 0, ',', ' ') }} XOF</span>
+                    </div>
+                    
+                    <div class="detail-item">
+                        <span class="detail-label">
+                            <i class="bi bi-calendar-check"></i>Date
+                        </span>
+                        <span class="detail-value">{{ $payment->paid_at->format('d/m/Y H:i') }}</span>
+                    </div>
+                    
+                    <div class="detail-item">
+                        <span class="detail-label">
+                            <i class="bi bi-credit-card"></i>Méthode
+                        </span>
+                        <span class="detail-value">{{ $payment->payment_method }}</span>
+                    </div>
+                </div>
                 
-                <form method="POST" action="{{ route('payment.process') }}" id="paymentForm">
-                    @csrf
-                    
-                    <div class="mb-4">
-                        <label for="amount" class="form-label">Montant à régler (XOF)</label>
-                        <div class="input-group">
-                            <span class="input-group-text bg-light border-end-0">
-                                <i class="fas fa-money-bill-wave text-primary"></i>
-                            </span>
-                            <input type="number" class="form-control border-start-0" id="amount" name="amount" 
-                                   value="{{ old('amount', 1000) }}" min="100" required>
-                        </div>
-                        <div class="form-text d-flex justify-content-between mt-2">
-                            <span>Minimum: 100 XOF</span>
-                            <span id="amountPreview" class="text-primary fw-bold"></span>
-                        </div>
-                    </div>
-                    
-                    <div class="mb-4">
-                        <label for="customer_name" class="form-label">
-                            <i class="fas fa-user text-primary me-2"></i>Nom complet
-                        </label>
-                        <input type="text" class="form-control" id="customer_name" name="customer_name" 
-                               value="{{ old('customer_name') }}" required placeholder="Votre nom et prénom">
-                    </div>
-                    
-                    <div class="mb-4">
-                        <label for="customer_email" class="form-label">
-                            <i class="fas fa-envelope text-primary me-2"></i>Adresse email
-                        </label>
-                        <input type="email" class="form-control" id="customer_email" name="customer_email" 
-                               value="{{ old('customer_email') }}" required placeholder="votre@email.com">
-                    </div>
-                    
-                    <div class="mb-4">
-                        <label for="customer_phone" class="form-label">
-                            <i class="fas fa-phone text-primary me-2"></i>Téléphone
-                        </label>
-                        <input type="text" class="form-control" id="customer_phone" name="customer_phone" 
-                               value="{{ old('customer_phone') }}" placeholder="+229 XX XX XX XX">
-                    </div>
-                    
-                    <div class="mb-4">
-                        <label for="description" class="form-label">
-                            <i class="fas fa-file-alt text-primary me-2"></i>Description
-                        </label>
-                        <textarea class="form-control" id="description" name="description" rows="2" 
-                                  placeholder="Objet de votre contribution...">{{ old('description') }}</textarea>
-                    </div>
-                    
-                    <div class="d-grid mb-4">
-                        <button type="submit" class="btn btn-primary btn-lg" id="payButton">
-                            <i class="fas fa-lock me-2"></i>
-                            Payer maintenant
-                        </button>
-                    </div>
-                </form>
-                
-                <div class="payment-partner">
-                    <img src="https://fedapay.com/images/logo.png" alt="FedaPay" class="mb-3">
-                    <p class="partner-text">
-                        <i class="fas fa-shield-alt text-success me-2"></i>
-                        Paiement 100% sécurisé par FedaPay
+                <div class="email-confirmation">
+                    <p class="mb-0">
+                        <i class="bi bi-envelope-check"></i>
+                        Un reçu de confirmation a été envoyé à 
+                        <strong>{{ $payment->customer_email }}</strong>
                     </p>
-                    
-                    <div class="payment-methods">
-                        <div class="payment-method" title="Mobile Money">
-                            <i class="fas fa-mobile-alt"></i>
-                        </div>
-                        <div class="payment-method" title="Carte Bancaire">
-                            <i class="far fa-credit-card"></i>
-                        </div>
-                        <div class="payment-method" title="Visa">
-                            <i class="fab fa-cc-visa"></i>
-                        </div>
-                        <div class="payment-method" title="Mastercard">
-                            <i class="fab fa-cc-mastercard"></i>
-                        </div>
-                    </div>
+                </div>
+                
+                <div class="action-buttons">
+                    <a href="{{ route('payment.form') }}" class="btn btn-primary">
+                        <i class="bi bi-plus-circle me-2"></i>
+                        Nouveau paiement
+                    </a>
+                    <a href="/" class="btn btn-outline-secondary">
+                        <i class="bi bi-house-door me-2"></i>
+                        Retour à l'accueil
+                    </a>
+                </div>
+                
+                <div class="mt-4 text-muted small">
+                    <p class="mb-0">
+                        <i class="bi bi-shield-check text-success me-2"></i>
+                        Transaction sécurisée et cryptée
+                    </p>
                 </div>
             </div>
         </div>
@@ -406,68 +436,83 @@
     
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"></script>
     <script>
-        // Aperçu du montant en temps réel
-        const amountInput = document.getElementById('amount');
-        const amountPreview = document.getElementById('amountPreview');
-        
-        function formatAmount(amount) {
-            return new Intl.NumberFormat('fr-FR').format(amount) + ' XOF';
+        // Animation de confetti
+        function createConfetti() {
+            const container = document.getElementById('confetti-container');
+            const colors = ['#2d5016', '#d4af37', '#28a745', '#20c997', '#ffc107'];
+            
+            for (let i = 0; i < 50; i++) {
+                const confetti = document.createElement('div');
+                confetti.className = 'confetti';
+                
+                // Position aléatoire
+                confetti.style.left = Math.random() * 100 + 'vw';
+                confetti.style.background = colors[Math.floor(Math.random() * colors.length)];
+                
+                // Taille aléatoire
+                const size = Math.random() * 10 + 5;
+                confetti.style.width = size + 'px';
+                confetti.style.height = size + 'px';
+                
+                // Animation aléatoire
+                const delay = Math.random() * 5;
+                const duration = Math.random() * 3 + 3;
+                confetti.style.animationDelay = delay + 's';
+                confetti.style.animationDuration = duration + 's';
+                
+                container.appendChild(confetti);
+                
+                // Supprimer après animation
+                setTimeout(() => {
+                    confetti.remove();
+                }, (delay + duration) * 1000);
+            }
         }
         
-        amountInput.addEventListener('input', function() {
-            const amount = parseInt(this.value) || 0;
-            amountPreview.textContent = formatAmount(amount);
-        });
+        // Créer confetti initial
+        createConfetti();
         
-        // Initialiser l'aperçu
-        amountPreview.textContent = formatAmount(parseInt(amountInput.value) || 1000);
+        // Répéter toutes les 5 secondes
+        setInterval(createConfetti, 5000);
         
-        // Validation du formulaire
-        document.getElementById('paymentForm').addEventListener('submit', function(e) {
-            const amount = parseInt(amountInput.value);
-            const name = document.getElementById('customer_name').value;
-            const email = document.getElementById('customer_email').value;
-            
-            if (amount < 100) {
-                e.preventDefault();
-                alert('Le montant minimum est de 100 XOF');
-                amountInput.focus();
-                return;
-            }
-            
-            if (!name.trim()) {
-                e.preventDefault();
-                alert('Veuillez saisir votre nom complet');
-                document.getElementById('customer_name').focus();
-                return;
-            }
-            
-            const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-            if (!emailRegex.test(email)) {
-                e.preventDefault();
-                alert('Veuillez saisir une adresse email valide');
-                document.getElementById('customer_email').focus();
-                return;
-            }
-            
-            // Animation du bouton
-            const payButton = document.getElementById('payButton');
-            payButton.innerHTML = '<i class="fas fa-spinner fa-spin me-2"></i>Traitement en cours...';
-            payButton.disabled = true;
-        });
-        
-        // Animation d'entrée
+        // Animation d'apparition progressive
         document.addEventListener('DOMContentLoaded', function() {
-            const card = document.querySelector('.payment-card');
-            card.style.opacity = '0';
-            card.style.transform = 'translateY(20px)';
-            
-            setTimeout(() => {
-                card.style.transition = 'opacity 0.5s ease, transform 0.5s ease';
-                card.style.opacity = '1';
-                card.style.transform = 'translateY(0)';
-            }, 100);
+            const elements = document.querySelectorAll('.detail-item, .email-confirmation, .action-buttons');
+            elements.forEach((element, index) => {
+                element.style.opacity = '0';
+                element.style.transform = 'translateY(20px)';
+                
+                setTimeout(() => {
+                    element.style.transition = 'opacity 0.5s ease, transform 0.5s ease';
+                    element.style.opacity = '1';
+                    element.style.transform = 'translateY(0)';
+                }, 300 + (index * 100));
+            });
         });
+        
+        // Message de confirmation au clic sur les boutons
+        document.querySelectorAll('.btn').forEach(button => {
+            button.addEventListener('click', function(e) {
+                if (this.href.includes('payment.form')) {
+                    // Animation de départ
+                    this.innerHTML = '<i class="bi bi-arrow-clockwise spin me-2"></i>Redirection...';
+                    this.disabled = true;
+                }
+            });
+        });
+        
+        // Ajouter une classe pour l'animation de rotation
+        const style = document.createElement('style');
+        style.textContent = `
+            .bi-arrow-clockwise.spin {
+                animation: spin 1s linear infinite;
+            }
+            @keyframes spin {
+                from { transform: rotate(0deg); }
+                to { transform: rotate(360deg); }
+            }
+        `;
+        document.head.appendChild(style);
     </script>
 </body>
 </html>

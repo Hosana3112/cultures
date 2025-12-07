@@ -16,7 +16,7 @@ class PaymentController extends Controller
     {
         $this->fedapayService = $fedapayService;
     }
-    
+
     /**
      * Afficher le formulaire de paiement
      */
@@ -161,7 +161,7 @@ class PaymentController extends Controller
                     Log::info('Redirection vers contenu ID: ' . $contenuId);
                     
                     // Rediriger vers la vue du contenu concerné
-                    return redirect()->route('contenus.show', ['contenu' => $contenuId])
+                    return redirect()->route('front.show', ['id' => $contenuId])
                         ->with('success', 'Paiement effectué avec succès! Vous avez maintenant accès au contenu.');
                 } else {
                     Log::info('Aucun contenu ID trouvé, affichage vue succès normale');
