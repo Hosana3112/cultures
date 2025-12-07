@@ -3,6 +3,14 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
+use PragmaRX\Google2FALaravel\Google2FA as Google2FALaravel;
+use PragmaRX\Google2FAQRCode\Google2FA as Google2FAQRCode;
+use BaconQrCode\Renderer\ImageRenderer;
+use BaconQrCode\Renderer\Image\SvgImageBackEnd;
+use BaconQrCode\Renderer\RendererStyle\RendererStyle;
+use BaconQrCode\Writer;
+use App\Models\Utilisateur;
 
 class TwoFactorAuthController extends Controller
 {
@@ -10,7 +18,8 @@ class TwoFactorAuthController extends Controller
 
     public function __construct()
     {
-        $this->google2fa = new Google2FA();
+        // Utiliser le package Google2FA pour Laravel
+        $this->google2fa = app(Google2FALaravel::class);
     }
 
     // Activer le 2FA
@@ -20,7 +29,9 @@ class TwoFactorAuthController extends Controller
         
         // Générer une clé secrète si pas déjà fait
         if (!$user->google2fa_secret) {
-            $user->google2fa_secret = $this->google2fa->generateSecretKey();
+            // Utiliser le package Google2FAQRCode pour générer la clé
+            $google2faQR = new Google2FAQRCode();
+            $user->google2fa_secret = $google2faQR->generateSecretKey();
             $user->save();
         }
         
@@ -46,7 +57,9 @@ class TwoFactorAuthController extends Controller
         
         $user = Auth::user();
         
-        $valid = $this->google2fa->verifyKey(
+        // Utiliser le package Google2FAQRCode pour vérifier
+        $google2faQR = new Google2FAQRCode();
+        $valid = $google2faQR->verifyKey(
             $user->google2fa_secret,
             $request->code
         );
@@ -87,7 +100,9 @@ class TwoFactorAuthController extends Controller
         $companyName = config('app.name', 'Votre Application');
         $companyEmail = $user->email;
         
-        $qrCodeUrl = $this->google2fa->getQRCodeUrl(
+        // Utiliser le package Google2FAQRCode pour générer le QR code
+        $google2faQR = new Google2FAQRCode();
+        $qrCodeUrl = $google2faQR->getQRCodeUrl(
             $companyName,
             $companyEmail,
             $user->google2fa_secret

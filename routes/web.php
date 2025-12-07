@@ -58,17 +58,17 @@ Route::middleware(['auth'])->group(function () {
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
     
     // Routes protégées par 2FA
-    Route::middleware(['2fa'])->group(function () {
+    Route::middleware(['2fa','admin'])->group(function () {
         Route::get('/dashboard', function () {
             return view('dashboard');
         })->name('dashboard');
         
         Route::get('/dashboard-custom', [DashboardController::class, 'index'])
-            ->name('dashboard-custom');
+            ->name('dashboard-custom')->middleware('admin');
         
         // Routes des médias (CRUD complet)
         Route::resource('medias', MediasController::class)->except(['show']);
-        Route::get('medias/{media}', [MediasController::class, 'show'])->name('medias.show');
+        Route::get('medias/{media}', [MediasController::class, 'show'])->name('medias.show')->middleware('admin');
     });
 });
 

@@ -312,6 +312,14 @@
                     </div>
                 @endif
                 
+                @if(session('contenu_id'))
+                    <div class="alert alert-info alert-dismissible fade show" role="alert">
+                        <i class="fas fa-info-circle me-2"></i>
+                        Vous êtes sur le point d'effectuer un paiement pour accéder à un contenu spécifique.
+                        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                    </div>
+                @endif
+                
                 <form method="POST" action="{{ route('payment.process') }}" id="paymentForm">
                     @csrf
                     

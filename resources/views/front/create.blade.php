@@ -712,7 +712,6 @@
             <div class="nav-links">
                 <a href="{{ route('front.accueil') }}#gastronomie" class="nav-link">Gastronomie</a>
                 <a href="{{ route('front.accueil') }}#contes" class="nav-link">Contes & Légendes</a>
-                <a href="{{ route('front.accueil') }}#regions" class="nav-link">Régions</a>
                 <a href="{{ route('front.accueil') }}" class="nav-link">
                     <i class="fas fa-home"></i> Accueil
                 </a>

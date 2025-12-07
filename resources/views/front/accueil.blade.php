@@ -5,37 +5,22 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>BéninCulture - L'âme de l'Afrique</title>
     
-    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700;900&family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700;900&family=Poppins:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.13.1/font/bootstrap-icons.min.css" rel="stylesheet">
 
     <style>
-        /* ==========================================================================
-           VARIABLES & RESET (MISE À JOUR)
-           Palette : Vert Forêt, Or Africain, Terre Cuite
-           ========================================================================== */
         :root {
-            --primary: #004D40; /* Vert Forêt profond et riche */
-            --primary-light: #00897B; /* Vert Canard pour les dégradés */
-            --secondary: #FFC107; /* Or Africain/Ambre vibrant */
-            --accent: #E65100; /* Orange Brûlé/Terre Cuite pour l'urgence/CTA */
-            --light: #fdfdfd; /* Blanc cassé très léger */
-            --light-gray: #ECEFF1;
-            --dark: #212121; /* Noir doux */
-            --gray: #546E7A; /* Gris Bleu pour le texte de corps */
-            --white: #ffffff;
-            --shadow: 0 10px 30px rgba(0,0,0,0.1); /* Ombre plus nette */
-            --shadow-hover: 0 20px 45px rgba(0,0,0,0.15); /* Ombre plus prononcée au survol */
-            --shadow-card: 0 5px 15px rgba(0,0,0,0.08); /* Ombre légère pour les cartes */
-            --radius-sm: 8px;
-            --radius-md: 12px;
-            --radius-lg: 18px;
-            --radius-xl: 25px;
-            --radius-round: 50px;
-            --transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-            --transition-slow: all 0.5s cubic-bezier(0.4, 0, 0.2, 1);
-            --font-head: 'Playfair Display', serif;
-            --font-body: 'Poppins', sans-serif;
+            --primary: #004D40;
+            --primary-light: #00897B;
+            --secondary: #FFC107;
+            --accent: #E65100;
+            --gradient-primary: linear-gradient(135deg, #004D40 0%, #00897B 100%);
+            --gradient-accent: linear-gradient(135deg, #E65100 0%, #FF6F00 100%);
+            --gradient-gold: linear-gradient(135deg, #FFC107 0%, #FFD54F 100%);
+            --light: #fdfdfd;
+            --dark: #1a1a1a;
+            --gray: #546E7A;
         }
 
         * {
@@ -50,261 +35,154 @@
         }
 
         body {
-            font-family: var(--font-body);
-            background-color: var(--light);
-            color: var(--dark);
-            line-height: 1.65; /* Amélioration de la lisibilité */
+            font-family: 'Poppins', sans-serif;
+            background: var(--dark);
+            color: var(--light);
+            line-height: 1.6;
             overflow-x: hidden;
-            padding-top: 80px;
-            -webkit-font-smoothing: antialiased;
-            -moz-osx-font-smoothing: grayscale;
         }
 
-        a { 
-            text-decoration: none; 
-            color: inherit; 
-            transition: var(--transition); 
-        }
-        
-        ul, ol { list-style: none; }
-        img { max-width: 100%; height: auto; display: block; }
-        button { 
-            cursor: pointer; 
-            border: none; 
-            background: none; 
-            font-family: inherit;
-            font-size: inherit;
-            color: inherit;
-        }
-
-        /* Styles généraux pour le code HTML et BLADE */
-        
-        /* Message de session (Alertes) */
+        /* ===== ALERTS ===== */
         .alert {
             position: fixed;
             top: 100px;
             left: 50%;
             transform: translateX(-50%);
-            z-index: 1000;
-            padding: 1rem 2rem;
-            border-radius: var(--radius-sm);
-            border-left: 5px solid;
+            z-index: 2000;
+            padding: 1.2rem 2.5rem;
+            border-radius: 50px;
             display: flex;
             align-items: center;
-            gap: 10px;
-            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
-            opacity: 1;
-            transition: var(--transition);
+            gap: 12px;
+            backdrop-filter: blur(20px);
+            box-shadow: 0 10px 40px rgba(0, 0, 0, 0.3);
+            animation: slideDown 0.5s ease;
+        }
+
+        @keyframes slideDown {
+            from {
+                transform: translateX(-50%) translateY(-100px);
+                opacity: 0;
+            }
+            to {
+                transform: translateX(-50%) translateY(0);
+                opacity: 1;
+            }
         }
 
         .alert-success {
-            background: rgba(0, 77, 64, 0.1); /* Utiliser le vert primaire */
-            color: var(--primary);
-            border-left-color: var(--primary);
+            background: rgba(0, 77, 64, 0.9);
+            color: white;
+            border: 2px solid var(--primary-light);
         }
 
         .alert-error {
-            background: rgba(230, 81, 0, 0.1); /* Utiliser l'accent */
-            color: var(--accent);
-            border-left-color: var(--accent);
+            background: rgba(230, 81, 0, 0.9);
+            color: white;
+            border: 2px solid var(--accent);
         }
 
-        /* ==========================================================================
-           TYPOGRAPHY (MISE À JOUR)
-           ========================================================================== */
-        h1, h2, h3, h4, h5, h6 {
-            font-family: var(--font-head);
-            font-weight: 900;
-            line-height: 1.15;
-            color: var(--primary); /* Titres en Vert profond */
-            margin-bottom: 0.8rem;
-            letter-spacing: -0.5px;
-        }
-
-        h1 { font-size: 4rem; } /* H1 plus grand pour l'impact */
-        h2 { font-size: 3rem; } /* H2 plus grand */
-        h3 { font-size: 2rem; }
-        h4 { font-size: 1.6rem; }
-
-        p {
-            margin-bottom: 1.2rem;
-            color: var(--gray);
-        }
-
-        .text-lead {
-            font-size: 1.2rem; /* Taille augmentée */
-            line-height: 1.8;
-            color: var(--dark);
-            font-weight: 300;
-        }
-
-        .text-small {
-            font-size: 0.9rem;
-            color: var(--gray);
-        }
-
-        /* ==========================================================================
-           LAYOUT & CONTAINERS
-           ========================================================================== */
-        .container {
+        /* ===== ANIMATED BACKGROUND ===== */
+        .animated-bg {
+            position: fixed;
+            top: 0;
+            left: 0;
             width: 100%;
-            max-width: 1300px; /* Conteneur légèrement plus large */
-            margin: 0 auto;
-            padding: 0 20px;
+            height: 100%;
+            z-index: 0;
+            background: linear-gradient(135deg, #1a1a1a 0%, #2d2d2d 100%);
         }
 
-        .section {
-            padding: 6rem 0; /* Plus d'espacement */
-            position: relative;
-        }
-
-        .section-header {
-            text-align: center;
-            margin-bottom: 5rem; /* Plus d'espace sous l'en-tête */
-        }
-
-        .section-title {
-            position: relative;
-            display: inline-block;
-            margin-bottom: 1.5rem;
-            color: var(--primary) !important; /* Titre en couleur principale */
-            font-size: 3.5rem; /* Assurer une grande taille */
-            font-weight: 900;
-        }
-
-        .section-title::after {
+        .animated-bg::before {
             content: '';
             position: absolute;
-            bottom: -10px;
-            left: 50%;
-            transform: translateX(-50%);
-            width: 100px; /* Ligne plus large et épaisse */
-            height: 4px;
-            background: linear-gradient(90deg, var(--accent), var(--secondary)); /* Dégradé Or/Orange */
-            border-radius: 2px;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: 
+                radial-gradient(circle at 20% 50%, rgba(0, 77, 64, 0.15) 0%, transparent 50%),
+                radial-gradient(circle at 80% 80%, rgba(230, 81, 0, 0.15) 0%, transparent 50%),
+                radial-gradient(circle at 40% 20%, rgba(255, 193, 7, 0.1) 0%, transparent 50%);
+            animation: bgShift 20s ease infinite;
         }
 
-        .section-subtitle {
-            font-size: 1.3rem !important; /* Taille augmentée */
-            color: var(--gray) !important; /* Couleur neutre */
-            max-width: 700px;
-            margin: 0 auto;
-            line-height: 1.7;
-            font-weight: 400;
-        }
-        
-        /* Empty State */
-        .empty-state {
-            text-align: center;
-            padding: 4rem 0;
-            border: 2px dashed var(--light-gray);
-            border-radius: var(--radius-lg);
-            margin: 2rem 0;
-            background: var(--light-gray);
-        }
-        .empty-icon {
-            font-size: 4rem;
-            color: var(--primary-light);
-            margin-bottom: 1rem;
-        }
-        .empty-title {
-            color: var(--dark);
-            margin-bottom: 0.5rem;
-        }
-        .empty-text {
-            max-width: 500px;
-            margin: 0 auto 1.5rem;
+        @keyframes bgShift {
+            0%, 100% { opacity: 1; transform: scale(1); }
+            50% { opacity: 0.8; transform: scale(1.1); }
         }
 
-        /* ==========================================================================
-           BUTTONS (MISE À JOUR)
-           ========================================================================== */
-        .btn {
-            display: inline-flex;
-            align-items: center;
-            justify-content: center;
-            gap: 0.6rem;
-            padding: 0.8rem 2rem;
-            border-radius: var(--radius-round);
-            font-weight: 600;
-            font-size: 1rem;
-            transition: var(--transition);
-            position: relative;
+        .floating-shapes {
+            position: absolute;
+            width: 100%;
+            height: 100%;
             overflow: hidden;
-            white-space: nowrap;
-            text-align: center;
-            border: none;
-            cursor: pointer;
+            z-index: 1;
         }
 
-        .btn:hover {
-            transform: translateY(-2px);
-        }
-        
-        /* Primary Button (Vert) */
-        .btn-primary {
-            background: linear-gradient(135deg, var(--primary), var(--primary-light));
-            color: var(--white);
-            box-shadow: 0 6px 20px rgba(0, 77, 64, 0.3);
+        .shape {
+            position: absolute;
+            opacity: 0.03;
+            animation: float 20s infinite ease-in-out;
         }
 
-        .btn-primary:hover {
-            box-shadow: 0 10px 30px rgba(0, 77, 64, 0.4);
+        .shape:nth-child(1) {
+            top: 10%;
+            left: 10%;
+            width: 300px;
+            height: 300px;
+            background: var(--gradient-primary);
+            border-radius: 30% 70% 70% 30% / 30% 30% 70% 70%;
+            animation-delay: 0s;
         }
 
-        /* Secondary Button (Or - Utilisé principalement pour le Hero CTA) */
-        .btn-secondary {
-            background: linear-gradient(135deg, var(--secondary), #ffeb3b);
-            color: var(--dark);
-            font-weight: 700;
-            box-shadow: 0 6px 20px rgba(255, 193, 7, 0.3);
+        .shape:nth-child(2) {
+            top: 60%;
+            right: 10%;
+            width: 250px;
+            height: 250px;
+            background: var(--gradient-accent);
+            border-radius: 70% 30% 30% 70% / 70% 70% 30% 30%;
+            animation-delay: -5s;
         }
 
-        .btn-secondary:hover {
-            box-shadow: 0 10px 30px rgba(255, 193, 7, 0.4);
-            color: var(--dark);
+        .shape:nth-child(3) {
+            bottom: 10%;
+            left: 50%;
+            width: 200px;
+            height: 200px;
+            background: var(--gradient-gold);
+            border-radius: 50%;
+            animation-delay: -10s;
         }
 
-        /* Outline Button */
-        .btn-outline {
-            background: transparent;
-            color: var(--primary);
-            border: 2px solid var(--primary);
+        @keyframes float {
+            0%, 100% { transform: translate(0, 0) rotate(0deg); }
+            25% { transform: translate(30px, -30px) rotate(90deg); }
+            50% { transform: translate(0, -60px) rotate(180deg); }
+            75% { transform: translate(-30px, -30px) rotate(270deg); }
         }
 
-        .btn-outline:hover {
-            background: var(--primary);
-            color: var(--white);
-            transform: translateY(-2px);
-        }
-
-        /* Small Button */
-        .btn-sm {
-            padding: 0.6rem 1.4rem;
-            font-size: 0.9rem;
-        }
-
-        /* Large Button */
-        .btn-lg {
-            padding: 1rem 2.5rem;
-            font-size: 1.2rem;
-        }
-
-        /* ==========================================================================
-           NAVIGATION (MISE À JOUR)
-           ========================================================================== */
+        /* ===== NAVBAR ===== */
         .navbar {
             position: fixed;
             top: 0;
             left: 0;
             width: 100%;
-            z-index: 100;
+            z-index: 1000;
             padding: 1rem 5%;
-            background: rgba(255, 255, 255, 0.95);
-            backdrop-filter: blur(15px); /* Flou plus fort */
-            transition: var(--transition);
+            background: rgba(26, 26, 26, 0.7);
+            backdrop-filter: blur(20px) saturate(180%);
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+            transition: all 0.3s ease;
         }
-        
+
+        .navbar.scrolled {
+            padding: 0.5rem 5%;
+            background: rgba(26, 26, 26, 0.9);
+            box-shadow: 0 10px 40px rgba(0, 0, 0, 0.3);
+        }
+
         .nav-container {
             display: flex;
             justify-content: space-between;
@@ -313,59 +191,61 @@
             margin: 0 auto;
         }
 
-        .navbar.scrolled {
-            padding: 0.6rem 5%; /* Navigation plus compacte en scroll */
-            box-shadow: 0 5px 30px rgba(0,0,0,0.1);
-        }
-
         .logo {
-            font-size: 2rem; /* Logo plus grand */
-            letter-spacing: -1px;
+            font-size: 2rem;
+            font-weight: 800;
             display: flex;
             align-items: center;
-            font-weight: 700;
-            color: var(--dark);
+            gap: 10px;
+            text-decoration: none;
         }
 
         .logo-img {
-            height: 45px; /* Image de logo plus grande */
-            margin-right: 8px;
+            height: 45px;
+            filter: drop-shadow(0 0 10px rgba(255, 193, 7, 0.3));
         }
 
-        .logo span {
-            color: var(--secondary); /* Le "Bénin" est en couleur Or */
+        .logo-text {
+            background: var(--gradient-gold);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
         }
-        
+
         .nav-menu {
             display: flex;
-            gap: 2rem;
-            margin: 0;
+            gap: 2.5rem;
+            list-style: none;
         }
 
         .nav-link {
-            font-weight: 500;
-            color: var(--dark);
-            padding: 0.6rem 0;
+            color: var(--light);
+            font-weight: 600;
             position: relative;
+            padding: 0.5rem 0;
+            transition: all 0.3s ease;
+            text-decoration: none;
         }
 
-        .nav-link::after {
+        .nav-link::before {
             content: '';
             position: absolute;
             bottom: 0;
-            left: 0;
+            left: 50%;
             width: 0;
-            height: 3px;
-            background: var(--accent); /* Soulignement en couleur accent */
+            height: 2px;
+            background: var(--gradient-accent);
+            transform: translateX(-50%);
             transition: width 0.3s ease;
         }
 
-        .nav-link:hover::after {
-            width: 100%;
-        }
-        
         .nav-link:hover {
-            color: var(--accent);
+            color: var(--secondary);
+            transform: translateY(-2px);
+        }
+
+        .nav-link:hover::before {
+            width: 100%;
         }
 
         .nav-actions {
@@ -373,69 +253,145 @@
             align-items: center;
             gap: 1rem;
         }
-        
+
+        .btn {
+            padding: 0.8rem 2rem;
+            border-radius: 50px;
+            font-weight: 700;
+            transition: all 0.3s ease;
+            border: none;
+            cursor: pointer;
+            position: relative;
+            overflow: hidden;
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            text-decoration: none;
+        }
+
+        .btn::before {
+            content: '';
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            width: 0;
+            height: 0;
+            border-radius: 50%;
+            background: rgba(255, 255, 255, 0.2);
+            transform: translate(-50%, -50%);
+            transition: width 0.6s, height 0.6s;
+        }
+
+        .btn:hover::before {
+            width: 300px;
+            height: 300px;
+        }
+
+        .btn span, .btn i {
+            position: relative;
+            z-index: 1;
+        }
+
+        .btn-primary {
+            background: var(--gradient-primary);
+            color: white;
+            box-shadow: 0 10px 30px rgba(0, 137, 123, 0.4);
+        }
+
+        .btn-primary:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 15px 40px rgba(0, 137, 123, 0.6);
+        }
+
+        .btn-secondary {
+            background: var(--gradient-gold);
+            color: var(--dark);
+            box-shadow: 0 10px 30px rgba(255, 193, 7, 0.4);
+        }
+
+        .btn-secondary:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 15px 40px rgba(255, 193, 7, 0.6);
+        }
+
+        .btn-sm {
+            padding: 0.6rem 1.5rem;
+            font-size: 0.9rem;
+        }
+
+        .btn-lg {
+            padding: 1.2rem 3rem;
+            font-size: 1.2rem;
+        }
+
         /* User Menu */
         .user-menu {
             position: relative;
         }
-        
+
         .user-trigger {
             display: flex;
             align-items: center;
             padding: 0.5rem 1rem 0.5rem 0.5rem;
-            border-radius: var(--radius-round);
-            background: var(--light-gray);
-            transition: var(--transition);
+            border-radius: 50px;
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(10px);
+            transition: all 0.3s ease;
             cursor: pointer;
+            border: 1px solid rgba(255, 255, 255, 0.1);
         }
-        
+
         .user-trigger:hover {
-            background: var(--white);
-            box-shadow: 0 0 0 2px var(--primary-light);
+            background: rgba(255, 255, 255, 0.15);
+            border-color: var(--primary-light);
+            box-shadow: 0 0 20px rgba(0, 137, 123, 0.3);
         }
 
         .user-avatar {
             width: 35px;
             height: 35px;
             border-radius: 50%;
-            background: linear-gradient(135deg, var(--accent), var(--secondary)); /* Dégradé de l'avatar plus chaud */
+            background: var(--gradient-gold);
             display: flex;
             align-items: center;
             justify-content: center;
-            color: var(--white);
+            color: var(--dark);
             font-size: 1.2rem;
             overflow: hidden;
             margin-right: 8px;
+            border: 2px solid rgba(255, 193, 7, 0.3);
         }
-        
+
         .user-avatar img {
             width: 100%;
             height: 100%;
             object-fit: cover;
         }
-        
+
         .user-name {
             font-weight: 600;
-            color: var(--dark);
+            color: white;
         }
 
         .user-dropdown {
             position: absolute;
             top: 100%;
             right: 0;
-            min-width: 200px;
-            background: var(--white);
-            border-radius: var(--radius-sm);
-            box-shadow: var(--shadow);
+            min-width: 220px;
+            background: rgba(26, 26, 26, 0.95);
+            backdrop-filter: blur(20px);
+            border-radius: 15px;
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.5);
             padding: 0.5rem 0;
             margin-top: 10px;
             opacity: 0;
             visibility: hidden;
             transform: translateY(-10px);
-            transition: var(--transition);
+            transition: all 0.3s ease;
             z-index: 90;
+            border: 1px solid rgba(255, 255, 255, 0.1);
         }
-        
+
         .user-trigger:focus + .user-dropdown,
         .user-menu:hover .user-dropdown {
             opacity: 1;
@@ -446,29 +402,34 @@
         .dropdown-item {
             display: flex;
             align-items: center;
-            padding: 0.75rem 1rem;
-            color: var(--dark);
-            transition: background-color 0.2s;
+            padding: 0.85rem 1.2rem;
+            color: var(--light);
+            transition: all 0.2s;
             width: 100%;
             text-align: left;
+            background: none;
+            border: none;
+            cursor: pointer;
+            text-decoration: none;
         }
 
         .dropdown-item:hover {
-            background-color: var(--light-gray);
-            color: var(--primary);
+            background: rgba(0, 137, 123, 0.2);
+            color: var(--secondary);
         }
 
         .dropdown-item i {
-            margin-right: 10px;
+            margin-right: 12px;
             width: 18px;
+            color: var(--secondary);
         }
 
         .dropdown-divider {
             height: 1px;
-            background-color: var(--light-gray);
+            background: rgba(255, 255, 255, 0.1);
             margin: 0.5rem 0;
         }
-        
+
         /* Mobile Menu */
         .mobile-menu-btn {
             display: none;
@@ -478,17 +439,20 @@
             flex-direction: column;
             justify-content: space-between;
             z-index: 101;
+            cursor: pointer;
+            background: none;
+            border: none;
         }
-        
+
         .mobile-menu-btn span {
             display: block;
             height: 3px;
             width: 100%;
-            background: var(--dark);
+            background: var(--light);
             border-radius: 3px;
             transition: all 0.3s ease;
         }
-        
+
         .mobile-menu-btn.active span:nth-child(1) {
             transform: translateY(8.5px) rotate(45deg);
         }
@@ -499,15 +463,16 @@
             transform: translateY(-8.5px) rotate(-45deg);
         }
 
-        /* ==========================================================================
-           HERO SECTION (MISE À JOUR MAJEURE)
-           ========================================================================== */
+        /* ===== HERO SECTION ===== */
         .hero {
-            height: 90vh; /* Hauteur relative au viewport */
-            min-height: 650px;
-            background: var(--primary);
             position: relative;
+            height: 100vh;
+            min-height: 650px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
             overflow: hidden;
+            z-index: 10;
         }
 
         .hero-slider {
@@ -516,6 +481,7 @@
             left: 0;
             width: 100%;
             height: 100%;
+            z-index: 1;
         }
 
         .hero-slide {
@@ -527,10 +493,10 @@
             background-size: cover;
             background-position: center;
             opacity: 0;
-            transform: scale(1.1); /* Zoom léger pour l'effet */
-            transition: opacity 1.5s ease, transform 6s ease-out; /* Transition plus douce et lente pour l'image */
+            transform: scale(1.1);
+            transition: opacity 2s ease, transform 8s ease-out;
         }
-        
+
         .hero-slide.active {
             opacity: 1;
             transform: scale(1);
@@ -543,510 +509,468 @@
             left: 0;
             width: 100%;
             height: 100%;
-            /* Dégradé sur l'image plus dramatique */
-            background: linear-gradient(45deg, 
-                rgba(0, 77, 64, 0.9), 
-                rgba(230, 81, 0, 0.5) /* Accent Terre Cuite pour le contraste */
+            background: linear-gradient(135deg, 
+                rgba(0, 77, 64, 0.85) 0%, 
+                rgba(230, 81, 0, 0.75) 100%
             );
+        }
+
+        .particles {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            top: 0;
+            left: 0;
+            z-index: 5;
+            pointer-events: none;
+        }
+
+        .particle {
+            position: absolute;
+            width: 4px;
+            height: 4px;
+            background: rgba(255, 193, 7, 0.6);
+            border-radius: 50%;
+            animation: particleFloat 15s infinite ease-in-out;
+        }
+
+        @keyframes particleFloat {
+            0%, 100% {
+                transform: translate(0, 0) scale(1);
+                opacity: 0;
+            }
+            10% {
+                opacity: 1;
+            }
+            90% {
+                opacity: 1;
+            }
+            100% {
+                transform: translate(100px, -1000px) scale(0);
+                opacity: 0;
+            }
         }
 
         .hero-content {
             position: relative;
             z-index: 20;
-            height: 100%;
-            display: flex;
-            flex-direction: column;
-            justify-content: center;
-            align-items: center;
             text-align: center;
-            color: var(--white);
+            max-width: 900px;
             padding: 0 20px;
         }
 
         .hero-title {
-            font-size: 5rem; /* H1 encore plus grand et impactant */
+            font-size: 5.5rem;
+            font-weight: 900;
             margin-bottom: 2rem;
-            text-shadow: 4px 4px 25px rgba(0,0,0,0.8); /* Ombre plus forte */
-            line-height: 1;
-            letter-spacing: -2px;
-            color: var(--white);
+            background: linear-gradient(135deg, white, var(--secondary));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            animation: titleGlow 3s ease-in-out infinite;
+            line-height: 1.1;
+        }
+
+        @keyframes titleGlow {
+            0%, 100% {
+                filter: drop-shadow(0 0 20px rgba(255, 193, 7, 0.5));
+            }
+            50% {
+                filter: drop-shadow(0 0 40px rgba(255, 193, 7, 0.8));
+            }
         }
 
         .hero-subtitle {
-            font-size: 1.6rem !important; /* Sous-titre très visible */
+            font-size: 1.5rem;
+            color: rgba(255, 255, 255, 0.95);
             margin-bottom: 3rem;
             font-weight: 300;
-            color: var(--light);
-            text-shadow: 2px 2px 10px rgba(0,0,0,0.4);
-            max-width: 800px;
+            text-shadow: 0 2px 20px rgba(0, 0, 0, 0.5);
+            line-height: 1.6;
         }
-        
+
         .hero-actions {
             display: flex;
-            gap: 1.5rem;
+            gap: 2rem;
             justify-content: center;
         }
 
-        /* Bouton principal du Hero utilise le style Secondary (Or) */
-        .hero-actions .btn-secondary {
-            padding: 1rem 3rem;
-            font-size: 1.2rem;
-        }
-
-        /* ==========================================================================
-           SECTION BACKGROUNDS (MISE À JOUR)
-           ========================================================================== */
-        #gastronomie {
-            background: linear-gradient(135deg, var(--light) 0%, #FFF8E1 100%); /* Base claire + Jaune Miel */
-        }
-
-        #contes {
-            background: linear-gradient(135deg, #FBEFEF 0%, #EFEBE9 100%); /* Rose Clair + Beige Terre */
-        }
-
-        #regions {
-            background: linear-gradient(135deg, #F1F8E9 0%, #E0F2F1 100%); /* Vert Menthe + Bleu Clair */
-        }
-
-        /* ==========================================================================
-           CAROUSEL STYLES - CORRIGÉ POUR LE CENTRAGE
-           ========================================================================== */
-        .carousel-container {
+        /* ===== SECTION STYLES ===== */
+        .section {
             position: relative;
-            width: 100%;
-            overflow: hidden;
-            border-radius: var(--radius-xl);
-            background: var(--white);
-            box-shadow: var(--shadow-hover);
-            padding: 2rem 0;
+            z-index: 10;
+            padding: 8rem 0;
+            background: transparent;
         }
 
-        .carousel-inner-container {
-            position: relative;
-            width: 100%;
-            max-width: 1200px;
+        .container {
+            max-width: 1400px;
             margin: 0 auto;
-            padding: 0 70px; /* Espace pour les flèches de navigation */
+            padding: 0 20px;
         }
 
-        .carousel-wrapper {
-            display: flex;
-            transition: transform 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+        .section-header {
+            text-align: center;
+            margin-bottom: 5rem;
         }
 
-        .carousel-slide {
-            flex: 0 0 100%;
-            min-width: 0; /* Important pour le flexbox */
-            padding: 0 15px; /* Garder ce padding pour l'espace entre les cartes */
-            transition: opacity 0.3s ease;
-            opacity: 0.3;
-            display: flex;
-            justify-content: center; /* Centrer horizontalement */
-            align-items: center; /* Centrer verticalement */
+        .section-title {
+            font-size: 4rem;
+            font-weight: 900;
+            background: var(--gradient-gold);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            margin-bottom: 1.5rem;
+            position: relative;
+            display: inline-block;
         }
 
-        .carousel-slide.active {
+        .section-title::after {
+            content: '';
+            position: absolute;
+            bottom: -15px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 150px;
+            height: 4px;
+            background: var(--gradient-accent);
+            border-radius: 2px;
+            box-shadow: 0 0 20px rgba(230, 81, 0, 0.5);
+        }
+
+        .section-subtitle {
+            font-size: 1.3rem;
+            color: rgba(255, 255, 255, 0.7);
+            max-width: 700px;
+            margin: 2rem auto 0;
+            line-height: 1.7;
+        }
+
+        /* ===== CARD STYLES ===== */
+        .cards-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+            gap: 3rem;
+            margin-top: 4rem;
+        }
+
+        .card {
+            background: rgba(255, 255, 255, 0.05);
+            backdrop-filter: blur(20px);
+            border-radius: 30px;
+            overflow: hidden;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+            position: relative;
+        }
+
+        /* Carte Gastronomie - Nuances orangées/dorées */
+        .card-gastronomie {
+            background: linear-gradient(135deg, 
+                rgba(255, 193, 7, 0.08) 0%, 
+                rgba(230, 81, 0, 0.12) 100%
+            );
+            border: 1px solid rgba(255, 193, 7, 0.2);
+        }
+
+        .card-gastronomie::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(135deg, 
+                rgba(255, 193, 7, 0.15) 0%, 
+                rgba(230, 81, 0, 0.2) 100%
+            );
+            opacity: 0;
+            transition: opacity 0.4s ease;
+        }
+
+        .card-gastronomie:hover {
+            transform: translateY(-15px) scale(1.02);
+            box-shadow: 0 30px 60px rgba(255, 193, 7, 0.3);
+            border-color: rgba(255, 193, 7, 0.5);
+        }
+
+        .card-gastronomie:hover::before {
             opacity: 1;
         }
 
-        .carousel-card {
-            background: var(--white);
-            border-radius: var(--radius-lg);
-            box-shadow: var(--shadow-card);
-            overflow: hidden;
-            transition: var(--transition);
+        /* Carte Contes - Nuances violettes/bleutées */
+        .card-conte {
+            background: linear-gradient(135deg, 
+                rgba(103, 58, 183, 0.08) 0%, 
+                rgba(0, 137, 123, 0.12) 100%
+            );
+            border: 1px solid rgba(103, 58, 183, 0.2);
+        }
+
+        .card-conte::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
             height: 100%;
-            min-height: 550px;
-            display: flex;
-            flex-direction: column;
-            max-width: 850px; /* Largeur max pour les cartes */
-            width: 100%; /* Prendre toute la largeur disponible jusqu'à max-width */
-            margin: 0 auto; /* Centrer la carte */
+            background: linear-gradient(135deg, 
+                rgba(103, 58, 183, 0.15) 0%, 
+                rgba(0, 137, 123, 0.2) 100%
+            );
+            opacity: 0;
+            transition: opacity 0.4s ease;
         }
 
-        .carousel-card:hover {
-            transform: translateY(-5px);
-            box-shadow: var(--shadow-hover);
+        .card-conte:hover {
+            transform: translateY(-15px) scale(1.02);
+            box-shadow: 0 30px 60px rgba(103, 58, 183, 0.3);
+            border-color: rgba(103, 58, 183, 0.5);
         }
 
-        .carousel-media {
-            height: 300px;
+        .card-conte:hover::before {
+            opacity: 1;
+        }
+
+        .card-media {
             position: relative;
+            height: 300px;
             overflow: hidden;
+            background: rgba(0, 0, 0, 0.3);
         }
 
-        .carousel-media img,
-        .carousel-media video {
+        .card-media img,
+        .card-media video {
             width: 100%;
             height: 100%;
             object-fit: cover;
-            transition: transform 0.5s ease;
+            transition: transform 0.6s ease;
         }
 
-        .carousel-card:hover .carousel-media img,
-        .carousel-card:hover .carousel-media video {
-            transform: scale(1.05);
+        .card:hover .card-media img,
+        .card:hover .card-media video {
+            transform: scale(1.15) rotate(2deg);
         }
 
-        .carousel-tag {
-            position: absolute;
-            top: 15px;
-            right: 15px;
-            background: var(--accent);
-            color: var(--white);
-            padding: 0.5rem 1.2rem;
-            border-radius: var(--radius-round);
-            font-size: 0.9rem;
-            font-weight: 600;
-            z-index: 10;
-            box-shadow: 0 4px 15px rgba(230, 81, 0, 0.4);
-        }
-
-        .carousel-content {
-            padding: 2rem;
-            flex-grow: 1;
+        .media-loading {
+            width: 100%;
+            height: 100%;
             display: flex;
-            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            font-size: 4rem;
+            color: var(--secondary);
+            background: rgba(0, 0, 0, 0.3);
         }
 
-        .carousel-title {
-            font-size: 1.8rem;
+        .card-tag {
+            position: absolute;
+            top: 20px;
+            right: 20px;
+            background: var(--gradient-accent);
+            color: white;
+            padding: 0.6rem 1.5rem;
+            border-radius: 50px;
+            font-weight: 700;
+            font-size: 0.9rem;
+            box-shadow: 0 10px 30px rgba(230, 81, 0, 0.5);
+            z-index: 10;
+        }
+
+        .card-content {
+            padding: 2.5rem;
+            position: relative;
+        }
+
+        .card-title {
+            font-size: 2rem;
+            font-weight: 800;
+            color: white;
             margin-bottom: 1rem;
+            background: linear-gradient(135deg, white, var(--secondary));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
             line-height: 1.3;
-            color: var(--primary);
         }
 
-        .carousel-text {
+        .card-text {
+            color: rgba(255, 255, 255, 0.7);
+            line-height: 1.8;
+            margin-bottom: 2rem;
             font-size: 1.05rem;
-            color: var(--gray);
-            line-height: 1.6;
-            margin-bottom: 1.5rem;
-            flex-grow: 1;
         }
 
-        .carousel-meta {
+        .card-footer {
             display: flex;
             justify-content: space-between;
             align-items: center;
             padding-top: 1.5rem;
-            border-top: 1px solid var(--light-gray);
-            margin-top: auto;
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
         }
 
-        .carousel-author {
+        .card-author {
             display: flex;
             align-items: center;
-            font-size: 0.95rem;
-            color: var(--gray);
+            gap: 0.5rem;
+            color: rgba(255, 255, 255, 0.6);
         }
 
-        .carousel-author i {
-            margin-right: 8px;
-            color: var(--primary-light);
+        .card-author i {
+            color: var(--secondary);
         }
 
-        /* Carousel Navigation */
-        .carousel-nav {
-            position: absolute;
-            top: 50%;
-            transform: translateY(-50%);
-            width: 50px;
-            height: 50px;
-            background: var(--white);
-            border-radius: 50%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            cursor: pointer;
-            z-index: 20;
-            box-shadow: var(--shadow);
-            transition: var(--transition);
-            border: 2px solid var(--primary-light);
-        }
-
-        .carousel-nav:hover {
-            background: var(--primary);
-            color: var(--white);
-            transform: translateY(-50%) scale(1.1);
-            box-shadow: var(--shadow-hover);
-        }
-
-        .carousel-nav.prev {
-            left: 20px; /* Ajuster pour être à l'intérieur du conteneur */
-        }
-
-        .carousel-nav.next {
-            right: 20px; /* Ajuster pour être à l'intérieur du conteneur */
-        }
-
-        .carousel-nav.disabled {
-            opacity: 0.3;
-            cursor: not-allowed;
-            pointer-events: none;
-        }
-
-        .carousel-nav.disabled:hover {
-            background: var(--white);
-            color: var(--gray);
-            transform: translateY(-50%);
-        }
-
-        /* Carousel Indicators */
-        .carousel-indicators {
-            display: flex;
-            justify-content: center;
-            gap: 10px;
-            margin-top: 2rem;
-            padding: 1rem 0;
-        }
-
-        .carousel-indicator {
-            width: 12px;
-            height: 12px;
-            border-radius: 50%;
-            background: var(--light-gray);
-            cursor: pointer;
-            transition: var(--transition);
-            border: 2px solid transparent;
-        }
-
-        .carousel-indicator.active {
-            background: var(--accent);
-            transform: scale(1.2);
-            border-color: var(--secondary);
-        }
-
-        .carousel-indicator:hover {
-            background: var(--primary-light);
-            transform: scale(1.1);
-        }
-
-        /* Carousel Controls Info */
-        .carousel-controls-info {
-            text-align: center;
-            margin-top: 1rem;
-            color: var(--gray);
-            font-size: 0.9rem;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            gap: 10px;
-        }
-
-        .carousel-controls-info i {
-            color: var(--accent);
-            font-size: 1.2rem;
-        }
-
-        /* Keyboard Navigation Highlight */
-        .keyboard-nav-hint {
-            display: inline-flex;
-            align-items: center;
-            gap: 5px;
-            background: var(--light-gray);
-            padding: 0.3rem 0.8rem;
-            border-radius: var(--radius-sm);
-            font-family: monospace;
-            font-weight: bold;
-            color: var(--dark);
-            border: 1px solid var(--primary-light);
-        }
-
-        /* ==========================================================================
-           PRICE BADGE (MISE À JOUR)
-           ========================================================================== */
         .price-badge {
             display: inline-flex;
             align-items: center;
-            gap: 5px;
-            padding: 0.5rem 1rem;
-            border-radius: var(--radius-round);
-            background: linear-gradient(135deg, var(--accent), #f44336); /* Badge plus urgent en Orange Brûlé */
-            color: var(--white);
-            font-weight: 700;
-            font-size: 0.9rem;
-            box-shadow: 0 4px 15px rgba(230, 81, 0, 0.4);
-            margin-left: 10px;
-            animation: shine 3s infinite linear;
-            background-size: 200% 100%;
-        }
-
-        @keyframes shine {
-            0% { background-position: 200% 0; }
-            100% { background-position: -200% 0; }
-        }
-
-        /* ==========================================================================
-           LANGUAGES SECTION (MISE À JOUR)
-           ========================================================================== */
-        .region-tabs {
-            display: flex;
-            justify-content: center;
-            gap: 1.5rem;
-            margin-bottom: 3rem;
-            flex-wrap: wrap;
-        }
-
-        .tab-btn {
-            padding: 0.7rem 1.8rem;
-            border-radius: var(--radius-round);
-            font-weight: 600;
-            font-size: 1rem;
-            border: 2px solid var(--accent); /* Bordure en accent */
-            color: var(--accent);
-            transition: var(--transition);
-        }
-
-        .tab-btn.active,
-        .tab-btn:hover {
-            background: var(--accent);
-            color: var(--white);
-        }
-
-        .languages-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-            gap: 2rem;
-            text-align: center;
-        }
-
-        .language-card {
-            background: var(--white);
-            padding: 2rem;
-            border-radius: var(--radius-lg);
-            box-shadow: var(--shadow-card);
-            transition: var(--transition-slow);
-            border: 2px solid transparent;
-        }
-
-        .language-card:hover {
-            transform: translateY(-5px);
-            border-color: var(--primary-light);
-            box-shadow: var(--shadow-hover);
-        }
-
-        .language-icon {
-            color: var(--primary-light); /* Icône en Vert clair */
-            font-size: 3rem;
-            margin-bottom: 0.5rem;
-        }
-        
-        .language-name {
-            font-size: 1.8rem;
+            gap: 0.5rem;
+            padding: 0.6rem 1.2rem;
+            background: var(--gradient-gold);
             color: var(--dark);
-            margin-bottom: 0.25rem;
+            border-radius: 50px;
+            font-weight: 800;
+            box-shadow: 0 5px 20px rgba(255, 193, 7, 0.4);
+            margin-left: 10px;
         }
 
-        .language-region {
-            font-size: 1rem;
-            color: var(--gray);
+        /* ===== EMPTY STATE ===== */
+        .empty-state {
+            text-align: center;
+            padding: 6rem 2rem;
+            background: rgba(255, 255, 255, 0.03);
+            border-radius: 30px;
+            border: 2px dashed rgba(255, 255, 255, 0.1);
+            grid-column: 1 / -1;
         }
 
-        /* ==========================================================================
-           RESPONSIVE DESIGN
-           ========================================================================== */
-        @media (max-width: 1024px) {
-            .nav-menu {
-                gap: 1.5rem;
-            }
-            h1 { font-size: 3.5rem; }
-            .hero-title { font-size: 4rem; }
-            .section { padding: 5rem 0; }
-            .carousel-media { height: 250px; }
-            .carousel-content { padding: 1.5rem; }
-            .carousel-inner-container {
-                padding: 0 60px;
-            }
+        .empty-icon {
+            font-size: 5rem;
+            color: var(--secondary);
+            margin-bottom: 2rem;
+            opacity: 0.3;
         }
 
+        .empty-title {
+            font-size: 2rem;
+            color: white;
+            margin-bottom: 1rem;
+        }
+
+        .empty-text {
+            color: rgba(255, 255, 255, 0.6);
+            max-width: 500px;
+            margin: 0 auto 2rem;
+        }
+
+        /* ===== SCROLL ANIMATIONS ===== */
+        .fade-in {
+            opacity: 0;
+            transform: translateY(30px);
+            transition: all 0.8s ease;
+        }
+
+        .fade-in.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        /* ===== MOBILE RESPONSIVE ===== */
         @media (max-width: 768px) {
+            .hero-title {
+                font-size: 3rem;
+            }
+
+            .hero-subtitle {
+                font-size: 1.2rem;
+            }
+
+            .section-title {
+                font-size: 2.5rem;
+            }
+
+            .section {
+                padding: 5rem 0;
+            }
+
+            .cards-grid {
+                grid-template-columns: 1fr;
+                gap: 2rem;
+            }
+
             .nav-menu {
                 position: fixed;
                 top: 80px;
                 left: 0;
                 width: 100%;
                 flex-direction: column;
-                background: rgba(255, 255, 255, 0.98);
+                background: rgba(26, 26, 26, 0.98);
+                backdrop-filter: blur(20px);
                 padding: 1rem 5%;
                 gap: 0;
                 transform: translateX(-100%);
                 transition: transform 0.4s ease-in-out;
-                box-shadow: 0 10px 20px rgba(0, 0, 0, 0.05);
+                box-shadow: 0 10px 20px rgba(0, 0, 0, 0.3);
                 z-index: 99;
                 max-height: calc(100vh - 80px);
                 overflow-y: auto;
             }
+
             .nav-menu.active {
                 transform: translateX(0);
             }
+
             .nav-item {
-                border-bottom: 1px solid var(--light-gray);
+                border-bottom: 1px solid rgba(255, 255, 255, 0.1);
             }
+
             .nav-link {
                 display: block;
                 padding: 1rem 0;
                 width: 100%;
             }
+
             .mobile-menu-btn {
                 display: flex;
             }
-            
-            .hero-title { font-size: 3rem; }
-            .section-title { font-size: 2.5rem; }
-            .section-subtitle { font-size: 1.1rem !important; }
-            .carousel-container { padding: 1rem 0; }
-            .carousel-inner-container { padding: 0 50px; }
-            .carousel-nav {
-                width: 40px;
-                height: 40px;
+
+            .hero-actions {
+                flex-direction: column;
+                width: 100%;
+                max-width: 300px;
             }
-            .carousel-nav.prev {
-                left: 10px;
+
+            .card-media {
+                height: 220px;
             }
-            .carousel-nav.next {
-                right: 10px;
-            }
-            .carousel-media { height: 220px; }
-            .carousel-title { font-size: 1.5rem; }
-            .hero { height: auto; min-height: 400px; padding: 4rem 0; }
-            .tab-btn { padding: 0.5rem 1rem; font-size: 0.9rem; }
-            .languages-grid { grid-template-columns: 1fr; max-width: 400px; margin: 0 auto; }
         }
 
         @media (max-width: 576px) {
-            h1 { font-size: 2.8rem; }
-            h2 { font-size: 2.2rem; }
-            .hero-title { font-size: 2.5rem; }
-            .hero-subtitle { font-size: 1.2rem !important; }
-            .section { padding: 3rem 0; }
-            .btn-lg { padding: 0.8rem 1.8rem; font-size: 1rem; }
-            .hero-actions { flex-direction: column; max-width: 300px; }
-            .carousel-inner-container { padding: 0 40px; }
-            .carousel-media { height: 200px; }
-            .carousel-nav {
-                width: 35px;
-                height: 35px;
-                font-size: 0.9rem;
+            .hero-title {
+                font-size: 2.5rem;
             }
-            .carousel-content { padding: 1.2rem; }
-            .carousel-title { font-size: 1.3rem; }
-            .carousel-slide {
-                padding: 0 10px;
-            }
-        }
 
-        @media (max-width: 400px) {
-            .carousel-inner-container { padding: 0 35px; }
-            .carousel-nav {
-                width: 30px;
-                height: 30px;
-                font-size: 0.8rem;
+            .section-title {
+                font-size: 2rem;
+            }
+
+            .card-content {
+                padding: 1.5rem;
+            }
+
+            .card-title {
+                font-size: 1.5rem;
+            }
+
+            .btn-lg {
+                padding: 1rem 2rem;
+                font-size: 1rem;
             }
         }
     </style>
 </head>
 <body>
-
+    <!-- Alerts Laravel -->
     @if(session('success'))
         <div class="alert alert-success" id="success-alert">
             <i class="fas fa-check-circle"></i>
@@ -1061,13 +985,23 @@
         </div>
     @endif
 
+    <!-- Animated Background -->
+    <div class="animated-bg">
+        <div class="floating-shapes">
+            <div class="shape"></div>
+            <div class="shape"></div>
+            <div class="shape"></div>
+        </div>
+    </div>
+
+    <!-- Navbar -->
     <nav class="navbar" id="navbar">
         <div class="nav-container">
             <a href="{{ route('front.accueil') }}" class="logo">
                 <img src="{{ URL::asset('adminlte/img/logoculture__2_-removebg-preview.png') }}" 
                      alt="BéninCulture Logo" 
                      class="logo-img">
-                Culture<span>Bénin</span>
+                <span class="logo-text">CultureBénin</span>
             </a>
 
             <ul class="nav-menu" id="navMenu">
@@ -1076,9 +1010,6 @@
                 </li>
                 <li class="nav-item">
                     <a href="#contes" class="nav-link">Contes & Légendes</a>
-                </li>
-                <li class="nav-item">
-                    <a href="#regions" class="nav-link">Régions</a>
                 </li>
             </ul>
 
@@ -1115,9 +1046,9 @@
                                 <span>Mon profil</span>
                             </a>
                             <div class="dropdown-divider"></div>
-                            <form method="POST" action="{{ route('logout') }}" class="w-100">
+                            <form method="POST" action="{{ route('logout') }}" style="width: 100%;">
                                 @csrf
-                                <button type="submit" class="dropdown-item w-100">
+                                <button type="submit" class="dropdown-item">
                                     <i class="bi bi-box-arrow-right"></i>
                                     <span>Déconnexion</span>
                                 </button>
@@ -1140,6 +1071,7 @@
         </div>
     </nav>
 
+    <!-- Hero Section -->
     <section class="hero">
         <div class="hero-slider">
             @php
@@ -1162,9 +1094,11 @@
                      style="background-image: url('{{ $slide }}')"></div>
             @endforeach
         </div>
-        
-        <div class="hero-content">
-            <h1 class="hero-title">La culture du Bénin</h1>
+
+        <div class="particles" id="particles"></div>
+
+        <div class="hero-content fade-in visible">
+            <h1 class="hero-title">La Culture du Bénin</h1>
             <p class="hero-subtitle">
                 Plongez au cœur du berceau du Vaudou, découvrez une gastronomie riche 
                 et vibrez au rythme de nos traditions ancestrales.
@@ -1181,343 +1115,236 @@
         </div>
     </section>
 
+    <!-- Gastronomie Section -->
     <section id="gastronomie" class="section">
         <div class="container">
-            <div class="section-header">
+            <div class="section-header fade-in">
                 <h2 class="section-title">Saveurs & Culture</h2>
                 <p class="section-subtitle">
-                    Naviguez  les recettes traditionnelles
+                    Découvrez les recettes traditionnelles qui racontent l'histoire de notre peuple
                 </p>
             </div>
 
-            <!-- Carousel pour la gastronomie -->
-            <div class="carousel-container" id="gastronomieCarousel">
-                <div class="carousel-inner-container">
-                    <div class="carousel-wrapper">
-                        @forelse($gastronomie_contenus as $index => $contenu)
-                            <div class="carousel-slide {{ $index === 0 ? 'active' : '' }}" data-index="{{ $index }}">
-                                <div class="carousel-card">
-                                    <div class="carousel-media">
-                                        @php
-                                            $mediaUrl = null;
-                                            $isVideo = false;
-                                            
-                                            if ($contenu->media && $contenu->media->isNotEmpty()) {
-                                                $media = $contenu->media->first();
-                                                $chemin = $media->chemin;
-                                                
-                                                $mediaUrl = asset('storage/' . $chemin);
-                                                
-                                                $extension = strtolower(pathinfo($chemin, PATHINFO_EXTENSION));
-                                                $isVideo = in_array($extension, ['mp4', 'mov', 'avi', 'wmv', 'flv', 'webm', 'ogg']);
-                                            }
-                                        @endphp
-                                        
-                                        @if($mediaUrl && $isVideo)
-                                            <video class="media-video" muted loop playsinline preload="metadata">
-                                                <source src="{{ $mediaUrl }}" type="video/mp4">
-                                                Votre navigateur ne supporte pas la vidéo.
-                                            </video>
-                                        @elseif($mediaUrl)
-                                            <img src="{{ $mediaUrl }}" 
-                                                 alt="{{ $contenu->titre }}" 
-                                                 loading="lazy"
-                                                 onerror="handleImageError(this, '{{ $chemin ?? '' }}')">
-                                        @else
-                                            <div class="media-loading">
-                                                <i class="fas fa-utensils"></i>
-                                            </div>
-                                        @endif
-                                        
-                                        <span class="carousel-tag">
-                                            {{ $contenu->typeContenue->nom ?? 'Recette' }}
-                                        </span>
-                                    </div>
-                                    
-                                    <div class="carousel-content">
-                                        <h3 class="carousel-title">{{ $contenu->titre }}</h3>
-                                        <p class="carousel-text">
-                                            {{ Str::limit(strip_tags($contenu->texte), 200) }}
-                                        </p>
-                                        
-                                        <div class="carousel-meta">
-                                            <div class="carousel-author">
-                                                <i class="fas fa-user"></i>
-                                                <span>{{ $contenu->auteur->prenom ?? 'Auteur' }}</span>
-                                            </div>
-                                            
-                                            @auth
-                                                @php
-                                                    $hasPaid = false; // Logique à implémenter
-                                                    $price = 1000; // Prix en FCFA
-                                                @endphp
-                                                
-                                                @if($hasPaid)
-                                                    <a href="{{ route('front.show', $contenu->id) }}" 
-                                                       class="btn btn-primary btn-sm">
-                                                        <i class="fas fa-book-open"></i>
-                                                        <span>Lire la suite</span>
-                                                    </a>
-                                                @else
-                                                    <a href="{{ route('payment.form') }}?contenu_id={{ $contenu->id }}&type=gastronomie" 
-                                                       class="btn btn-primary btn-sm">
-                                                        <i class="fas fa-lock"></i>
-                                                        <span>Lire la suite</span>
-                                                        <span class="price-badge">
-                                                            <i class="fas fa-coins"></i>
-                                                            {{ number_format($price, 0, ',', ' ') }} FCFA
-                                                        </span>
-                                                    </a>
-                                                @endif
-                                            @else
-                                                <a href="{{ route('login') }}" 
-                                                   class="btn btn-primary btn-sm"
-                                                   onclick="return showLoginMessage()">
-                                                    <i class="fas fa-lock"></i>
-                                                    <span>Lire la suite</span>
-                                                    <span class="price-badge">
-                                                        <i class="fas fa-coins"></i>
-                                                        {{ number_format($price ?? 1000, 0, ',', ' ') }} FCFA
-                                                    </span>
-                                                </a>
-                                            @endauth
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        @empty
-                            <div class="empty-state" style="grid-column: 1 / -1;">
-                                <i class="fas fa-utensils empty-icon"></i>
-                                <h3 class="empty-title">Aucune recette disponible</h3>
-                                <p class="empty-text">Soyez le premier à partager une recette traditionnelle !</p>
+            <div class="cards-grid">
+                @forelse($gastronomie_contenus as $contenu)
+                    <div class="card card-gastronomie fade-in">
+                        <div class="card-media">
+                            @php
+                                $mediaUrl = null;
+                                $isVideo = false;
                                 
-                                @auth
-                                    <a href="{{ route('front.create') }}" class="btn btn-primary">
-                                        <i class="fas fa-plus"></i>
-                                        <span>Créer une recette</span>
-                                    </a>
-                                @endauth
-                            </div>
-                        @endforelse
-                    </div>
-                    
-                    <!-- Navigation flèches -->
-                    <button class="carousel-nav prev" onclick="prevSlide('gastronomieCarousel')" aria-label="Contenu précédent">
-                        <i class="fas fa-chevron-left"></i>
-                    </button>
-                    <button class="carousel-nav next" onclick="nextSlide('gastronomieCarousel')" aria-label="Contenu suivant">
-                        <i class="fas fa-chevron-right"></i>
-                    </button>
-                </div>
-                
-                <!-- Indicateurs -->
-                @if($gastronomie_contenus->isNotEmpty())
-                    <div class="carousel-indicators" id="gastronomieIndicators">
-                        @foreach($gastronomie_contenus as $index => $contenu)
-                            <div class="carousel-indicator {{ $index === 0 ? 'active' : '' }}" 
-                                 onclick="goToSlide('gastronomieCarousel', {{ $index }})"
-                                 aria-label="Aller au contenu {{ $index + 1 }}"></div>
-                        @endforeach
-                    </div>
-                @endif
-                
-                <!-- Info navigation clavier -->
-                <div class="carousel-controls-info">
-                    <i class="fas fa-keyboard"></i>
-                    <span>Utilisez les touches</span>
-                    <span class="keyboard-nav-hint">←</span>
-                    <span>et</span>
-                    <span class="keyboard-nav-hint">→</span>
-                    <span>pour naviguer</span>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <section id="contes" class="section">
-        <div class="container">
-            <div class="section-header">
-                <h2 class="section-title">Contes & Légendes</h2>
-                <p class="section-subtitle">
-                    Naviguez pour explorer les histoires et légendes
-                </p>
-            </div>
-
-            <!-- Carousel pour les contes -->
-            <div class="carousel-container" id="contesCarousel">
-                <div class="carousel-inner-container">
-                    <div class="carousel-wrapper">
-                        @forelse($contes_contenus as $index => $contenu)
-                            <div class="carousel-slide {{ $index === 0 ? 'active' : '' }}" data-index="{{ $index }}">
-                                <div class="carousel-card">
-                                    <div class="carousel-media">
-                                        @php
-                                            $mediaUrl = null;
-                                            $isVideo = false;
-                                            
-                                            if ($contenu->media && $contenu->media->isNotEmpty()) {
-                                                $media = $contenu->media->first();
-                                                $chemin = $media->chemin;
-                                                
-                                                $mediaUrl = asset('storage/' . $chemin);
-                                                
-                                                $extension = strtolower(pathinfo($chemin, PATHINFO_EXTENSION));
-                                                $isVideo = in_array($extension, ['mp4', 'mov', 'avi', 'wmv', 'flv', 'webm', 'ogg']);
-                                            }
-                                        @endphp
-                                        
-                                        @if($mediaUrl && $isVideo)
-                                            <video class="media-video" muted loop playsinline preload="metadata">
-                                                <source src="{{ $mediaUrl }}" type="video/mp4">
-                                                Votre navigateur ne supporte pas la vidéo.
-                                            </video>
-                                        @elseif($mediaUrl)
-                                            <img src="{{ $mediaUrl }}" 
-                                                 alt="{{ $contenu->titre }}" 
-                                                 loading="lazy"
-                                                 onerror="handleImageError(this, '{{ $chemin ?? '' }}')">
-                                        @else
-                                            <div class="media-loading">
-                                                <i class="fas fa-book-open"></i>
-                                            </div>
-                                        @endif
-                                        
-                                        <span class="carousel-tag">
-                                            {{ $contenu->typeContenue->nom ?? 'Conte' }}
-                                        </span>
-                                    </div>
+                                if ($contenu->media && $contenu->media->isNotEmpty()) {
+                                    $media = $contenu->media->first();
+                                    $chemin = $media->chemin;
                                     
-                                    <div class="carousel-content">
-                                        <h3 class="carousel-title">{{ $contenu->titre }}</h3>
-                                        <p class="carousel-text">
-                                            {{ Str::limit(strip_tags($contenu->texte), 200) }}
-                                        </p>
-                                        
-                                        <div class="carousel-meta">
-                                            <div class="carousel-author">
-                                                <i class="fas fa-user"></i>
-                                                <span>{{ $contenu->auteur->prenom ?? 'Auteur' }}</span>
-                                            </div>
-                                            
-                                            @auth
-                                                @php
-                                                    $hasPaid = false; // Logique à implémenter
-                                                    $price = 500; // Prix en FCFA pour les contes
-                                                @endphp
-                                                
-                                                @if($hasPaid)
-                                                    <a href="{{ route('front.show', $contenu->id) }}" 
-                                                       class="btn btn-primary btn-sm">
-                                                        <i class="fas fa-book-open"></i>
-                                                        <span>Lire la suite</span>
-                                                    </a>
-                                                @else
-                                                    <a href="{{ route('payment.form') }}?contenu_id={{ $contenu->id }}&type=conte" 
-                                                       class="btn btn-primary btn-sm">
-                                                        <i class="fas fa-lock"></i>
-                                                        <span>Lire la suite</span>
-                                                        <span class="price-badge">
-                                                            <i class="fas fa-coins"></i>
-                                                            {{ number_format($price, 0, ',', ' ') }} FCFA
-                                                        </span>
-                                                    </a>
-                                                @endif
-                                            @else
-                                                <a href="{{ route('login') }}" 
-                                                   class="btn btn-primary btn-sm"
-                                                   onclick="return showLoginMessage()">
-                                                    <i class="fas fa-lock"></i>
-                                                    <span>Lire la suite</span>
-                                                    <span class="price-badge">
-                                                        <i class="fas fa-coins"></i>
-                                                        {{ number_format($price ?? 500, 0, ',', ' ') }} FCFA
-                                                    </span>
-                                                </a>
-                                            @endauth
-                                        </div>
-                                    </div>
+                                    $mediaUrl = asset('storage/' . $chemin);
+                                    
+                                    $extension = strtolower(pathinfo($chemin, PATHINFO_EXTENSION));
+                                    $isVideo = in_array($extension, ['mp4', 'mov', 'avi', 'wmv', 'flv', 'webm', 'ogg']);
+                                }
+                            @endphp
+                            
+                            @if($mediaUrl && $isVideo)
+                                <video class="media-video" muted loop playsinline preload="metadata">
+                                    <source src="{{ $mediaUrl }}" type="video/mp4">
+                                    Votre navigateur ne supporte pas la vidéo.
+                                </video>
+                            @elseif($mediaUrl)
+                                <img src="{{ $mediaUrl }}" 
+                                     alt="{{ $contenu->titre }}" 
+                                     loading="lazy"
+                                     onerror="this.parentElement.innerHTML='<div class=\'media-loading\'><i class=\'fas fa-utensils\'></i></div>'">
+                            @else
+                                <div class="media-loading">
+                                    <i class="fas fa-utensils"></i>
                                 </div>
-                            </div>
-                        @empty
-                            <div class="empty-state" style="grid-column: 1 / -1;">
-                                <i class="fas fa-book-open empty-icon"></i>
-                                <h3 class="empty-title">Aucun conte disponible</h3>
-                                <p class="empty-text">Partagez les légendes et histoires traditionnelles !</p>
-                                
-                                @auth
-                                    <a href="{{ route('front.create') }}" class="btn btn-primary">
-                                        <i class="fas fa-plus"></i>
-                                        <span>Créer un conte</span>
-                                    </a>
-                                @endauth
-                            </div>
-                        @endforelse
-                    </div>
-                    
-                    <!-- Navigation flèches -->
-                    <button class="carousel-nav prev" onclick="prevSlide('contesCarousel')" aria-label="Contenu précédent">
-                        <i class="fas fa-chevron-left"></i>
-                    </button>
-                    <button class="carousel-nav next" onclick="nextSlide('contesCarousel')" aria-label="Contenu suivant">
-                        <i class="fas fa-chevron-right"></i>
-                    </button>
-                </div>
-                
-                <!-- Indicateurs -->
-                @if($contes_contenus->isNotEmpty())
-                    <div class="carousel-indicators" id="contesIndicators">
-                        @foreach($contes_contenus as $index => $contenu)
-                            <div class="carousel-indicator {{ $index === 0 ? 'active' : '' }}" 
-                                 onclick="goToSlide('contesCarousel', {{ $index }})"
-                                 aria-label="Aller au contenu {{ $index + 1 }}"></div>
-                        @endforeach
-                    </div>
-                @endif
-                
-                <!-- Info navigation clavier -->
-                <div class="carousel-controls-info">
-                    <i class="fas fa-keyboard"></i>
-                    <span>Utilisez les touches</span>
-                    <span class="keyboard-nav-hint">←</span>
-                    <span>et</span>
-                    <span class="keyboard-nav-hint">→</span>
-                    <span>pour naviguer</span>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <section id="regions" class="section">
-        <div class="container">
-            <div class="section-header">
-                <h2 class="section-title">Régions & Langues</h2>
-                <p class="section-subtitle">
-                    Découvrez la mosaïque culturelle et linguistique qui fait la richesse du Bénin
-                </p>
-            </div>
-
-            <div class="region-tabs">
-                <button class="tab-btn active">Littoral & Sud</button>
-                <button class="tab-btn">Centre (Collines)</button>
-                <button class="tab-btn">Nord (Atacora/Borgou)</button>
-            </div>
-
-            <div class="languages-grid">
-                @forelse($langues as $langue)
-                    <div class="language-card">
-                        <div class="language-icon">
-                            <i class="fas fa-comments"></i>
+                            @endif
+                            
+                            <span class="card-tag">
+                                {{ $contenu->typeContenue->nom ?? 'Recette' }}
+                            </span>
                         </div>
-                        <h4 class="language-name">{{ $langue->nom }}</h4>
-                        <p class="language-region">
-                            {{ $langue->region->nom_region ?? 'Bénin' }}
-                        </p>
+                        
+                        <div class="card-content">
+                            <h3 class="card-title">{{ $contenu->titre }}</h3>
+                            <p class="card-text">
+                                {{ Str::limit(strip_tags($contenu->texte), 200) }}
+                            </p>
+                            
+                            <div class="card-footer">
+                                <div class="card-author">
+                                    <i class="fas fa-user"></i>
+                                    <span>{{ $contenu->auteur->prenom ?? 'Auteur' }}</span>
+                                </div>
+                                
+                                @auth
+                                    @php
+                                        $hasPaid = false; // Logique à implémenter
+                                        $price = 1000;
+                                    @endphp
+                                    
+                                    @if($hasPaid)
+                                        <a href="{{ route('front.show', $contenu->id) }}" 
+                                           class="btn btn-primary btn-sm">
+                                            <i class="fas fa-book-open"></i>
+                                            <span>Lire la suite</span>
+                                        </a>
+                                    @else
+                                        <a href="{{ route('payment.form') }}?contenu_id={{ $contenu->id }}&type=gastronomie" 
+                                           class="btn btn-primary btn-sm">
+                                            <i class="fas fa-lock"></i>
+                                            <span>Lire</span>
+                                            <span class="price-badge">
+                                                <i class="fas fa-coins"></i>
+                                                {{ number_format($price, 0, ',', ' ') }} FCFA
+                                            </span>
+                                        </a>
+                                    @endif
+                                @else
+                                    <a href="{{ route('login') }}" 
+                                       class="btn btn-primary btn-sm"
+                                       onclick="return showLoginMessage()">
+                                        <i class="fas fa-lock"></i>
+                                        <span>Lire</span>
+                                        <span class="price-badge">
+                                            <i class="fas fa-coins"></i>
+                                            1 000 FCFA
+                                        </span>
+                                    </a>
+                                @endauth
+                            </div>
+                        </div>
                     </div>
                 @empty
-                    <div class="empty-state" style="grid-column: 1 / -1;">
-                        <i class="fas fa-language empty-icon"></i>
-                        <h3 class="empty-title">Aucune langue répertoriée</h3>
-                        <p class="empty-text">Les informations linguistiques seront bientôt disponibles.</p>
+                    <div class="empty-state">
+                        <i class="fas fa-utensils empty-icon"></i>
+                        <h3 class="empty-title">Aucune recette disponible</h3>
+                        <p class="empty-text">Soyez le premier à partager une recette traditionnelle !</p>
+                        
+                        @auth
+                            <a href="{{ route('front.create') }}" class="btn btn-primary">
+                                <i class="fas fa-plus"></i>
+                                <span>Créer une recette</span>
+                            </a>
+                        @endauth
+                    </div>
+                @endforelse
+            </div>
+        </div>
+    </section>
+
+    <!-- Contes Section -->
+    <section id="contes" class="section">
+        <div class="container">
+            <div class="section-header fade-in">
+                <h2 class="section-title">Contes & Légendes</h2>
+                <p class="section-subtitle">
+                    Laissez-vous emporter par les histoires qui ont bercé des générations
+                </p>
+            </div>
+
+            <div class="cards-grid">
+                @forelse($contes_contenus as $contenu)
+                    <div class="card card-conte fade-in">
+                        <div class="card-media">
+                            @php
+                                $mediaUrl = null;
+                                $isVideo = false;
+                                
+                                if ($contenu->media && $contenu->media->isNotEmpty()) {
+                                    $media = $contenu->media->first();
+                                    $chemin = $media->chemin;
+                                    
+                                    $mediaUrl = asset('storage/' . $chemin);
+                                    
+                                    $extension = strtolower(pathinfo($chemin, PATHINFO_EXTENSION));
+                                    $isVideo = in_array($extension, ['mp4', 'mov', 'avi', 'wmv', 'flv', 'webm', 'ogg']);
+                                }
+                            @endphp
+                            
+                            @if($mediaUrl && $isVideo)
+                                <video class="media-video" muted loop playsinline preload="metadata">
+                                    <source src="{{ $mediaUrl }}" type="video/mp4">
+                                    Votre navigateur ne supporte pas la vidéo.
+                                </video>
+                            @elseif($mediaUrl)
+                                <img src="{{ $mediaUrl }}" 
+                                     alt="{{ $contenu->titre }}" 
+                                     loading="lazy"
+                                     onerror="this.parentElement.innerHTML='<div class=\'media-loading\'><i class=\'fas fa-book-open\'></i></div>'">
+                            @else
+                                <div class="media-loading">
+                                    <i class="fas fa-book-open"></i>
+                                </div>
+                            @endif
+                            
+                            <span class="card-tag">
+                                {{ $contenu->typeContenue->nom ?? 'Conte' }}
+                            </span>
+                        </div>
+                        
+                        <div class="card-content">
+                            <h3 class="card-title">{{ $contenu->titre }}</h3>
+                            <p class="card-text">
+                                {{ Str::limit(strip_tags($contenu->texte), 200) }}
+                            </p>
+                            
+                            <div class="card-footer">
+                                <div class="card-author">
+                                    <i class="fas fa-user"></i>
+                                    <span>{{ $contenu->auteur->prenom ?? 'Auteur' }}</span>
+                                </div>
+                                
+                                @auth
+                                    @php
+                                        $hasPaid = false;
+                                        $price = 500;
+                                    @endphp
+                                    
+                                    @if($hasPaid)
+                                        <a href="{{ route('front.show', $contenu->id) }}" 
+                                           class="btn btn-primary btn-sm">
+                                            <i class="fas fa-book-open"></i>
+                                            <span>Lire la suite</span>
+                                        </a>
+                                    @else
+                                        <a href="{{ route('payment.form') }}?contenu_id={{ $contenu->id }}&type=conte" 
+                                           class="btn btn-primary btn-sm">
+                                            <i class="fas fa-lock"></i>
+                                            <span>Lire</span>
+                                            <span class="price-badge">
+                                                <i class="fas fa-coins"></i>
+                                                {{ number_format($price, 0, ',', ' ') }} FCFA
+                                            </span>
+                                        </a>
+                                    @endif
+                                @else
+                                    <a href="{{ route('login') }}" 
+                                       class="btn btn-primary btn-sm"
+                                       onclick="return showLoginMessage()">
+                                        <i class="fas fa-lock"></i>
+                                        <span>Lire</span>
+                                        <span class="price-badge">
+                                            <i class="fas fa-coins"></i>
+                                            500 FCFA
+                                        </span>
+                                    </a>
+                                @endauth
+                            </div>
+                        </div>
+                    </div>
+                @empty
+                    <div class="empty-state">
+                        <i class="fas fa-book-open empty-icon"></i>
+                        <h3 class="empty-title">Aucun conte disponible</h3>
+                        <p class="empty-text">Partagez les légendes et histoires traditionnelles !</p>
+                        
+                        @auth
+                            <a href="{{ route('front.create') }}" class="btn btn-primary">
+                                <i class="fas fa-plus"></i>
+                                <span>Créer un conte</span>
+                            </a>
+                        @endauth
                     </div>
                 @endforelse
             </div>
@@ -1525,104 +1352,7 @@
     </section>
 
     <script>
-        // ==========================================================================
-        // CAROUSEL FUNCTIONALITY - CORRIGÉ
-        // ==========================================================================
-        
-        class Carousel {
-            constructor(containerId) {
-                this.container = document.getElementById(containerId);
-                if (!this.container) {
-                    console.error(`Carousel container #${containerId} not found`);
-                    return;
-                }
-                
-                // Mettre à jour cette ligne pour chercher dans carousel-inner-container
-                this.innerContainer = this.container.querySelector('.carousel-inner-container');
-                this.wrapper = this.container.querySelector('.carousel-wrapper');
-                this.slides = this.container.querySelectorAll('.carousel-slide');
-                this.indicators = this.container.querySelectorAll('.carousel-indicator');
-                this.prevBtn = this.container.querySelector('.carousel-nav.prev');
-                this.nextBtn = this.container.querySelector('.carousel-nav.next');
-                
-                this.currentIndex = 0;
-                this.totalSlides = this.slides.length;
-                
-                if (this.totalSlides === 0) return;
-                
-                this.init();
-            }
-            
-            init() {
-                // Initial setup
-                this.updateCarousel();
-                
-                // Setup event listeners for buttons
-                if (this.prevBtn) {
-                    this.prevBtn.addEventListener('click', () => this.prev());
-                }
-                
-                if (this.nextBtn) {
-                    this.nextBtn.addEventListener('click', () => this.next());
-                }
-                
-                // Setup event listeners for indicators
-                this.indicators.forEach((indicator, index) => {
-                    indicator.addEventListener('click', () => this.goTo(index));
-                });
-                
-                // Auto-advance every 8 seconds if more than 1 slide
-                if (this.totalSlides > 1) {
-                    setInterval(() => this.next(), 8000);
-                }
-            }
-            
-            prev() {
-                this.currentIndex = (this.currentIndex - 1 + this.totalSlides) % this.totalSlides;
-                this.updateCarousel();
-            }
-            
-            next() {
-                this.currentIndex = (this.currentIndex + 1) % this.totalSlides;
-                this.updateCarousel();
-            }
-            
-            goTo(index) {
-                if (index >= 0 && index < this.totalSlides) {
-                    this.currentIndex = index;
-                    this.updateCarousel();
-                }
-            }
-            
-            updateCarousel() {
-                // Update slide position
-                const slideWidth = 100; // Each slide is 100% width
-                const translateX = -this.currentIndex * slideWidth;
-                this.wrapper.style.transform = `translateX(${translateX}%)`;
-                
-                // Update active states
-                this.slides.forEach((slide, index) => {
-                    slide.classList.toggle('active', index === this.currentIndex);
-                });
-                
-                // Update indicators
-                if (this.indicators.length > 0) {
-                    this.indicators.forEach((indicator, index) => {
-                        indicator.classList.toggle('active', index === this.currentIndex);
-                    });
-                }
-                
-                // Update button states
-                if (this.prevBtn && this.nextBtn) {
-                    this.prevBtn.classList.toggle('disabled', this.currentIndex === 0);
-                    this.nextBtn.classList.toggle('disabled', this.currentIndex === this.totalSlides - 1);
-                }
-            }
-        }
-
-        // ==========================================================================
-        // HERO SLIDER
-        // ==========================================================================
+        // ===== HERO SLIDER =====
         let currentSlide = 0;
         const slides = document.querySelectorAll('.hero-slide');
         
@@ -1636,16 +1366,8 @@
         function nextHeroSlide() {
             showSlide(currentSlide + 1);
         }
-        
-        // ==========================================================================
-        // GLOBAL CAROUSEL INSTANCES
-        // ==========================================================================
-        let gastronomieCarousel = null;
-        let contesCarousel = null;
 
-        // ==========================================================================
-        // NAVBAR SCROLL EFFECT
-        // ==========================================================================
+        // ===== NAVBAR SCROLL =====
         window.addEventListener('scroll', () => {
             const navbar = document.getElementById('navbar');
             if (navbar) {
@@ -1653,9 +1375,7 @@
             }
         });
 
-        // ==========================================================================
-        // MOBILE MENU
-        // ==========================================================================
+        // ===== MOBILE MENU =====
         const mobileMenuBtn = document.getElementById('mobileMenuBtn');
         const navMenu = document.getElementById('navMenu');
         
@@ -1671,66 +1391,57 @@
                     navMenu.classList.remove('active');
                 });
             });
-            
-            function checkScreenSize() {
-                if (window.innerWidth > 768) {
-                    mobileMenuBtn.classList.remove('active');
-                    navMenu.classList.remove('active');
-                }
-            }
-            
-            window.addEventListener('resize', checkScreenSize);
-            checkScreenSize();
         }
 
-        // ==========================================================================
-        // REGION TABS
-        // ==========================================================================
-        document.querySelectorAll('.tab-btn').forEach(btn => {
-            btn.addEventListener('click', function() {
-                document.querySelectorAll('.tab-btn').forEach(b => {
-                    b.classList.remove('active');
+        // ===== PARTICLES =====
+        function createParticles() {
+            const container = document.getElementById('particles');
+            if (!container) return;
+            
+            for (let i = 0; i < 30; i++) {
+                const particle = document.createElement('div');
+                particle.className = 'particle';
+                particle.style.left = Math.random() * 100 + '%';
+                particle.style.animationDelay = Math.random() * 15 + 's';
+                particle.style.animationDuration = (10 + Math.random() * 10) + 's';
+                container.appendChild(particle);
+            }
+        }
+
+        // ===== SCROLL ANIMATIONS =====
+        function handleScrollAnimations() {
+            const elements = document.querySelectorAll('.fade-in');
+            
+            const observer = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        entry.target.classList.add('visible');
+                    }
                 });
-                this.classList.add('active');
+            }, {
+                threshold: 0.1
             });
-        });
-
-        // ==========================================================================
-        // IMAGE ERROR HANDLING
-        // ==========================================================================
-        function handleImageError(img, chemin) {
-            console.error('❌ Image failed to load:', img.src);
             
-            const cardMedia = img.closest('.carousel-media');
-            if (!cardMedia) return;
-            
-            const cardTitle = img.closest('.carousel-card')?.querySelector('.carousel-title')?.textContent.toLowerCase() || '';
-            
-            const placeholder = document.createElement('div');
-            placeholder.className = 'media-loading';
-            
-            let iconClass = 'fas fa-image';
-            if (cardTitle.includes('recette') || cardTitle.includes('gastronomie')) {
-                iconClass = 'fas fa-utensils';
-            } else if (cardTitle.includes('conte') || cardTitle.includes('histoire')) {
-                iconClass = 'fas fa-book-open';
-            }
-            
-            placeholder.innerHTML = `<i class="${iconClass}"></i>`;
-            
-            cardMedia.innerHTML = '';
-            cardMedia.appendChild(placeholder);
-            
-            // Re-créer le tag
-            const cardTag = document.createElement('span');
-            cardTag.className = 'carousel-tag';
-            cardTag.innerHTML = img.closest('.carousel-card')?.querySelector('.carousel-tag')?.innerHTML || '';
-            cardMedia.appendChild(cardTag);
+            elements.forEach(el => observer.observe(el));
         }
 
-        // ==========================================================================
-        // LOGIN MESSAGE
-        // ==========================================================================
+        // ===== VIDEO HOVER =====
+        function setupVideoHover() {
+            document.querySelectorAll('.card .media-video').forEach(video => {
+                const card = video.closest('.card');
+                
+                card.addEventListener('mouseenter', () => {
+                    video.play().catch(e => console.log('Video autoplay failed:', e));
+                });
+                
+                card.addEventListener('mouseleave', () => {
+                    video.pause();
+                    video.currentTime = 0;
+                });
+            });
+        }
+
+        // ===== LOGIN MESSAGE =====
         function showLoginMessage() {
             const notification = document.createElement('div');
             notification.className = 'alert alert-error';
@@ -1750,73 +1461,34 @@
             return true;
         }
 
-        // ==========================================================================
-        // TOUCH SUPPORT FOR MOBILE
-        // ==========================================================================
-        function setupTouchSupport() {
-            let touchStartX = 0;
-            let touchEndX = 0;
-            
-            document.querySelectorAll('.carousel-container').forEach(container => {
-                container.addEventListener('touchstart', (e) => {
-                    touchStartX = e.changedTouches[0].screenX;
-                }, { passive: true });
+        // ===== SMOOTH SCROLL =====
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function(e) {
+                const targetId = this.getAttribute('href');
+                if (targetId === '#' || targetId === '#!') return;
                 
-                container.addEventListener('touchend', (e) => {
-                    touchEndX = e.changedTouches[0].screenX;
-                    handleSwipe(container.id);
-                }, { passive: true });
-            });
-            
-            function handleSwipe(carouselId) {
-                const swipeThreshold = 50;
-                const swipeDistance = touchEndX - touchStartX;
-                
-                if (Math.abs(swipeDistance) > swipeThreshold) {
-                    if (swipeDistance > 0) {
-                        // Swipe right - previous
-                        if (carouselId === 'gastronomieCarousel' && gastronomieCarousel) {
-                            gastronomieCarousel.prev();
-                        } else if (carouselId === 'contesCarousel' && contesCarousel) {
-                            contesCarousel.prev();
-                        }
-                    } else {
-                        // Swipe left - next
-                        if (carouselId === 'gastronomieCarousel' && gastronomieCarousel) {
-                            gastronomieCarousel.next();
-                        } else if (carouselId === 'contesCarousel' && contesCarousel) {
-                            contesCarousel.next();
-                        }
-                    }
+                const targetElement = document.querySelector(targetId);
+                if (targetElement) {
+                    e.preventDefault();
+                    window.scrollTo({
+                        top: targetElement.offsetTop - 80,
+                        behavior: 'smooth'
+                    });
                 }
-            }
-        }
+            });
+        });
 
-        // ==========================================================================
-        // INITIALISATION - CORRIGÉ
-        // ==========================================================================
+        // ===== INITIALIZATION =====
         document.addEventListener('DOMContentLoaded', () => {
-            console.log('DOM loaded, initializing carousels...');
+            createParticles();
+            handleScrollAnimations();
+            setupVideoHover();
             
-            // Initialize carousels
-            if (document.getElementById('gastronomieCarousel')) {
-                gastronomieCarousel = new Carousel('gastronomieCarousel');
-                console.log('Gastronomie carousel initialized with', gastronomieCarousel.totalSlides, 'slides');
-            }
-            
-            if (document.getElementById('contesCarousel')) {
-                contesCarousel = new Carousel('contesCarousel');
-                console.log('Contes carousel initialized with', contesCarousel.totalSlides, 'slides');
-            }
-            
-            // Start hero slider
             if (slides.length > 0) {
                 setInterval(nextHeroSlide, 5000);
                 showSlide(0);
-                console.log('Hero slider initialized with', slides.length, 'slides');
             }
             
-            // Auto-hide alerts
             setTimeout(() => {
                 const alerts = document.querySelectorAll('.alert');
                 alerts.forEach(alert => {
@@ -1825,153 +1497,7 @@
                     setTimeout(() => alert.remove(), 300);
                 });
             }, 4000);
-            
-            // Add focus styles for keyboard navigation
-            document.querySelectorAll('.carousel-nav, .carousel-indicator, .btn').forEach(el => {
-                el.addEventListener('focus', () => {
-                    el.style.outline = '2px solid var(--accent)';
-                    el.style.outlineOffset = '2px';
-                });
-                
-                el.addEventListener('blur', () => {
-                    el.style.outline = 'none';
-                });
-            });
-            
-            // Setup touch support
-            setupTouchSupport();
-            
-            // Setup smooth scroll
-            document.querySelectorAll('a[href^="#"]').forEach(anchor => {
-                anchor.addEventListener('click', function(e) {
-                    const targetId = this.getAttribute('href');
-                    if (targetId === '#' || targetId === '#!') return;
-                    
-                    const targetElement = document.querySelector(targetId);
-                    if (targetElement) {
-                        e.preventDefault();
-                        
-                        window.scrollTo({
-                            top: targetElement.offsetTop - 80,
-                            behavior: 'smooth'
-                        });
-                    }
-                });
-            });
-            
-            // Setup video autoplay on hover
-            document.querySelectorAll('.carousel-card .media-video').forEach(video => {
-                const card = video.closest('.carousel-card');
-                
-                card.addEventListener('mouseenter', () => {
-                    video.play().catch(e => {
-                        console.log('Video autoplay failed:', e);
-                    });
-                });
-                
-                card.addEventListener('mouseleave', () => {
-                    video.pause();
-                    video.currentTime = 0;
-                });
-            });
-            
-            // Setup animations on scroll
-            const observerOptions = {
-                threshold: 0.1,
-                rootMargin: '0px 0px -50px 0px'
-            };
-            
-            const observer = new IntersectionObserver((entries) => {
-                entries.forEach(entry => {
-                    if (entry.isIntersecting) {
-                        entry.target.style.opacity = '1';
-                        entry.target.style.transform = 'translateY(0)';
-                        observer.unobserve(entry.target);
-                    }
-                });
-            }, observerOptions);
-            
-            document.querySelectorAll('.language-card, .carousel-card').forEach(el => {
-                el.style.opacity = '0';
-                el.style.transform = 'translateY(30px)';
-                el.style.transition = 'opacity 0.6s ease, transform 0.6s ease';
-                observer.observe(el);
-            });
-            
-            console.log('Initialization complete');
         });
-
-        // ==========================================================================
-        // GLOBAL FUNCTIONS FOR BUTTONS (pour compatibilité avec HTML onclick)
-        // ==========================================================================
-        function prevSlide(carouselId) {
-            if (carouselId === 'gastronomieCarousel' && gastronomieCarousel) {
-                gastronomieCarousel.prev();
-            } else if (carouselId === 'contesCarousel' && contesCarousel) {
-                contesCarousel.prev();
-            }
-        }
-
-        function nextSlide(carouselId) {
-            if (carouselId === 'gastronomieCarousel' && gastronomieCarousel) {
-                gastronomieCarousel.next();
-            } else if (carouselId === 'contesCarousel' && contesCarousel) {
-                contesCarousel.next();
-            }
-        }
-
-        function goToSlide(carouselId, index) {
-            if (carouselId === 'gastronomieCarousel' && gastronomieCarousel) {
-                gastronomieCarousel.goTo(index);
-            } else if (carouselId === 'contesCarousel' && contesCarousel) {
-                contesCarousel.goTo(index);
-            }
-        }
-
-        // ==========================================================================
-        // KEYBOARD NAVIGATION
-        // ==========================================================================
-        document.addEventListener('keydown', (e) => {
-            // Vérifier quel carousel est actif
-            const activeElement = document.activeElement;
-            const isInCarousel = activeElement.closest('.carousel-container');
-            
-            if (!isInCarousel) return;
-            
-            const carouselContainer = activeElement.closest('.carousel-container');
-            const carouselId = carouselContainer?.id;
-            
-            if (!carouselId) return;
-            
-            let carousel = null;
-            if (carouselId === 'gastronomieCarousel') {
-                carousel = gastronomieCarousel;
-            } else if (carouselId === 'contesCarousel') {
-                carousel = contesCarousel;
-            }
-            
-            if (!carousel) return;
-            
-            switch(e.key) {
-                case 'ArrowLeft':
-                    e.preventDefault();
-                    carousel.prev();
-                    break;
-                case 'ArrowRight':
-                    e.preventDefault();
-                    carousel.next();
-                    break;
-                case 'Home':
-                    e.preventDefault();
-                    carousel.goTo(0);
-                    break;
-                case 'End':
-                    e.preventDefault();
-                    carousel.goTo(carousel.totalSlides - 1);
-                    break;
-            }
-        });
-
     </script>
 </body>
 </html>
