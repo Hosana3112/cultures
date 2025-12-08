@@ -30,16 +30,6 @@ class TypeContenuSeeder extends Seeder
                 'created_at' => now(),
                 'updated_at' => now(),
             ],
-            [
-                'nom' => 'Chant',
-                'created_at' => now(),
-                'updated_at' => now(),
-            ],
-            [
-                'nom' => 'Danse',
-                'created_at' => now(),
-                'updated_at' => now(),
-            ],
         ];
 
         DB::table('type_contenues')->insert($types);

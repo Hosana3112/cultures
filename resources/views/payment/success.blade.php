@@ -418,9 +418,8 @@
                         <i class="bi bi-plus-circle me-2"></i>
                         Nouveau paiement
                     </a>
-                    <a href="/" class="btn btn-outline-secondary">
-                        <i class="bi bi-house-door me-2"></i>
-                        Retour à l'accueil
+                    <a href=route('front.show', ['id' => $contenuId]) class="btn btn-primary">
+                        Voir le contenu
                     </a>
                 </div>
                 

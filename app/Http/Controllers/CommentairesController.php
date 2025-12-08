@@ -92,17 +92,17 @@ class CommentairesController extends Controller
     }
     
     /**
-     * Stocker un commentaire via AJAX (frontend)
+     * Stocker un commentaire via AJAX (frontend) - CORRIGÉ
      */
     private function storeAjax(Request $request)
     {
         $validator = Validator::make($request->all(), [
-            'commentaire' => 'required|string|min:10|max:1000',
+            'texte' => 'required|string|min:10|max:1000', // CHANGÉ : 'texte' au lieu de 'commentaire'
             'note' => 'required|integer|min:1|max:5',
             'contenu_id' => 'required|integer|exists:contenus,id'
         ], [
-            'commentaire.required' => 'Le commentaire est obligatoire.',
-            'commentaire.min' => 'Le commentaire doit avoir au moins 10 caractères.',
+            'texte.required' => 'Le commentaire est obligatoire.', // CHANGÉ
+            'texte.min' => 'Le commentaire doit avoir au moins 10 caractères.', // CHANGÉ
             'note.required' => 'La note est obligatoire.',
             'note.min' => 'La note doit être entre 1 et 5.',
             'note.max' => 'La note doit être entre 1 et 5.'
@@ -133,7 +133,7 @@ class CommentairesController extends Controller
 
         try {
             $commentaire = Commentaire::create([
-                'commentaire' => $request->commentaire,
+                'commentaire' => $request->texte, // CHANGÉ : $request->texte au lieu de $request->commentaire
                 'note' => $request->note,
                 'utilisateur_id' => Auth::id(),
                 'contenu_id' => $request->contenu_id,

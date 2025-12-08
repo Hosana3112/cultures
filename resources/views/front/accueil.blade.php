@@ -1179,7 +1179,7 @@
                                 
                                 @auth
                                     @php
-                                        $hasPaid = false; // Logique à implémenter
+                                        $hasPaid = false;
                                         $price = 1000;
                                     @endphp
                                     
@@ -1206,10 +1206,6 @@
                                        onclick="return showLoginMessage()">
                                         <i class="fas fa-lock"></i>
                                         <span>Lire</span>
-                                        <span class="price-badge">
-                                            <i class="fas fa-coins"></i>
-                                            1 000 FCFA
-                                        </span>
                                     </a>
                                 @endauth
                             </div>
@@ -1324,10 +1320,6 @@
                                        onclick="return showLoginMessage()">
                                         <i class="fas fa-lock"></i>
                                         <span>Lire</span>
-                                        <span class="price-badge">
-                                            <i class="fas fa-coins"></i>
-                                            500 FCFA
-                                        </span>
                                     </a>
                                 @endauth
                             </div>

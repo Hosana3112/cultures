@@ -61,7 +61,7 @@ class AuthenticatedSessionController extends Controller
     {
         switch ($user->role_id) {
             case 1: // Administrateur
-                return route('dashboard');
+                return route('dashboard-custom');
             case 2: // Modérateur
                 return route('contenus.index');
                 

@@ -455,18 +455,8 @@
                     Se connecter
                 </button>
             </form>
-          <div class="register-section">
-                <h3 class="register-title">👋 Pas encore de compte ?</h3>
-                <p class="register-text">
-                    Rejoignez notre communauté et découvrez la richesse de la culture béninoise.
-                </p>
-                <a href="{{ route('register') }}" class="register-btn">
-                    <svg class="register-btn-icon" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M18 9v3m0 0v3m0-3h3m-3 0h-3m-2-5a4 4 0 11-8 0 4 4 0 018 0zM3 20a6 6 0 0112 0v1H3v-1z" />
-                    </svg>
-                    S'inscrire 
-                </a>
-            </div>
+                <p >👋 Pas encore de compte ?</p>
+                <a href="{{ route('register') }}" class="register-btn"> S'inscrire </a>
         </div>
     </div>
 
