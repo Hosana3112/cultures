@@ -12,7 +12,9 @@
         "laravel/framework": "^12.0",
         "laravel/tinker": "^2.10.1",
         "pragmarx/google2fa-laravel": "^2.3",
-        "pragmarx/google2fa-qrcode": "^3.0"
+        "pragmarx/google2fa-qrcode": "^3.0",
+        "ext-gd": "*",
+        "ext-pdo_mysql": "*"
     },
     "require-dev": {
         "fakerphp/faker": "^1.23",
