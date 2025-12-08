@@ -18,7 +18,7 @@ return new class extends Migration
             $table->timestamp('date_creation')->useCurrent();
             $table->string('statut');
 
-            $table->unsignedInteger('parend_id')->nullable();
+            $table->unsignedInteger('parent_id')->nullable();
             $table->timestamp('date_validation')->nullable();
 
             $table->unsignedInteger('type_contenu_id');
