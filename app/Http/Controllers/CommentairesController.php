@@ -30,7 +30,7 @@ class CommentairesController extends Controller
         // Charger manuellement les relations
         if ($commentaires->isNotEmpty()) {
             // Récupérer tous les IDs nécessaires
-            $utilisateurIds = $commentaires->pluck('utilisateur_id')->filter()->unique();
+            $utilisateurIds = $commentaires->pluck('user_id')->filter()->unique(); // CORRIGÉ : user_id
             $contenuIds = $commentaires->pluck('contenu_id')->filter()->unique();
             
             // Charger les utilisateurs en une seule requête
@@ -40,7 +40,7 @@ class CommentairesController extends Controller
                     ->keyBy('id');
                 
                 foreach ($commentaires as $commentaire) {
-                    $commentaire->utilisateur = $utilisateurs->get($commentaire->utilisateur_id);
+                    $commentaire->utilisateur = $utilisateurs->get($commentaire->user_id); // CORRIGÉ : user_id
                 }
             }
             
@@ -92,17 +92,17 @@ class CommentairesController extends Controller
     }
     
     /**
-     * Stocker un commentaire via AJAX (frontend) - CORRIGÉ
+     * Stocker un commentaire via AJAX (frontend) - CORRIGÉ POUR LE CHAMP 'user_id'
      */
     private function storeAjax(Request $request)
     {
         $validator = Validator::make($request->all(), [
-            'texte' => 'required|string|min:10|max:1000', // CHANGÉ : 'texte' au lieu de 'commentaire'
+            'commentaire' => 'required|string|min:10|max:1000',
             'note' => 'required|integer|min:1|max:5',
             'contenu_id' => 'required|integer|exists:contenus,id'
         ], [
-            'texte.required' => 'Le commentaire est obligatoire.', // CHANGÉ
-            'texte.min' => 'Le commentaire doit avoir au moins 10 caractères.', // CHANGÉ
+            'commentaire.required' => 'Le commentaire est obligatoire.',
+            'commentaire.min' => 'Le commentaire doit avoir au moins 10 caractères.',
             'note.required' => 'La note est obligatoire.',
             'note.min' => 'La note doit être entre 1 et 5.',
             'note.max' => 'La note doit être entre 1 et 5.'
@@ -133,9 +133,9 @@ class CommentairesController extends Controller
 
         try {
             $commentaire = Commentaire::create([
-                'commentaire' => $request->texte, // CHANGÉ : $request->texte au lieu de $request->commentaire
+                'texte' => $request->commentaire,
                 'note' => $request->note,
-                'utilisateur_id' => Auth::id(),
+                'user_id' => Auth::id(), // CORRIGÉ : 'user_id' au lieu de 'utilisateur_id'
                 'contenu_id' => $request->contenu_id,
                 'date' => now()
             ]);
@@ -153,21 +153,24 @@ class CommentairesController extends Controller
                 'message' => 'Commentaire publié avec succès!',
                 'commentaire' => [
                     'id' => $commentaire->id,
-                    'user_name' => $utilisateur->prenom ?? 'Utilisateur',
-                    'user_id' => $commentaire->utilisateur_id,
-                    'commentaire' => $commentaire->commentaire,
+                    'utilisateur' => [
+                        'prenom' => $utilisateur->prenom,
+                        'nom' => $utilisateur->nom
+                    ],
+                    'user_id' => $commentaire->user_id, // CORRIGÉ : user_id
+                    'texte' => $commentaire->texte,
                     'note' => $commentaire->note,
-                    'date' => $commentaire->date->format('d F Y à H:i')
+                    'date' => $commentaire->date->format('Y-m-d H:i:s')
                 ],
                 'noteMoyenne' => round($noteMoyenne, 1),
                 'nombreNotes' => $nombreNotes
             ]);
             
         } catch (\Exception $e) {
+            \Log::error('Erreur lors de la création du commentaire: ' . $e->getMessage());
             return response()->json([
                 'success' => false,
-                'message' => 'Erreur lors de la publication du commentaire.',
-                'error' => $e->getMessage()
+                'message' => 'Erreur lors de la publication du commentaire: ' . $e->getMessage()
             ], 500);
         }
     }
@@ -180,7 +183,7 @@ class CommentairesController extends Controller
         $request->validate([
             'commentaire' => 'required|string|min:10|max:1000',
             'note' => 'required|integer|min:1|max:5',
-            'user_id' => 'required|integer|exists:utilisateurs,id',
+            'user_id' => 'required|integer|exists:utilisateurs,id', // CORRIGÉ : user_id
             'contenu_id' => 'required|integer|exists:contenus,id'
         ]);
 
@@ -193,9 +196,9 @@ class CommentairesController extends Controller
         }
 
         Commentaire::create([
-            'commentaire' => $request->commentaire,
+            'texte' => $request->commentaire,
             'note' => $request->note,
-            'utilisateur_id' => $request->user_id,
+            'user_id' => $request->user_id, // CORRIGÉ : user_id
             'contenu_id' => $request->contenu_id,
             'date' => now()
         ]);
@@ -217,7 +220,7 @@ class CommentairesController extends Controller
         }
         
         // Charger les relations manuellement
-        $commentaire->utilisateur = Utilisateur::find($commentaire->utilisateur_id);
+        $commentaire->utilisateur = Utilisateur::find($commentaire->user_id); // CORRIGÉ : user_id
         $commentaire->contenu = Contenu::find($commentaire->contenu_id);
         
         return view('commentaires.show', compact('commentaire'));
@@ -272,14 +275,14 @@ class CommentairesController extends Controller
         $request->validate([
             'commentaire' => 'required|string|min:10|max:1000',
             'note' => 'required|integer|min:1|max:5',
-            'user_id' => 'required|integer|exists:utilisateurs,id',
+            'user_id' => 'required|integer|exists:utilisateurs,id', // CORRIGÉ : user_id
             'contenu_id' => 'required|integer|exists:contenus,id'
         ]);
 
         $commentaire->update([
-            'commentaire' => $request->commentaire,
+            'texte' => $request->commentaire,
             'note' => $request->note,
-            'utilisateur_id' => $request->user_id,
+            'user_id' => $request->user_id, // CORRIGÉ : user_id
             'contenu_id' => $request->contenu_id
         ]);
 
@@ -333,7 +336,7 @@ class CommentairesController extends Controller
         }
         
         // Vérifier que l'utilisateur est l'auteur du commentaire ou l'auteur du contenu ou admin/modo
-        $isAuthor = $commentaire->utilisateur_id === $user->id;
+        $isAuthor = $commentaire->user_id === $user->id; // CORRIGÉ : user_id
         
         // Récupérer le contenu pour vérifier l'auteur
         $contenu = Contenu::find($commentaire->contenu_id);
@@ -401,7 +404,7 @@ class CommentairesController extends Controller
             ->get();
         
         // Charger les utilisateurs
-        $utilisateurIds = $commentaires->pluck('utilisateur_id')->filter()->unique();
+        $utilisateurIds = $commentaires->pluck('user_id')->filter()->unique(); // CORRIGÉ : user_id
         
         if ($utilisateurIds->isNotEmpty()) {
             $utilisateurs = Utilisateur::whereIn('id', $utilisateurIds)
@@ -410,13 +413,13 @@ class CommentairesController extends Controller
             
             $commentairesFormatted = [];
             foreach ($commentaires as $commentaire) {
-                $utilisateur = $utilisateurs->get($commentaire->utilisateur_id);
+                $utilisateur = $utilisateurs->get($commentaire->user_id); // CORRIGÉ : user_id
                 
                 $commentairesFormatted[] = [
                     'id' => $commentaire->id,
                     'user_name' => $utilisateur->prenom ?? 'Utilisateur',
-                    'user_id' => $commentaire->utilisateur_id,
-                    'commentaire' => $commentaire->commentaire,
+                    'user_id' => $commentaire->user_id, // CORRIGÉ : user_id
+                    'texte' => $commentaire->texte,
                     'note' => $commentaire->note,
                     'date' => $commentaire->date->format('d/m/Y H:i')
                 ];

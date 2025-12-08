@@ -1425,7 +1425,7 @@
                         <div class="form-group">
                             <textarea class="form-control" 
                                       id="user-comment" 
-                                      name="texte" 
+                                      name="commentaire" 
                                       required 
                                       placeholder="Partagez votre avis sur ce contenu..."
                                       minlength="10"
@@ -1650,6 +1650,11 @@
                     
                     const formData = new FormData(this);
                     
+                    // Ajouter le champ commentaire s'il n'est pas présent
+                    if (!formData.has('commentaire') && commentTextarea) {
+                        formData.append('commentaire', commentTextarea.value);
+                    }
+                    
                     if (submitBtn) {
                         submitBtn.disabled = true;
                         submitBtn.innerHTML = '<div class="loader"></div> <span>Publication...</span>';
@@ -1688,7 +1693,11 @@
                                 messageEl.textContent = '';
                             }
                         } else {
-                            showAlert(data.message || 'Erreur lors de la publication.', 'error');
+                            if (data.errors) {
+                                showAlert(Object.values(data.errors)[0][0], 'error');
+                            } else {
+                                showAlert(data.message || 'Erreur lors de la publication.', 'error');
+                            }
                         }
                     } catch (error) {
                         console.error('Error:', error);
@@ -1703,72 +1712,72 @@
             }
             
             function addNewComment(commentData) {
-                const commentsList = document.getElementById('comments-list');
-                const commentsCount = document.getElementById('comments-count');
-                
-                const emptyState = commentsList.querySelector('.empty-state');
-                if (emptyState) {
-                    emptyState.remove();
-                }
-                
-                const commentDiv = document.createElement('div');
-                commentDiv.className = 'comment-item';
-                commentDiv.style.animation = 'fadeInUp 0.6s ease forwards';
-                
-                let starsHTML = '';
-                for (let i = 1; i <= 5; i++) {
-                    starsHTML += i <= (commentData.note || 0) ? 
-                        '<i class="fas fa-star star"></i>' : 
-                        '<i class="far fa-star star"></i>';
-                }
-                
-                const commentDate = new Date(commentData.date);
-                const formattedDate = commentDate.toLocaleDateString('fr-FR', { 
-                    day: '2-digit', 
-                    month: '2-digit', 
-                    year: 'numeric',
-                    hour: '2-digit',
-                    minute: '2-digit'
-                });
-                
-                const authorName = commentData.utilisateur?.prenom || commentData.utilisateur?.nom || 'Utilisateur';
-                const authorLastName = commentData.utilisateur?.nom || '';
-                const initials = (authorName.charAt(0) + (authorLastName.charAt(0) || '')).toUpperCase();
-                
-                const isAuthor = commentData.user_id === {{ $contenu->auteur_id }};
-                const authorBadge = isAuthor ? 
-                    '<span class="comment-author-badge"><i class="fas fa-crown"></i> Auteur</span>' : 
-                    '';
-                
-                commentDiv.innerHTML = `
-                    <div class="comment-header">
-                        <div class="comment-author-info">
-                            <div class="comment-author-avatar">${initials}</div>
-                            <div>
-                                <div class="comment-author">
-                                    ${escapeHtml(authorName)}
-                                    ${authorBadge}
-                                </div>
-                                <div class="comment-date">${formattedDate}</div>
-                            </div>
-                        </div>
-                        <div class="comment-rating">
-                            ${starsHTML}
-                        </div>
+    const commentsList = document.getElementById('comments-list');
+    const commentsCount = document.getElementById('comments-count');
+    
+    const emptyState = commentsList.querySelector('.empty-state');
+    if (emptyState) {
+        emptyState.remove();
+    }
+    
+    const commentDiv = document.createElement('div');
+    commentDiv.className = 'comment-item';
+    commentDiv.style.animation = 'fadeInUp 0.6s ease forwards';
+    
+    let starsHTML = '';
+    for (let i = 1; i <= 5; i++) {
+        starsHTML += i <= (commentData.note || 0) ? 
+            '<i class="fas fa-star star"></i>' : 
+            '<i class="far fa-star star"></i>';
+    }
+    
+    const commentDate = new Date(commentData.date);
+    const formattedDate = commentDate.toLocaleDateString('fr-FR', { 
+        day: '2-digit', 
+        month: '2-digit', 
+        year: 'numeric',
+        hour: '2-digit',
+        minute: '2-digit'
+    });
+    
+    const authorName = commentData.utilisateur?.prenom || commentData.utilisateur?.nom || 'Utilisateur';
+    const authorLastName = commentData.utilisateur?.nom || '';
+    const initials = (authorName.charAt(0) + (authorLastName.charAt(0) || '')).toUpperCase();
+    
+    const isAuthor = commentData.user_id === {{ $contenu->auteur_id }};
+    const authorBadge = isAuthor ? 
+        '<span class="comment-author-badge"><i class="fas fa-crown"></i> Auteur</span>' : 
+        '';
+    
+    commentDiv.innerHTML = `
+        <div class="comment-header">
+            <div class="comment-author-info">
+                <div class="comment-author-avatar">${initials}</div>
+                <div>
+                    <div class="comment-author">
+                        ${escapeHtml(authorName)}
+                        ${authorBadge}
                     </div>
-                    <div class="comment-text">${escapeHtml(commentData.texte || '')}</div>
-                `;
-                
-                const firstComment = commentsList.firstElementChild;
-                if (firstComment) {
-                    commentsList.insertBefore(commentDiv, firstComment);
-                } else {
-                    commentsList.appendChild(commentDiv);
-                }
-                
-                const currentCount = parseInt(commentsCount.textContent) || 0;
-                commentsCount.textContent = currentCount + 1;
-            }
+                    <div class="comment-date">${formattedDate}</div>
+                </div>
+            </div>
+            <div class="comment-rating">
+                ${starsHTML}
+            </div>
+        </div>
+        <div class="comment-text">${escapeHtml(commentData.texte || '')}</div> <!-- CORRIGÉ : utiliser texte -->
+    `;
+    
+    const firstComment = commentsList.firstElementChild;
+    if (firstComment) {
+        commentsList.insertBefore(commentDiv, firstComment);
+    } else {
+        commentsList.appendChild(commentDiv);
+    }
+    
+    const currentCount = parseInt(commentsCount.textContent) || 0;
+    commentsCount.textContent = currentCount + 1;
+}
             
             function updateRatingStats(averageRating, count) {
                 const avgRatingEl = document.querySelector('.average-rating');
