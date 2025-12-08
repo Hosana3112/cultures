@@ -11,6 +11,7 @@ php artisan view:cache
 
 echo "Running migrations..."
 php artisan migrate --force
+php artisan db:seed --force
 
 echo "Starting Apache..."
 # Cette commande lance Apache en premier plan
