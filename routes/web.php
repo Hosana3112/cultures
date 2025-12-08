@@ -11,6 +11,7 @@ use Illuminate\Support\Facades\Route;
 Route::get('/', function () {
     return redirect()->route('front.accueil');
 });
+
 // Routes de paiement
 Route::get('/payment', [PaymentController::class, 'showPaymentForm'])->name('payment.form');
 Route::post('/payment/process', [PaymentController::class, 'processPayment'])->name('payment.process');
@@ -64,11 +65,8 @@ Route::middleware(['auth'])->group(function () {
         })->name('dashboard');
         
         Route::get('/dashboard-custom', [DashboardController::class, 'index'])
-            ->name('dashboard-custom')->middleware('admin');
+            ->name('dashboard-custom');
         
-        // Routes des médias (CRUD complet)
-        Route::resource('medias', MediasController::class)->except(['show']);
-        Route::get('medias/{media}', [MediasController::class, 'show'])->name('medias.show')->middleware('admin');
     });
 });
 

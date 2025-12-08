@@ -34,7 +34,6 @@ Route::get('/faq', [HomeController::class, 'faq'])
     ->name('front.faq');
 
 // AFFICHAGE D'UN CONTENU (Publique - seulement si validé)
-// MODIFICATION ICI : Utilisation de HomeController au lieu de ContenusController
 Route::get('/contenus/{id}', [HomeController::class, 'show'])
     ->name('front.show')
     ->where('id', '[0-9]+');
@@ -51,27 +50,27 @@ Route::middleware(['auth'])->group(function () {
     Route::get('/creer-contenu', [ContenusController::class, 'createFront'])
         ->name('front.create');
     
-    // STOCKAGE (commun)
+    // STOCKAGE (avec nom unique 'front.contenus.store')
     Route::post('/contenus', [ContenusController::class, 'store'])
-        ->name('contenus.store');
+        ->name('front.contenus.store'); // CHANGÉ ICI
     
     // MODIFICATION DE CONTENU
     Route::get('/contenus/{id}/edit', [ContenusController::class, 'edit'])
-        ->name('contenus.edit')
+        ->name('contenus.edit') // Gardé tel quel car pas en conflit
         ->where('id', '[0-9]+');
     
     Route::put('/contenus/{id}', [ContenusController::class, 'update'])
-        ->name('contenus.update')
+        ->name('contenus.update') // Gardé tel quel car pas en conflit
         ->where('id', '[0-9]+');
     
     // SUPPRESSION DE CONTENU
     Route::delete('/contenus/{id}', [ContenusController::class, 'destroy'])
-        ->name('contenus.destroy')
+        ->name('contenus.destroy') // Gardé tel quel car pas en conflit
         ->where('id', '[0-9]+');
     
     // COMMENTAIRES (AJAX)
     Route::post('/commentaires', [CommentairesController::class, 'store'])
-        ->name('commentaires.store');
+        ->name('commentaires.store'); // Gardé tel quel
     
 });
 
