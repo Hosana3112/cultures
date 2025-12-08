@@ -43,7 +43,7 @@ PRÉPARATION :
 Le Man Tindjan se déguste chaud, souvent accompagné de pâte d\'arachide.',
                 'date_creation' => Carbon::now()->subDays(15),
                 'statut' => 'Validé',
-                'parend_id' => null,
+                'parent_id' => null,
                 'date_validation' => Carbon::now()->subDays(10),
                 'type_contenu_id' => 1, // Recette
                 'auteur_id' => 4, // Sèna DOSSOU
@@ -80,7 +80,7 @@ PRÉPARATION :
 La sauce gombo est excellente avec de l\'igname pilé ou du riz.',
                 'date_creation' => Carbon::now()->subDays(20),
                 'statut' => 'Validé',
-                'parend_id' => null,
+                'parent_id' => null,
                 'date_validation' => Carbon::now()->subDays(12),
                 'type_contenu_id' => 1, // Recette
                 'auteur_id' => 6, // Pélagie DAGNON
@@ -112,7 +112,7 @@ PRÉPARATION :
 Le Télibo est une boisson désaltérante très appréciée pendant les saisons chaudes.',
                 'date_creation' => Carbon::now()->subDays(8),
                 'statut' => 'Validé',
-                'parend_id' => null,
+                'parent_id' => null,
                 'date_validation' => Carbon::now()->subDays(5),
                 'type_contenu_id' => 1, // Recette
                 'auteur_id' => 7, // Ginelda ZITTI
@@ -139,7 +139,7 @@ CÉRÉMONIE :
 Les danses Guèlèdè ont lieu la nuit, éclairées par des torches. Les danseurs portent des costumes colorés et des masques sculptés dans le bois, exécutant des mouvements gracieux qui racontent des histoires ancestrales.',
                 'date_creation' => Carbon::now()->subDays(25),
                 'statut' => 'Validé',
-                'parend_id' => null,
+                'parent_id' => null,
                 'date_validation' => Carbon::now()->subDays(18),
                 'type_contenu_id' => 3, // Legende
                 'auteur_id' => 5, // Marc BIAOU
@@ -167,7 +167,7 @@ LEGENDES :
 On raconte que le trône possède des pouvoirs mystiques. Il serait capable de reconnaître les véritables héritiers du trône et de rejeter les imposteurs. Pendant les cérémonies d\'intronisation, le nouveau roi doit s\'asseoir sur le trône pendant trois jours et trois nuits pour recevoir la sagesse des ancêtres.',
                 'date_creation' => Carbon::now()->subDays(30),
                 'statut' => 'Validé',
-                'parend_id' => null,
+                'parent_id' => null,
                 'date_validation' => Carbon::now()->subDays(22),
                 'type_contenu_id' => 2, // Histoire
                 'auteur_id' => 9, // Gaston KINTO
@@ -193,7 +193,7 @@ HÉRITAGE :
 Bien que son règne ait été court, Tassi Hangbé laissa une empreinte durable. Elle fut la première et seule femme à diriger directement le royaume du Dahomey, ouvrant la voie aux futures reines-mères influentes.',
                 'date_creation' => Carbon::now()->subDays(12),
                 'statut' => 'Validé',
-                'parend_id' => null,
+                'parent_id' => null,
                 'date_validation' => Carbon::now()->subDays(7),
                 'type_contenu_id' => 2, // Histoire
                 'auteur_id' => 2, // Hosana ZITTI
@@ -219,7 +219,7 @@ HÉRITAGE :
 Le roi Goho établit les bases du royaume de Hogbonu (ancien nom de Porto-Novo) et instaura un système de gouvernement qui perdurera pendant des siècles. Sa descendance règnera sur la ville jusqu\'à la colonisation française.',
                 'date_creation' => Carbon::now()->subDays(18),
                 'statut' => 'Validé',
-                'parend_id' => null,
+                'parent_id' => null,
                 'date_validation' => Carbon::now()->subDays(13),
                 'type_contenu_id' => 2, // Histoire
                 'auteur_id' => 1, // Maurice COMLAN
