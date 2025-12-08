@@ -12,7 +12,6 @@ Route::prefix('admin')->middleware(['auth'])->group(function(){
     
     Route::resource('roles', 'App\Http\Controllers\RolesController');
     Route::resource('utilisateurs', 'App\Http\Controllers\UtilisateursController');
-    Route::resource('medias', 'App\Http\Controllers\MediasController');
     Route::resource('typecontenus', 'App\Http\Controllers\TypeContenuesController');
     Route::resource('typemedias', 'App\Http\Controllers\TypeMediasController');
     Route::resource('regions', 'App\Http\Controllers\RegionsController');
