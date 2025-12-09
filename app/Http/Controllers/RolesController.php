@@ -24,7 +24,7 @@ class RolesController extends Controller
 
         Role::create($request->all());
 
-        return redirect()->route('roles.index')
+        return redirect()->route('admin.roles.index')
             ->with('success', 'Rôle créé avec succès.');
     }
 
@@ -46,7 +46,7 @@ class RolesController extends Controller
 
         $role->update($request->all());
 
-        return redirect()->route('roles.index')
+        return redirect()->route('admin.roles.index')
             ->with('success', 'Rôle mis à jour avec succès.');
     }
 
@@ -54,7 +54,7 @@ class RolesController extends Controller
     {
         $role->delete();
 
-        return redirect()->route('roles.index')
+        return redirect()->route('admin.roles.index')
             ->with('success', 'Rôle supprimé avec succès.');
     }
 }

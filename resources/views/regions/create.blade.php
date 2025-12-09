@@ -10,7 +10,7 @@
             <h3 class="card-title">Créer une nouvelle Région</h3>
         </div>
         <div class="card-body">
-            <form action="{{ route('regions.store') }}" method="POST">
+            <form action="{{ route('admin.regions.store') }}" method="POST">
                 @csrf
                 
                 <div class="row">
@@ -55,7 +55,7 @@
                     <button type="submit" class="btn btn-success">
                         <i class="bi bi-check-circle"></i> Créer la région
                     </button>
-                    <a href="{{ route('regions.index') }}" class="btn btn-secondary">
+                    <a href="{{ route('admin.regions.index') }}" class="btn btn-secondary">
                         <i class="bi bi-arrow-left"></i> Retour
                     </a>
                 </div>

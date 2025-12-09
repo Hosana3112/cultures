@@ -14,7 +14,7 @@
             <h3 class="card-title">Créer un nouveau Média</h3>
         </div>
         <div class="card-body">
-            <form action="{{ route('medias.store') }}" method="POST" enctype="multipart/form-data" id="media-form">
+            <form action="{{ route('admin.medias.store') }}" method="POST" enctype="multipart/form-data" id="media-form">
                 @csrf
                 
                 <div class="row">
@@ -88,7 +88,7 @@
                     <button type="submit" class="btn btn-success" id="submit-btn">
                         <i class="bi bi-check-circle"></i> Créer le média
                     </button>
-                    <a href="{{ route('medias.index') }}" class="btn btn-secondary">
+                    <a href="{{ route('admin.medias.index') }}" class="btn btn-secondary">
                         <i class="bi bi-arrow-left"></i> Retour
                     </a>
                 </div>

@@ -7,7 +7,7 @@
             <div class="d-flex justify-content-between align-items-center">
                 <div class="d-flex align-items-center">
                     <h3 class="card-title mb-0 me-3">Liste des Rôles</h3>
-                    <a href="{{ route('roles.create') }}" class="btn btn-primary btn-sm">
+                    <a href="{{ route('admin.roles.create') }}" class="btn btn-primary btn-sm">
                         <i class="bi bi-plus-circle"></i> Nouveau 
                     </a>
                 </div>
@@ -36,13 +36,13 @@
                             <td>{{ $role->nom }}</td>
                             <td>
                                 <div class="btn-group btn-group-sm" role="group">
-                                    <a href="{{ route('roles.show', $role->id) }}" class="btn btn-success" title="Voir">
+                                    <a href="{{ route('admin.roles.show', $role->id) }}" class="btn btn-success" title="Voir">
                                         <i class="bi bi-eye"></i>
                                     </a>
-                                    <a href="{{ route('roles.edit', $role->id) }}" class="btn btn-warning" title="Modifier">
+                                    <a href="{{ route('admin.roles.edit', $role->id) }}" class="btn btn-warning" title="Modifier">
                                         <i class="bi bi-pencil"></i>
                                     </a>
-                                    <form action="{{ route('roles.destroy', $role->id) }}" method="POST" style="display: inline;">
+                                    <form action="{{ route('admin.roles.destroy', $role->id) }}" method="POST" style="display: inline;">
                                         @csrf
                                         @method('DELETE')
                                         <button type="submit" class="btn btn-danger" title="Supprimer" onclick="return confirm('Êtes-vous sûr de vouloir supprimer ce rôle ?')">

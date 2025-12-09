@@ -7,7 +7,7 @@
             <div class="d-flex justify-content-between align-items-center">
                 <div class="d-flex align-items-center">
                     <h3 class="card-title mb-0 me-3">Liste des Médias</h3>
-                    <a href="{{ route('medias.create') }}" class="btn btn-primary btn-sm">
+                    <a href="{{ route('admin.medias.create') }}" class="btn btn-primary btn-sm">
                         <i class="bi bi-plus-circle"></i> Nouveau
                     </a>
                 </div>
@@ -121,14 +121,14 @@
                                     </a>
 
                                     <!-- Bouton Modifier -->
-                                    <a href="{{ route('medias.edit', $media->id) }}" 
+                                    <a href="{{ route('admin.medias.edit', $media->id) }}" 
                                        class="btn btn-warning" 
                                        title="Modifier">
                                         <i class="bi bi-pencil"></i>
                                     </a>
 
                                     <!-- Bouton Supprimer -->
-                                    <form action="{{ route('medias.destroy', $media->id) }}" 
+                                    <form action="{{ route('admin.medias.destroy', $media->id) }}" 
                                           method="POST" 
                                           style="display: inline;">
                                         @csrf

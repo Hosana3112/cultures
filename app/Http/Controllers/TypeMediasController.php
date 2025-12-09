@@ -24,7 +24,7 @@ class TypeMediasController extends Controller
 
         TypeMedia::create($request->all());
 
-        return redirect()->route('typemedias.index')
+        return redirect()->route('admin.typemedias.index')
             ->with('success', 'TypeMedia créé avec succès.');
     }
 
@@ -46,7 +46,7 @@ class TypeMediasController extends Controller
 
     $typemedia->update($request->all());
 
-    return redirect()->route('typemedias.index')
+    return redirect()->route('admin.typemedias.index')
         ->with('success', 'Type de média mis à jour avec succès.');
     }
 
@@ -54,7 +54,7 @@ class TypeMediasController extends Controller
     {
         $typemedia->delete();
 
-        return redirect()->route('typemedias.index')
+        return redirect()->route('admin.typemedias.index')
             ->with('success', 'TypeMedia supprimé avec succès.');
     }
 }

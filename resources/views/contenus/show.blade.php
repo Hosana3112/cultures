@@ -214,7 +214,7 @@
             </div>
 
             <div class="mt-4">
-                <a href="{{ route('contenus.index') }}" class="btn btn-secondary">
+                <a href="{{ route('admin.contenus.index') }}" class="btn btn-secondary">
                     <i class="fas fa-arrow-left"></i> Retour à la liste
                 </a>
                 
@@ -227,7 +227,7 @@
                     @endphp
 
                     @if($canValidate && !$isValidated)
-                        <form action="{{ route('contenus.valider', $contenu->id) }}" method="POST" class="d-inline">
+                        <form action="{{ route('admin.contenus.valider', $contenu->id) }}" method="POST" class="d-inline">
                             @csrf
                             @method('PUT')
                             <button type="submit" class="btn btn-success" 

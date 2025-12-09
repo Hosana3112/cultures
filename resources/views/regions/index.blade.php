@@ -7,7 +7,7 @@
             <div class="d-flex justify-content-between align-items-center">
                 <div class="d-flex align-items-center">
                     <h3 class="card-title mb-0 me-3">Liste des Régions</h3>
-                    <a href="{{ route('regions.create') }}" class="btn btn-primary btn-sm">
+                    <a href="{{ route('admin.regions.create') }}" class="btn btn-primary btn-sm">
                         <i class="bi bi-plus-circle"></i> Nouveau
                     </a>
                 </div>
@@ -40,13 +40,13 @@
                             <td>{{ $item->localisation ?? 'Non spécifié' }}</td>
                             <td>
                                 <div class="btn-group btn-group-sm" role="group">
-                                    <a href="{{ route('regions.show', $item->id) }}" class="btn btn-success" title="Voir">
+                                    <a href="{{ route('admin.regions.show', $item->id) }}" class="btn btn-success" title="Voir">
                                         <i class="bi bi-eye"></i>
                                     </a>
-                                    <a href="{{ route('regions.edit', $item->id) }}" class="btn btn-warning" title="Modifier">
+                                    <a href="{{ route('admin.regions.edit', $item->id) }}" class="btn btn-warning" title="Modifier">
                                         <i class="bi bi-pencil"></i>
                                     </a>
-                                    <form method="POST" action="{{ route('regions.destroy', $item->id) }}" accept-charset="UTF-8" style="display:inline">
+                                    <form method="POST" action="{{ route('admin.regions.destroy', $item->id) }}" accept-charset="UTF-8" style="display:inline">
                                         @method('DELETE')
                                         @csrf
                                         <button type="submit" class="btn btn-danger" title="Supprimer" onclick="return confirm('Confirmer la suppression ?')">

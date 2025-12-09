@@ -203,7 +203,7 @@ class CommentairesController extends Controller
             'date' => now()
         ]);
 
-        return redirect()->route('commentaires.index')
+        return redirect()->route('admin.commentaires.index')
             ->with('success', 'Commentaire créé avec succès.');
     }
 
@@ -215,7 +215,7 @@ class CommentairesController extends Controller
         $commentaire = Commentaire::find($id);
         
         if (!$commentaire) {
-            return redirect()->route('commentaires.index')
+            return redirect()->route('admin.commentaires.index')
                 ->with('error', 'Commentaire non trouvé.');
         }
         
@@ -242,7 +242,7 @@ class CommentairesController extends Controller
         $commentaire = Commentaire::find($id);
         
         if (!$commentaire) {
-            return redirect()->route('commentaires.index')
+            return redirect()->route('admin.commentaires.index')
                 ->with('error', 'Commentaire non trouvé.');
         }
         
@@ -268,7 +268,7 @@ class CommentairesController extends Controller
         $commentaire = Commentaire::find($id);
         
         if (!$commentaire) {
-            return redirect()->route('commentaires.index')
+            return redirect()->route('admin.commentaires.index')
                 ->with('error', 'Commentaire non trouvé.');
         }
         
@@ -286,7 +286,7 @@ class CommentairesController extends Controller
             'contenu_id' => $request->contenu_id
         ]);
 
-        return redirect()->route('commentaires.index')
+        return redirect()->route('admin.commentaires.index')
             ->with('success', 'Commentaire mis à jour avec succès.');
     }
 
@@ -311,13 +311,13 @@ class CommentairesController extends Controller
         if ($id) {
             $commentaire = Commentaire::find($id);
             if (!$commentaire) {
-                return redirect()->route('commentaires.index')
+                return redirect()->route('admin.commentaires.index')
                     ->with('error', 'Commentaire non trouvé.');
             }
             return $this->destroyAdmin($commentaire);
         }
         
-        return redirect()->route('commentaires.index')
+        return redirect()->route('admin.commentaires.index')
             ->with('error', 'ID du commentaire manquant.');
     }
     
@@ -390,7 +390,7 @@ class CommentairesController extends Controller
         
         $commentaire->delete();
 
-        return redirect()->route('commentaires.index')
+        return redirect()->route('admin.commentaires.index')
             ->with('success', 'Commentaire supprimé avec succès.');
     }
 

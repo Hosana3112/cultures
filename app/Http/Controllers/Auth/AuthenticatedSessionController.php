@@ -63,7 +63,7 @@ class AuthenticatedSessionController extends Controller
             case 1: // Administrateur
                 return route('dashboard-custom');
             case 2: // Modérateur
-                return route('contenus.index');
+                return route('admin.contenus.index');
                 
             case 3: // Utilisateur standard
                 return route('front.accueil');

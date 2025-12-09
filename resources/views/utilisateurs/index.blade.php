@@ -7,7 +7,7 @@
             <div class="d-flex justify-content-between align-items-center">
                 <div class="d-flex align-items-center">
                     <h3 class="card-title mb-0 me-3">Liste des Utilisateurs</h3>
-                    <a href="{{ route('utilisateurs.create') }}" class="btn btn-primary btn-sm">
+                    <a href="{{ route('admin.utilisateurs.create') }}" class="btn btn-primary btn-sm">
                         <i class="bi bi-plus-circle"></i> Nouveau
                     </a>
                 </div>
@@ -57,13 +57,13 @@
                             </td>
                             <td>
                                 <div class="btn-group btn-group-sm" role="group">
-                                    <a href="{{ route('utilisateurs.show', $utilisateur->id) }}" class="btn btn-success" title="Voir">
+                                    <a href="{{ route('admin.utilisateurs.show', $utilisateur->id) }}" class="btn btn-success" title="Voir">
                                         <i class="bi bi-eye"></i>
                                     </a>
-                                    <a href="{{ route('utilisateurs.edit', $utilisateur->id) }}" class="btn btn-warning" title="Modifier">
+                                    <a href="{{ route('admin.utilisateurs.edit', $utilisateur->id) }}" class="btn btn-warning" title="Modifier">
                                         <i class="bi bi-pencil"></i>
                                     </a>
-                                    <form action="{{ route('utilisateurs.destroy', $utilisateur->id) }}" method="POST" style="display: inline;">
+                                    <form action="{{ route('admin.utilisateurs.destroy', $utilisateur->id) }}" method="POST" style="display: inline;">
                                         @csrf
                                         @method('DELETE')
                                         <button type="submit" class="btn btn-danger" title="Supprimer" onclick="return confirm('Êtes-vous sûr de vouloir supprimer cet utilisateur ?')">

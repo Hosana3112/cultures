@@ -9,7 +9,7 @@
                     <h3 class="card-title mb-0 me-3">Liste des Contenus Culturels</h3>
                     @auth
                         @if(Auth::user()->role_id == 1 || Auth::user()->role_id == 2) {{-- Admins ET Modérateurs --}}
-                            <a href="{{ route('contenus.create') }}" class="btn btn-primary btn-sm">
+                            <a href="{{ route('admin.contenus.create') }}" class="btn btn-primary btn-sm">
                                 <i class="bi bi-plus-circle"></i> Nouveau
                             </a>
                         @endif
@@ -86,20 +86,20 @@
                             <td>
                                 <div class="btn-group btn-group-sm" role="group">
                                     <!-- Bouton Voir - Toujours visible -->
-                                    <a href="{{ route('contenus.show', $contenu->id) }}" class="btn btn-success" title="Voir">
+                                    <a href="{{ route('admin.contenus.show', $contenu->id) }}" class="btn btn-success" title="Voir">
                                         <i class="bi bi-eye"></i>
                                     </a>
                                     
                                     @auth
                                         @if(Auth::user()->role_id == 1 || Auth::user()->role_id == 2) {{-- Admins ET Modérateurs --}}
                                             <!-- Bouton Modifier -->
-                                            <a href="{{ route('contenus.edit', $contenu->id) }}" class="btn btn-warning" title="Modifier">
+                                            <a href="{{ route('admin.contenus.edit', $contenu->id) }}" class="btn btn-warning" title="Modifier">
                                                 <i class="bi bi-pencil"></i>
                                             </a>
                                             
                                             @if(Auth::user()->role_id == 1) {{-- Seulement Admins pour supprimer --}}
                                                 <!-- Bouton Supprimer - Seulement pour les Admins -->
-                                                <form action="{{ route('contenus.destroy', $contenu->id) }}" method="POST" style="display: inline;">
+                                                <form action="{{ route('admin.contenus.destroy', $contenu->id) }}" method="POST" style="display: inline;">
                                                     @csrf
                                                     @method('DELETE')
                                                     <button type="submit" class="btn btn-danger" title="Supprimer" onclick="return confirm('Êtes-vous sûr de vouloir supprimer ce contenu ?')">

@@ -287,7 +287,7 @@ private function determinerTypeMedia($file)
         
         // Vérifier que l'utilisateur est l'auteur ou admin
         if ($contenu->auteur_id !== $user->id && $user->role_id != 1) {
-            return redirect()->route('contenus.show', $contenu)
+            return redirect()->route('admin.contenus.show', $contenu)
                 ->with('error', 'Vous n\'êtes pas autorisé à modifier ce contenu.');
         }
 
@@ -314,7 +314,7 @@ private function determinerTypeMedia($file)
         
         // Vérifier que l'utilisateur est l'auteur ou admin
         if ($contenu->auteur_id !== $user->id && $user->role_id != 1) {
-            return redirect()->route('contenus.show', $contenu)
+            return redirect()->route('admin.contenus.show', $contenu)
                 ->with('error', 'Vous n\'êtes pas autorisé à modifier ce contenu.');
         }
 
@@ -368,7 +368,7 @@ private function determinerTypeMedia($file)
             }
         }
 
-        return redirect()->route('contenus.show', $contenu->id)
+        return redirect()->route('admin.contenus.show', $contenu->id)
             ->with('success', 'Contenu mis à jour avec succès.');
     }
 
@@ -386,7 +386,7 @@ private function determinerTypeMedia($file)
         
         // Vérifier que l'utilisateur est l'auteur ou admin
         if ($contenu->auteur_id !== $user->id && $user->role_id != 1) {
-            return redirect()->route('contenus.show', $contenu)
+            return redirect()->route('admin.contenus.show', $contenu)
                 ->with('error', 'Vous n\'êtes pas autorisé à supprimer ce contenu.');
         }
 
@@ -407,7 +407,7 @@ private function determinerTypeMedia($file)
 
         // Redirection selon le rôle
         if ($user->role_id == 1 || $user->role_id == 2) {
-            return redirect()->route('contenus.index')
+            return redirect()->route('admin.contenus.index')
                 ->with('success', 'Contenu supprimé avec succès.');
         }
 
@@ -430,7 +430,7 @@ private function determinerTypeMedia($file)
         $user = Auth::user();
     
         if (!$user || !in_array($user->role_id, [1, 2])) {
-            return redirect()->route('contenus.show', $contenu)
+            return redirect()->route('admin.contenus.show', $contenu)
                 ->with('error', 'Vous n\'avez pas les permissions pour valider ce contenu.');
         }
 
@@ -440,7 +440,7 @@ private function determinerTypeMedia($file)
             'date_validation' => now()
         ]);
 
-        return redirect()->route('contenus.show', $contenu)
+        return redirect()->route('admin.contenus.show', $contenu)
             ->with('success', 'Contenu validé avec succès.');
     }
 
@@ -459,7 +459,7 @@ private function determinerTypeMedia($file)
         $user = Auth::user();
     
         if (!$user || !in_array($user->role_id, [1, 2])) {
-            return redirect()->route('contenus.show', $contenu)
+            return redirect()->route('admin.contenus.show', $contenu)
                 ->with('error', 'Vous n\'avez pas les permissions pour rejeter ce contenu.');
         }
 
@@ -469,7 +469,7 @@ private function determinerTypeMedia($file)
             'date_validation' => now()
         ]);
 
-        return redirect()->route('contenus.index')
+        return redirect()->route('admin.contenus.index')
             ->with('success', 'Contenu rejeté avec succès.');
     }
 
@@ -526,6 +526,6 @@ public function createFront()
             }
         }
 
-        return view('contenus.en-attente', compact('contenus'));
+        //return view('contenus.en-attente', compact('contenus'));
     }
 }

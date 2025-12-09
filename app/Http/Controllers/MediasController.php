@@ -47,7 +47,7 @@ class MediasController extends Controller
             'contenu_id' => $request->contenu_id
         ]);
 
-        return redirect()->route('medias.index')
+        return redirect()->route('admin.medias.index')
             ->with('success', 'Média uploadé avec succès.');
     }
 
@@ -59,7 +59,7 @@ class MediasController extends Controller
     public function download(Media $media)
     {
         if (Storage::disk('public')->exists($media->chemin)) {
-            return Storage::disk('public')->download($media->chemin, $media->nom_original);
+            return Storage::disk('public')->medias.download($media->chemin, $media->nom_original);
         }
         
         return back()->with('error', 'Fichier non trouvé.');
@@ -115,7 +115,7 @@ class MediasController extends Controller
 
         $media->update($data);
 
-        return redirect()->route('medias.index')
+        return redirect()->route('admin.medias.index')
             ->with('success', 'Média mis à jour avec succès.');
     }
 
@@ -127,7 +127,7 @@ class MediasController extends Controller
         // Supprimer de la base
         $media->delete();
 
-        return redirect()->route('medias.index')
+        return redirect()->route('admin.medias.index')
             ->with('success', 'Média supprimé avec succès.');
     }
 }

@@ -755,7 +755,7 @@
                 </div>
 
                 <!-- Corps du formulaire -->
-                <form action="{{ route('contenus.store') }}" method="POST" enctype="multipart/form-data" class="form-content" id="contentForm">
+                <form action="{{ route('admin.contenus.store') }}" method="POST" enctype="multipart/form-data" class="form-content" id="contentForm">
                     @csrf
 
                     <div class="form-grid">

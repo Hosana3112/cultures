@@ -10,7 +10,7 @@
             <h3 class="card-title">Créer un nouveau Contenu Culturel</h3>
         </div>
         <div class="card-body">
-            <form action="{{ route('contenus.store') }}" method="POST">
+            <form action="{{ route('admin.contenus.store') }}" method="POST">
                 @csrf
                 
                 <div class="row">
@@ -112,7 +112,7 @@
                     <button type="submit" class="btn btn-success">
                         <i class="bi bi-check-circle"></i> Créer le contenu
                     </button>
-                    <a href="{{ route('contenus.index') }}" class="btn btn-secondary">
+                    <a href="{{ route('admin.contenus.index') }}" class="btn btn-secondary">
                         <i class="bi bi-arrow-left"></i> Retour
                     </a>
                 </div>

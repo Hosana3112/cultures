@@ -26,7 +26,7 @@ class TypeContenuesController extends Controller
 
         TypeContenue::create($request->all());
 
-        return redirect()->route('typecontenus.index')
+        return redirect()->route('admin.typecontenus.index')
             ->with('success', 'Type de contenu créé avec succès.');
     }
 
@@ -52,7 +52,7 @@ class TypeContenuesController extends Controller
 
         $typecontenue->update($request->all());
 
-        return redirect()->route('typecontenus.index')
+        return redirect()->route('admin.typecontenus.index')
             ->with('success', 'Type de contenu mis à jour avec succès.');
     }
 
@@ -61,7 +61,7 @@ class TypeContenuesController extends Controller
         $typecontenue = TypeContenue::findOrFail($id);
         $typecontenue->delete();
 
-        return redirect()->route('typecontenus.index')
+        return redirect()->route('admin.typecontenus.index')
             ->with('success', 'Type de contenu supprimé avec succès.');
     }
 }

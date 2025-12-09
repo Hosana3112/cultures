@@ -7,7 +7,7 @@
             <div class="d-flex justify-content-between align-items-center">
                 <div class="d-flex align-items-center">
                     <h3 class="card-title mb-0 me-3">Liste des Langues</h3>
-                    <a href="{{ route('langues.create') }}" class="btn btn-primary btn-sm">
+                    <a href="{{ route('admin.langues.create') }}" class="btn btn-primary btn-sm">
                         <i class="bi bi-plus-circle"></i> Nouveau
                     </a>
                 </div>
@@ -42,13 +42,13 @@
                             </td>
                             <td>
                                 <div class="btn-group btn-group-sm" role="group">
-                                    <a href="{{ route('langues.show', $langue->id) }}" class="btn btn-success" title="Voir">
+                                    <a href="{{ route('admin.langues.show', $langue->id) }}" class="btn btn-success" title="Voir">
                                         <i class="bi bi-eye"></i>
                                     </a>
-                                    <a href="{{ route('langues.edit', $langue->id) }}" class="btn btn-warning" title="Modifier">
+                                    <a href="{{ route('admin.langues.edit', $langue->id) }}" class="btn btn-warning" title="Modifier">
                                         <i class="bi bi-pencil"></i>
                                     </a>
-                                    <form action="{{ route('langues.destroy', $langue->id) }}" method="POST" style="display: inline;">
+                                    <form action="{{ route('admin.langues.destroy', $langue->id) }}" method="POST" style="display: inline;">
                                         @csrf
                                         @method('DELETE')
                                         <button type="submit" class="btn btn-danger" title="Supprimer" onclick="return confirm('Êtes-vous sûr de vouloir supprimer cette langue ?')">

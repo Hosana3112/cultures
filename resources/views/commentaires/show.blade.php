@@ -103,7 +103,7 @@
             </div>
 
             <div class="mt-4">
-                <a href="{{ route('commentaires.index') }}" class="btn btn-secondary">
+                <a href="{{ route('admin.commentaires.index') }}" class="btn btn-secondary">
                     <i class="fas fa-arrow-left"></i> Retour à la liste
                 </a>
             </div>

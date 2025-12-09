@@ -67,7 +67,7 @@ class UtilisateursController extends Controller
         // Création de l'utilisateur
         Utilisateur::create($validated);
 
-        return redirect()->route('utilisateurs.index')
+        return redirect()->route('admin.utilisateurs.index')
             ->with('success', 'Utilisateur créé avec succès.');
     }
 
@@ -132,7 +132,7 @@ class UtilisateursController extends Controller
 
         $utilisateur->update($validated);
 
-        return redirect()->route('utilisateurs.index')
+        return redirect()->route('admin.utilisateurs.index')
             ->with('success', 'Utilisateur mis à jour avec succès.');
     }
 
@@ -148,7 +148,7 @@ class UtilisateursController extends Controller
 
         $utilisateur->delete();
 
-        return redirect()->route('utilisateurs.index')
+        return redirect()->route('admin.utilisateurs.index')
             ->with('success', 'Utilisateur supprimé avec succès.');
     }
 }

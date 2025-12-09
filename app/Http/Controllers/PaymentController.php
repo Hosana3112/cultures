@@ -279,6 +279,6 @@ class PaymentController extends Controller
             }
         }
         
-        return view('payment.status', compact('payment'));
+       // return view('payment.status', compact('payment'));
     }
 }

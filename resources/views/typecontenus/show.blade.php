@@ -3,7 +3,7 @@
 @section('title', 'Détails du Type de Contenu')
 @section('page_title', 'Détails du Type de Contenu')
 @section('breadcrumb')
-    <li class="breadcrumb-item"><a href="{{ route('typecontenus.index') }}">Types de Contenu</a></li>
+    <li class="breadcrumb-item"><a href="{{ route('admin.typecontenus.index') }}">Types de Contenu</a></li>
     <li class="breadcrumb-item active">Détails</li>
 @endsection
 
@@ -50,7 +50,7 @@
             </div>
 
             <div class="mt-4">
-                <a href="{{ route('typecontenus.index') }}" class="btn btn-secondary">
+                <a href="{{ route('admin.typecontenus.index') }}" class="btn btn-secondary">
                     <i class="fas fa-arrow-left"></i> Retour à la liste
                 </a>
             </div>

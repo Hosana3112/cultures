@@ -174,11 +174,11 @@
                 </div>
 
                 <div class="mt-4">
-                    <a href="{{ route('contenus.index') }}" class="btn btn-warning">
+                    <a href="{{ route('admin.contenus.index') }}" class="btn btn-warning">
                         <i class="bi bi-pencil"></i> Modifier le contenu
                     </a>
                     <!-- CORRECTION ICI aussi pour le lien de retour -->
-                    <a href="{{ route('contenus.index') }}" class="btn btn-secondary">
+                    <a href="{{ route('admin.contenus.index') }}" class="btn btn-secondary">
                         <i class="bi bi-arrow-left"></i> Retour
                     </a>
                 </div>

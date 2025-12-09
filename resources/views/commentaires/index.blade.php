@@ -7,7 +7,7 @@
             <div class="d-flex justify-content-between align-items-center">
                 <div class="d-flex align-items-center">
                     <h3 class="card-title mb-0 me-3">Liste des Commentaires</h3>
-                    <a href="{{ route('commentaires.create') }}" class="btn btn-primary btn-sm">
+                    <a href="{{ route('admin.commentaires.create') }}" class="btn btn-primary btn-sm">
                         <i class="bi bi-plus-circle"></i> Nouveau
                     </a>
                 </div>
@@ -62,13 +62,13 @@
                             </td>
                             <td>
                                 <div class="btn-group btn-group-sm" role="group">
-                                    <a href="{{ route('commentaires.show', $commentaire->id_commentaire) }}" class="btn btn-success" title="Voir">
+                                    <a href="{{ route('admin.commentaires.show', $commentaire->id_commentaire) }}" class="btn btn-success" title="Voir">
                                         <i class="bi bi-eye"></i>
                                     </a>
-                                    <a href="{{ route('commentaires.edit', $commentaire->id_commentaire) }}" class="btn btn-warning" title="Modifier">
+                                    <a href="{{ route('admin.commentaires.edit', $commentaire->id_commentaire) }}" class="btn btn-warning" title="Modifier">
                                         <i class="bi bi-pencil"></i>
                                     </a>
-                                    <form action="{{ route('commentaires.destroy', $commentaire->id_commentaire) }}" method="POST" style="display: inline;">
+                                    <form action="{{ route('admin.commentaires.destroy', $commentaire->id_commentaire) }}" method="POST" style="display: inline;">
                                         @csrf
                                         @method('DELETE')
                                         <button type="submit" class="btn btn-danger" title="Supprimer" onclick="return confirm('Êtes-vous sûr de vouloir supprimer ce commentaire ?')">

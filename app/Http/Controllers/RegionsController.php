@@ -28,7 +28,7 @@ class RegionsController extends Controller
 
         Region::create($request->all());
 
-        return redirect()->route('regions.index')
+        return redirect()->route('admin.regions.index')
             ->with('success', 'Region créé avec succès.');
     }
 
@@ -52,7 +52,7 @@ class RegionsController extends Controller
 
         $region->update($request->all());
 
-        return redirect()->route('regions.index')
+        return redirect()->route('admin.regions.index')
             ->with('success', 'Region mis à jour avec succès.');
     }
 
@@ -60,7 +60,7 @@ class RegionsController extends Controller
     {
         $region->delete();
 
-        return redirect()->route('regions.index')
+        return redirect()->route('admin.regions.index')
             ->with('success', 'Region supprimé avec succès.');
     }
 }

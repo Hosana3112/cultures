@@ -69,7 +69,7 @@ class TwoFactorAuthController extends Controller
             $user->two_factor_confirmed_at = now();
             $user->save();
             
-            return redirect()->route('dashboard')
+            return redirect()->route('dashboard-custom')
                 ->with('success', 'Authentification à deux facteurs activée avec succès.');
         }
         

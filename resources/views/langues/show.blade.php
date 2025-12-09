@@ -39,7 +39,7 @@
             </div>
 
             <div class="mt-4">
-                <a href="{{ route('langues.index') }}" class="btn btn-secondary">
+                <a href="{{ route('admin.langues.index') }}" class="btn btn-secondary">
                     <i class="fas fa-arrow-left"></i> Retour à la liste
                 </a>
             </div>

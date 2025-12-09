@@ -3,7 +3,7 @@
 @section('title', 'Créer un Utilisateur')
 @section('page_title', 'Créer un Utilisateur')
 @section('breadcrumb')
-    <li class="breadcrumb-item"><a href="{{ route('utilisateurs.index') }}">Utilisateurs</a></li>
+    <li class="breadcrumb-item"><a href="{{ route('admin.utilisateurs.index') }}">Utilisateurs</a></li>
     <li class="breadcrumb-item active">Créer</li>
 @endsection
 
@@ -14,7 +14,7 @@
             <h3 class="card-title">Créer un nouvel Utilisateur</h3>
         </div>
         <div class="card-body">
-            <form action="{{ route('utilisateurs.store') }}" method="POST" enctype="multipart/form-data">
+            <form action="{{ route('admin.utilisateurs.store') }}" method="POST" enctype="multipart/form-data">
                 @csrf
                 
                 <div class="row">
@@ -201,7 +201,7 @@
                     <button type="submit" class="btn btn-success">
                         <i class="bi bi-check-circle"></i> Créer l'utilisateur
                     </button>
-                    <a href="{{ route('utilisateurs.index') }}" class="btn btn-secondary">
+                    <a href="{{ route('admin.utilisateurs.index') }}" class="btn btn-secondary">
                         <i class="bi bi-arrow-left"></i> Retour
                     </a>
                 </div>

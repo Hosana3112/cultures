@@ -160,10 +160,10 @@
             </div>
 
             <div class="mt-4">
-                <a href="{{ route('medias.index') }}" class="btn btn-secondary">
+                <a href="{{ route('admin.medias.index') }}" class="btn btn-secondary">
                     <i class="fas fa-arrow-left"></i> Retour à la liste
                 </a>
-                <a href="{{ route('medias.edit', $media->id) }}" class="btn btn-warning">
+                <a href="{{ route('admin.medias.edit', $media->id) }}" class="btn btn-warning">
                     <i class="fas fa-edit"></i> Modifier
                 </a>
             </div>

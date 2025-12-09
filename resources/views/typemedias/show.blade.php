@@ -31,7 +31,7 @@
             </div>
 
             <div class="mt-4">
-                <a href="{{ route('typemedias.index') }}" class="btn btn-secondary">
+                <a href="{{ route('admin.typemedias.index') }}" class="btn btn-secondary">
                     <i class="fas fa-arrow-left"></i> Retour à la liste
                 </a>
             </div>

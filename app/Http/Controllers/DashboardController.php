@@ -24,7 +24,7 @@ class DashboardController extends Controller
         
         // Rediriger les modérateurs vers l'index des contenus
         if ($user->role_id == 2) { // 2 = Modérateur
-            return redirect()->route('contenus.index');
+            return redirect()->route('admin.contenus.index');
         }
 
         // Statistiques principales

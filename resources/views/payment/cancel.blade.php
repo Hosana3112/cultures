@@ -117,7 +117,7 @@
                 
                 <div class="mt-4">
                     @if(isset($contenu_id))
-                        <a href="{{ route('contenus.show', ['contenu' => $contenu_id]) }}" class="btn btn-primary me-2">
+                        <a href="{{ route('admin.contenus.show', ['contenu' => $contenu_id]) }}" class="btn btn-primary me-2">
                             <i class="fas fa-arrow-left me-2"></i>
                             Retour au contenu
                         </a>

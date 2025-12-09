@@ -14,7 +14,7 @@
             <h3 class="card-title">Modifier le Média</h3>
         </div>
         <div class="card-body">
-            <form action="{{ route('medias.update', $media->id) }}" method="POST" enctype="multipart/form-data" id="media-form">
+            <form action="{{ route('admin.medias.update', $media->id) }}" method="POST" enctype="multipart/form-data" id="media-form">
                 @csrf
                 @method('PUT')
                 
@@ -119,7 +119,7 @@
                     <button type="submit" class="btn btn-warning" id="submit-btn">
                         <i class="bi bi-pencil"></i> Modifier le média
                     </button>
-                    <a href="{{ route('medias.index') }}" class="btn btn-secondary">
+                    <a href="{{ route('admin.medias.index') }}" class="btn btn-secondary">
                         <i class="bi bi-arrow-left"></i> Retour
                     </a>
                 </div>

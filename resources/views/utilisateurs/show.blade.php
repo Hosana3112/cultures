@@ -212,11 +212,11 @@
             </div>
 
             <div class="mt-4">
-                <a href="{{ route('utilisateurs.index') }}" class="btn btn-secondary">
+                <a href="{{ route('admin.utilisateurs.index') }}" class="btn btn-secondary">
                     <i class="fas fa-arrow-left"></i> Retour à la liste
                 </a>
                 @if(auth()->user()->can('edit-utilisateurs'))
-                <a href="{{ route('utilisateurs.edit', $utilisateur->id) }}" class="btn btn-warning">
+                <a href="{{ route('admin.utilisateurs.edit', $utilisateur->id) }}" class="btn btn-warning">
                     <i class="fas fa-edit"></i> Modifier
                 </a>
                 @endif

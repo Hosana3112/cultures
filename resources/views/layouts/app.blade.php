@@ -352,15 +352,15 @@
                 <i class="bi bi-gear-fill me-1"></i>Gestion
               </a>
               <ul class="dropdown-menu">
-                <li><a class="dropdown-item" href="{{ route('langues.index') }}"><i class="bi bi-translate me-2"></i>Langues</a></li>
-                <li><a class="dropdown-item" href="{{ route('contenus.index') }}"><i class="bi bi-file-text me-2"></i>Contenus</a></li>
-                <li><a class="dropdown-item" href="{{ route('roles.index') }}"><i class="bi bi-shield-check me-2"></i>Rôles</a></li>
-                <li><a class="dropdown-item" href="{{ route('utilisateurs.index') }}"><i class="bi bi-people me-2"></i>Utilisateurs</a></li>
-                <li><a class="dropdown-item" href="{{ route('medias.index') }}"><i class="bi bi-images me-2"></i>Médias</a></li>
-                <li><a class="dropdown-item" href="{{ route('typecontenus.index') }}"><i class="bi bi-tags me-2"></i>Type Contenus</a></li>
-                <li><a class="dropdown-item" href="{{ route('typemedias.index') }}"><i class="bi bi-collection me-2"></i>Types Médias</a></li>
-                <li><a class="dropdown-item" href="{{ route('regions.index') }}"><i class="bi bi-geo-alt me-2"></i>Régions</a></li>
-                <li><a class="dropdown-item" href="{{ route('commentaires.index') }}"><i class="bi bi-chat-dots me-2"></i>Commentaires</a></li>
+                <li><a class="dropdown-item" href="{{ route('admin.langues.index') }}"><i class="bi bi-translate me-2"></i>Langues</a></li>
+                <li><a class="dropdown-item" href="{{ route('admin.contenus.index') }}"><i class="bi bi-file-text me-2"></i>Contenus</a></li>
+                <li><a class="dropdown-item" href="{{ route('admin.roles.index') }}"><i class="bi bi-shield-check me-2"></i>Rôles</a></li>
+                <li><a class="dropdown-item" href="{{ route('admin.utilisateurs.index') }}"><i class="bi bi-people me-2"></i>Utilisateurs</a></li>
+                <li><a class="dropdown-item" href="{{ route('admin.medias.index') }}"><i class="bi bi-images me-2"></i>Médias</a></li>
+                <li><a class="dropdown-item" href="{{ route('admin.typecontenus.index') }}"><i class="bi bi-tags me-2"></i>Type Contenus</a></li>
+                <li><a class="dropdown-item" href="{{ route('admin.typemedias.index') }}"><i class="bi bi-collection me-2"></i>Types Médias</a></li>
+                <li><a class="dropdown-item" href="{{ route('admin.regions.index') }}"><i class="bi bi-geo-alt me-2"></i>Régions</a></li>
+                <li><a class="dropdown-item" href="{{ route('admin.commentaires.index') }}"><i class="bi bi-chat-dots me-2"></i>Commentaires</a></li>
               </ul>
             </li>
           </ul>
@@ -471,19 +471,19 @@
           <nav class="mt-2">
             <ul class="nav sidebar-menu flex-column" data-lte-toggle="treeview" role="navigation" data-accordion="false">
               <li class="nav-header text-uppercase small fw-bold text-muted mt-3">GESTION DU CONTENU</li>
-              <li class="nav-item"><a href="{{ route('contenus.index') }}" class="nav-link"><i class="nav-icon bi bi-file-text"></i><p>Contenus</p></a></li>
-              <li class="nav-item"><a href="{{ route('medias.index') }}" class="nav-link"><i class="nav-icon bi bi-images"></i><p>Médias</p></a></li>
-              <li class="nav-item"><a href="{{ route('commentaires.index') }}" class="nav-link"><i class="nav-icon bi bi-chat-dots"></i><p>Commentaires</p></a></li>
+              <li class="nav-item"><a href="{{ route('admin.contenus.index') }}" class="nav-link"><i class="nav-icon bi bi-file-text"></i><p>Contenus</p></a></li>
+              <li class="nav-item"><a href="{{ route('admin.medias.index') }}" class="nav-link"><i class="nav-icon bi bi-images"></i><p>Médias</p></a></li>
+              <li class="nav-item"><a href="{{ route('admin.commentaires.index') }}" class="nav-link"><i class="nav-icon bi bi-chat-dots"></i><p>Commentaires</p></a></li>
               
               <li class="nav-header text-uppercase small fw-bold text-muted mt-3">CATÉGORIES</li>
-              <li class="nav-item"><a href="{{ route('typecontenus.index') }}" class="nav-link"><i class="nav-icon bi bi-tags"></i><p>Types de Contenus</p></a></li>
-              <li class="nav-item"><a href="{{ route('typemedias.index') }}" class="nav-link"><i class="nav-icon bi bi-collection"></i><p>Types de Médias</p></a></li>
-              <li class="nav-item"><a href="{{ route('langues.index') }}" class="nav-link"><i class="nav-icon bi bi-translate"></i><p>Langues</p></a></li>
-              <li class="nav-item"><a href="{{ route('regions.index') }}" class="nav-link"><i class="nav-icon bi bi-geo-alt"></i><p>Régions</p></a></li>
+              <li class="nav-item"><a href="{{ route('admin.typecontenus.index') }}" class="nav-link"><i class="nav-icon bi bi-tags"></i><p>Types de Contenus</p></a></li>
+              <li class="nav-item"><a href="{{ route('admin.typemedias.index') }}" class="nav-link"><i class="nav-icon bi bi-collection"></i><p>Types de Médias</p></a></li>
+              <li class="nav-item"><a href="{{ route('admin.langues.index') }}" class="nav-link"><i class="nav-icon bi bi-translate"></i><p>Langues</p></a></li>
+              <li class="nav-item"><a href="{{ route('admin.regions.index') }}" class="nav-link"><i class="nav-icon bi bi-geo-alt"></i><p>Régions</p></a></li>
               
               <li class="nav-header text-uppercase small fw-bold text-muted mt-3">UTILISATEURS</li>
-              <li class="nav-item"><a href="{{ route('utilisateurs.index') }}" class="nav-link"><i class="nav-icon bi bi-people"></i><p>Utilisateurs</p></a></li>
-              <li class="nav-item"><a href="{{ route('roles.index') }}" class="nav-link"><i class="nav-icon bi bi-shield-check"></i><p>Rôles</p></a></li>
+              <li class="nav-item"><a href="{{ route('admin.utilisateurs.index') }}" class="nav-link"><i class="nav-icon bi bi-people"></i><p>Utilisateurs</p></a></li>
+              <li class="nav-item"><a href="{{ route('admin.roles.index') }}" class="nav-link"><i class="nav-icon bi bi-shield-check"></i><p>Rôles</p></a></li>
             </ul>
           </nav>
         </div>

@@ -26,7 +26,7 @@ class LanguesController extends Controller
 
         Langue::create($request->all());
 
-        return redirect()->route('langues.index')
+        return redirect()->route('admin.langues.index')
             ->with('success', 'Langue créé avec succès.');
     }
 
@@ -50,7 +50,7 @@ class LanguesController extends Controller
 
     $langue->update($request->all());
 
-    return redirect()->route('langues.index')
+    return redirect()->route('admin.langues.index')
         ->with('success', 'Langue mise à jour avec succès.');
     }
 
@@ -58,7 +58,7 @@ class LanguesController extends Controller
     {
         $langue->delete();
 
-        return redirect()->route('langues.index')
+        return redirect()->route('admin.langues.index')
             ->with('success', 'Langue supprimé avec succès.');
     }
 }
