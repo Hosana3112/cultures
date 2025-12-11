@@ -59,7 +59,7 @@ Route::middleware(['auth'])->group(function () {
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
     
     // Routes protégées par 2FA
-    Route::middleware(['admin'])->group(function () {
+    Route::middleware(['2fa'])->group(function () {
         Route::get('/dashboard', function () {
             return view('dashboard');
         })->name('dashboard');
